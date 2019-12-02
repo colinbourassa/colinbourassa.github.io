@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>14CUX - Bearinghead</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../../css/lightbox.min.css" />
+  <link href="../../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "14CUX";
+    var mkdocs_page_input_path = "car_stuff/14cux.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../js/lightbox.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Bearinghead</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../contact/">Contact</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Car stuff</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current">
+    <a class="current" href="./">14CUX</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#hardware">Hardware</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#memory-map">Memory map</a></li>
+        
+            <li><a class="toctree-l3" href="#notable-offsets">Notable offsets</a></li>
+        
+            <li><a class="toctree-l3" href="#fault-bits">Fault bits</a></li>
+        
+            <li><a class="toctree-l3" href="#analog-to-digital-converter">Analog-to-digital converter</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#diagnostic-port-hardware-interface">Diagnostic port hardware interface</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#ftdi-cable">FTDI cable</a></li>
+        
+            <li><a class="toctree-l3" href="#connector-and-wiring">Connector and wiring</a></li>
+        
+            <li><a class="toctree-l3" href="#technical-background">Technical background</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#serial-software-protocol">Serial software protocol</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#command-byte-sequence-and-structure">Command byte sequence and structure</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#software">Software</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#downloads">Downloads</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../14cux_rescue/">14CUX rescue kit</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../europa_jps/">Lotus Europa JPS</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../blue_star/">Mini Blue Star</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../mems_interface/">Rover MEMS diagnostics</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../sykes_acr/">Sykes-Pickavant ACR</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Media</span></p>
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/connections/">Connections</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/cosmos/">Cosmos</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/quarantine/">Quarantine (Gametek)</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools</span></p>
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../tools/tire_inflators/">Tire inflators</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Bearinghead</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Car stuff &raquo;</li>
+        
+      
+    
+    <li>14CUX</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>The Lucas 14CUX is an electronic engine management system designed to control fuel injection on the Rover V8 engine. It was used primarily in Land Rover products from its introduction in 1990 until 1995, and also by low-volume sports car manufacturers (TVR, Morgan, Marcos, Ginetta) until the engine ceased production around 2005. More information about the high-level design and applications of the 14CUX can be found in <a href="http://en.wikipedia.org/wiki/Lucas_14CUX">its Wikipedia article</a>.</p>
+<p>The Rover V8 has a tuning potential that made it popular with specialist sports car builders, and it exists in a variety of configurations from 3.5L to 5.0L displacement and beyond. The fuel maps stored in the 14CUX each represent a two-dimensional array of fueling values, indexed by engine speed and engine load. There are at least two reasons that a person may want to design a custom fuel map:</p>
+<ul>
+<li>The fuel maps are usually specific to a particular engine displacement; a 3.5L fuel map will not work well with a 5.0L engine. Appropriate fuel maps could be used to allow retrofitting the 14CUX system to later Rover V8 configurations -- these may include the 4.0L and 4.6L units, which were sold in the United States with a different engine management system after the 14CUX had been discontinued.</li>
+<li>Engines being tuned for motorsport have different performance requirements than those that were designed for road use. Fuel maps can be modified to increase power at the expense of fuel economy.</li>
+</ul>
+<p>The purpose of this project is to explore and document the internal function of the 14CUX. Exploration of the 14CUX firmware has also uncovered a software protocol that can be used to communicate with the ECU and retrieve diagnostic information over its serial link.</p>
+<h1 id="hardware">Hardware</h1>
+<p>In Land Rover vehicles, the ECU will have a Land Rover part number starting with either "PRC" (for earlier units) or "AMR" (for later units).</p>
+<p>The microprocessor used by the 14CUX is a Motorola 6803U4, which is an uncommon variation of the 6803. The "U4" has three built-in timers as opposed to the standard 6803's single timer; this is important, as the fuel injectors are batch-fired an entire bank at a time, and each of the left and right banks requires its own timing.</p>
+<p>The code and data is stored in a 27256 PROM, which seems to be soldered in place in earlier (PRC) units and socketed in later units (PRC and AMR). Only half of the 32KB space is used, so the 16KB of code and data is duplicated in the upper half.</p>
+<h2 id="memory-map">Memory map</h2>
+<p>The 64KB address space is not fully utilized and some devices are mapped into memory in multiple locations. For example, the 16KB ROM contents appears in $C000-$FFFF, and again in $8000-$BFFF. The four ADC registers repeat from $4000 to $7FFF. If an empty memory location is read, the low byte of the address is returned as the data. (Thus, if displaying a block of memory read from an empty location, it will appear as an incrementing count.)</p>
+<p>The low area of the ROM ($C000-$C83F) contains the fuel maps and other data. The area from $C840 to $FFFF contains code, jump tables, and a few fixed data tables. Code stops around $FA50, and is followed by an unprogrammed section. The unprogrammed area of the ROM continues until near the end, where a vector table is located.</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Device</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0000-$0020</td>
+<td>MPU</td>
+<td>6803U4 internal register block</td>
+</tr>
+<tr>
+<td>$0040-$00FF</td>
+<td>MPU</td>
+<td>6803U4 RAM; first 32 bytes ($40 to $5F) are battery-backed and used to hold fault codes</td>
+</tr>
+<tr>
+<td>$2000-$207F</td>
+<td>PAL?</td>
+<td>External RAM (repeats from $2000 to $3FFF)</td>
+</tr>
+<tr>
+<td>$4004-$4007</td>
+<td>PAL</td>
+<td>$4000</td>
+</tr>
+<tr>
+<td>$6000-$6004</td>
+<td>ADC</td>
+<td>A/D converter registers (repeats from $6000 to $7FFF)</td>
+</tr>
+<tr>
+<td>$C000-$FFFF</td>
+<td>ROM</td>
+<td>The contents of the ROM appear both here and in $8000-$BFFF</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notable-offsets">Notable offsets</h2>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$C000</td>
+<td>ROM image (16KB)</td>
+</tr>
+<tr>
+<td>$0049-$004E</td>
+<td>Fault codes (see fault bits table, below)</td>
+</tr>
+<tr>
+<td>$0055/56</td>
+<td>Main battery voltage (16 bits). This is used as input to the fueling value since it affects the opening time of the injectors.</td>
+</tr>
+<tr>
+<td>$0059/5A</td>
+<td>Mass airflow sensor voltage (16 bits). The A/D converter does a 10-bit reading of the MAF voltage and stores it as a 16-bit value in these locations.</td>
+</tr>
+<tr>
+<td>$005B</td>
+<td>Fuel map row index. This is calculated mainly from engine load (determined by air flow) with some scaling from engine speed. The value will be from 0x00 to 0x70. The upper nibble can have eight different values (0 thru 7). This will indicate the row in the 16-column by 8-row fuel map.</td>
+</tr>
+<tr>
+<td>$005C</td>
+<td>Fuel map column index. The firmware looks up one of sixteen engine RPM brackets and stores the corresponding number (from 0x0 thru 0xF) in the upper nibble of this memory location.</td>
+</tr>
+<tr>
+<td>$005F/60</td>
+<td>Throttle position (16 bits). The 10-bit throttle pot value is stored here. The pot is spring-loaded to its minimum position, but is mounted with the wiper just off the minimum setting. If the pot is removed from its mounting and allowed to read below a certain threshold, the firmware will detect a fault.</td>
+</tr>
+<tr>
+<td>$00A4/A5</td>
+<td>The throttle pot reading is copied to this location before the throttle pot routine finishes. The next time the routine runs, the new reading (at $005F/60) is compared with this. If the new reading is greater than the old reading by a certain threshold, it means that the throttle is opening quickly. In this case, the fueling is immediately increased. This can be thought of as a software equivalent of the carburetor accelerator pump.</td>
+</tr>
+<tr>
+<td>$006A</td>
+<td>Coolant temperature.</td>
+</tr>
+<tr>
+<td>$006D</td>
+<td>Idle bypass motor position. On startup, this will read 0, which is fully open. Fully closed is 180.</td>
+</tr>
+<tr>
+<td>$007A-$007B</td>
+<td>Engine speed (instantaneous) (16 bits). This is the instantaneous engine ignition pulse width measured in 2-microsecond increments. This is the time between two consecutive ignition pulses from the ignition coil. To obtain RPM, divide 7,500,000 by this number.</td>
+</tr>
+<tr>
+<td>$007C-$007D</td>
+<td>Engine speed (filtered) (16 bits). This is a running average of the ignition pulse width, and is calculated by averaging three old values and one newly-measured value. The result is a value that changes more smoothly, though it does not precisely represent the most current measurement. Since this filtered speed lags the instantaneous value, it's possibly useful to indicate whether the engine is revving up or slowing down.</td>
+</tr>
+<tr>
+<td>$007E-$007F</td>
+<td>Engine speed (RPM) (16 bits). This is the actual engine RPM, which the firmware calculated by dividing 7,500,000 by the above pulse width. This calculation is bypassed when the engine speed goes above 1950 RPM. This was probably done because the microprocessor gets very busy at higher RPMs; the processor doesn't have a divide instruction, and it is computationally expensive to calculate the RPM without one.</td>
+</tr>
+<tr>
+<td>$2000</td>
+<td>Transmission gear / neutral switch. With an automatic transmission, this will read zero in park and a full 8-bit count (0xFF) when in drive. Testing with a Defender 90 manual (NAS) showed that the value stayed at half count (0x7F hex), probably indicating a resistor on this ADC input to put the ECU in manual-gearbox mode.</td>
+</tr>
+<tr>
+<td>$2003</td>
+<td>Road speed in kilometers per hour.</td>
+</tr>
+<tr>
+<td>$2006</td>
+<td>Fuel temperature. This value will start about the same as the coolant for a completely cooled engine but will not drop as much as the engine warms since the fuel does not get nearly as hot as the coolant.</td>
+</tr>
+<tr>
+<td>$202C</td>
+<td>Currently selected fuel map. (This is always 5 on NAS Land Rover vehicles.)</td>
+</tr>
+<tr>
+<td>$2041</td>
+<td>Checksum of the ROM. This must always be 0x01, or the code will register a fault. (When the ROM image was being finalized, a particular byte was modified to force the contents of the ROM to produce an 8-bit checksum value of 0x01.)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fault-bits">Fault bits</h2>
+<p>Fault bits are packed into memory locations $0049 through $004E, as shown below. Shaded cells represent an extended set of fault codes. <strong>Update, 2013-12-24:</strong> There seems to be a contradiction between the Land Rover documentation and the firmware, with regard to the bank-specific fault codes. I've updated the table below with the correct data. Note that I'm now using the terms 'odd' (cylinders 1-3-5-7) and 'even' (cylinders 2-4-6-8) to differentiate the banks, as this is less ambiguous than "left/right" or "A/B".</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0049</td>
+<td>(21) Tune resistor out of range</td>
+<td>(12) Airflow meter</td>
+<td>(50) Misfire (odd)</td>
+<td>(40) Misfire (even)</td>
+<td>(spare)</td>
+<td>(45) O2 sensor (odd)</td>
+<td>(44) O2 sensor (even)</td>
+<td>(29) ECU checksum error</td>
+</tr>
+<tr>
+<td>$004A</td>
+<td>(88) Purge valve leak</td>
+<td>(19) Throttle pot low with MAF high</td>
+<td>(18) Throttle pot high with MAF low</td>
+<td>(17) Throttle pot</td>
+<td>(14) Coolant temp sensor</td>
+<td>(36) Injector (even)</td>
+<td>(spare)</td>
+<td>(34) Injector (odd)</td>
+</tr>
+<tr>
+<td>$004B</td>
+<td>(spare)</td>
+<td></td>
+<td></td>
+<td></td>
+<td>(28) Intake air leak</td>
+<td>(spare)</td>
+<td>(26) Mixture too lean</td>
+<td>(spare)</td>
+</tr>
+<tr>
+<td>$004C</td>
+<td>(69) Neutral (gear selector) switch</td>
+<td>(68) Road speed sensor</td>
+<td>(spare)</td>
+<td>(48) Idle valve stepper motor</td>
+<td>(spare)</td>
+<td></td>
+<td></td>
+<td>(23) Low fuel pressure</td>
+</tr>
+<tr>
+<td>$004D</td>
+<td>(spare)</td>
+<td></td>
+<td>(15) Fuel temperature sensor</td>
+<td>(58) Ambiguous: low fuel pressor <em>or</em> intake air leak</td>
+<td>(spare)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$004E</td>
+<td>(02) RAM contents unreliable (battery disconnected)</td>
+<td>(03) Bad checksum on battery-backed RAM</td>
+<td>(spare)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="analog-to-digital-converter">Analog-to-digital converter</h2>
+<p>The analog-to-digital converter used by the 14CUX is a Hitachi HD46508. It is a 16-channel device that is capable of 8-bit conversions, 10-bit conversions, and comparator operations. The following table shows the assignment of channels:</p>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Parameter</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Inertia switch</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Heated screen sense</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Airflow sensor</td>
+<td>10-bit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Throttle potentiometer</td>
+<td>10-bit</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Coolant temperature thermistor</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Gearbox neutral switch</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Air conditioner load input</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Road speed transducer</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Main voltage</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>9</td>
+<td>MAF sensor voltage (open-loop fuel maps only; not used for NAS Land Rovers)</td>
+<td>10-bit</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Tune resistor (disabled in NAS Land Rovers)</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Fuel temperature thermistor</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Left O2 sensor</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>13</td>
+<td>O2 sensor reference voltage</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Diagnostic plug</td>
+<td>8-bit</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Right O2 sensor</td>
+<td>8-bit</td>
+</tr>
+</tbody>
+</table>
+<h1 id="diagnostic-port-hardware-interface">Diagnostic port hardware interface</h1>
+<p>The serial port used by the 14CUX is nonstandard in a number of ways. For a PC to be able to communicate with it, the serial device on the PC must:</p>
+<ul>
+<li>invert its RxD line (with respect to normal RS232 signal polarity),</li>
+<li>be able to set a baud rate close to 7812.5 bps, and</li>
+<li>be able to receive a 12VDC signal without being damaged.</li>
+</ul>
+<h2 id="ftdi-cable">FTDI cable</h2>
+<p>You'll need to get a 5-volt FTDI USB-to-serial converter cable. Either the <a href="http://www.mouser.com/ProductDetail/FTDI/TTL-232R-5V-WE/?qs=OMDV80DKjRpkYYDGO9eaujGTH0wnKdmG">TTL-232R-5V-WE</a> or the <a href="http://www.mouser.com/ProductDetail/FTDI/TTL-232R-5V/?qs=OMDV80DKjRrD9MyCA82%252bP%252bSWgdIEaA5p">TTL-232R-5V</a> works fine. (If you don't get the wire-ended ("-WE") cable, you'll need to cut the header connector off the end before attaching your own connector.) There are also other manufacturers that build cables using FTDI chips; I've successfully tested the similar <a href="http://www.amazon.com/USB-Header-Like-FTDI-TTL-232R-5V/dp/B004LC28G2/ref=pd_sxp_f_pt&quot;&gt;">GearMo cable</a>. When using one of these cables, the software will set the correct baud rate automatically.</p>
+<p>On the cables I've used, the Tx and Rx lines were orange and yellow, respectively. Check the documentation for your cable to be sure about the wiring.</p>
+<p>Once you have the FTDI cable, it's a good idea to test it with a loopback: short the Tx and Rx lines, connect the USB end to a PC, and start a terminal emulator (such as <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a>). Be sure to turn off local echo, and any characters you type should appear in the terminal.</p>
+<p>Then, using the <a href="http://www.ftdichip.com/Support/Utilities.htm#FT_PROG">FT_PROG utility from FTDI</a>, invert the polarity of the Rx line (click screenshot to enlarge) and program the new configuration to the device by selecting "Devices" -&gt; "Program" or simply pressing Ctrl-P. After this, unplug and re-plug the USB end of the FTDI cable for the change to take effect.</p>
+<p><a data-lightbox="all_images" data-title="FT_PROG screenshot" href="../images/ft_prog.png"><img alt="FT_PROG screenshot" class="centerthumb" src="../images/ft_prog.png" /></a></p>
+<p>A loopback test in a terminal should no longer work once the Rx line is inverted.</p>
+<h2 id="connector-and-wiring">Connector and wiring</h2>
+<p>The wiring harness in 14CUX-equipped vehicles already has a beige 5-pin connector on the serial port lines, but the shell for the mating connector is no longer available from most retailers. You will probably want to purchase a more common pair of mating connectors (such as a DB9), and use these instead. If you want to retain the original 5-pin connector on the vehicle's wiring harness, you can splice a different one in parallel.</p>
+<p>The serial connector in the vehicle is usually located in the cabin. In the 1993 Range Rover (NAS), it is under the passenger seat; in the 1994 Defender (NAS), it is behind the passenger footwell kickpanel; in the 1994 Discovery (NAS), it is below the glovebox.</p>
+<p>In most vehicles, the connector is mated to a grounding plug (i.e. the mating half of the connector with a pin installed to ground the ECU's Rx line.) You need to remove the grounding plug before connecting your FTDI cable.</p>
+<p><strong>Important:</strong> When you attach a connector to the wire end of the FTDI converter cable, you also need to add a resistor of about 390Ω between the FTDI's Rx line (usually yellow) and GND (usually black). This doesn't need to dissipate a lot of power, so a low-wattage resistor is fine. Cut back the FTDI cable's brown, green, and red wires, as they are not used. The connector wiring must allow the wires to mate up as shown in this table:</p>
+<table>
+<thead>
+<tr>
+<th>FTDI cable signal</th>
+<th>FTDI cable wire color</th>
+<th>14CUX harness signal</th>
+<th>14CUX harness wire color</th>
+<th>14CUX TTS connector pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tx</td>
+<td>Orange</td>
+<td>Rx</td>
+<td>White w/ pink tracer</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Rx</td>
+<td>Yellow</td>
+<td>Tx</td>
+<td>White w/ light green tracer</td>
+<td>4</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Black</td>
+<td>GND</td>
+<td>Black w/ gray tracer</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>The TTS connector pin numbers in the table above are only important if you've managed to find a mating connector and want to wire it to match the existing TTS connector in the vehicle. The pins in the vehicle side are numbered like so:</p>
+<p><a data-lightbox="all_images" data-title="14CUX TTS connector pin numbering" href="../images/14cux_tts_data_link_connector_vehicle-side.png"><img alt="14CUX TTS connector pin numbering" class="centerthumb" src="../images/14cux_tts_data_link_connector_vehicle-side.png" /></a></p>
+<p>If you <em>are</em> using a TTS connector on the FTDI cable, the back of the connector shell will look like the photo below when it's wired correctly. Note the 400Ω resistor between pins 4 and 5 (click photo to enlarge):</p>
+<p><a data-lightbox="all_images" data-title="FTDI cable with TTS connector attached" href="../images/ftdi_with_tts_rear.jpg"><img alt="FTDI cable with TTS connector attached" class="centerthumb" src="../images/ftdi_with_tts_rear.jpg" /></a></p>
+<p>That's it. The cable should now allow this software to communicate with the 14CUX.</p>
+<h2 id="technical-background">Technical background</h2>
+<p>This section explains the reasons behind the unusual signalling characteristics of the 14CUX serial port. The output from the microprocessor (MPU) in the 14CUX's ECU looks like this:</p>
+<p><a data-lightbox="all_images" data-title="14CUX MPU serial port drawing" href="../images/14cux_serial_schematic.png"><img alt="14CUX MPU serial port drawing" class="centerthumb" src="../images/14cux_serial_schematic.png" /></a></p>
+<p>The Q10 transistor acts like a switch. When the signal from the MPU is high (5V), the switch is ON and the low side of <code>R150</code> is shunted to ground, so Pin 9 is zero volts. When the MPU signal goes low, the switch is OFF and the low side of <code>R150</code> is pulled up, so Pin 9 goes to 12V. This transistor circuit is designed to buffer and protect the MPU signal, but it also inverts and changes the voltage level. This is why the FTDI USB device must have its RxD signal inverted (to match the 14CUX's inverted TxD.) However, because the FTDI converter is a 5V device, the 12V signal from the ECU must be attenuated with an external resistor to prevent damage. I've found that the 5V signal from the FTDI converter is sufficient to drive the RxD line in the 14CUX.</p>
+<p>The resistor needs to be about 400Ω and soldered between the ECU's output signal and ground. The total resistance will be 400Ω + 100Ω + 500Ω (1000Ω total). The voltage across the 400Ω resistor will be about 4.8V (400/1000 x 12V). The resistor will dissipate only about 57mW when the output goes high (and since the idle state is low, the average will be much lower.)</p>
+<p>The serial port pins are brought out from the harness via the "Data Link Connector", which is C245 in the Land Rover service documentation. Its grounding plug is connector C244.</p>
+<h1 id="serial-software-protocol">Serial software protocol</h1>
+<p>The protocol works as follows: the client sends a series of bytes to the 14CUX, which together specify the memory location to read or write and the number of bytes to read (if reading). When reading, a total of three bytes are sent before the 14CUX begins responding with the requested data. When writing, a total of four bytes are sent; the first three set the address (as with the "read" command) and the fourth is the value that will be written to the specified location.</p>
+<p>With one exception, each byte sent to the 14CUX will be echoed back and the client should wait to receive each echo before sending the next byte. The single exception to this is the final byte of the "read" command -- instead of its echo, the 14CUX will immediately begin sending the requested data.</p>
+<p>After a client has started sending a command, it is important that the remainder of the command be sent quickly: to avoid the possibility of waiting indefinitely for a partially-completed command, the 14CUX starts a timer when the first byte is received and can time-out if the client waits too long to finish.</p>
+<p>The amount of time required for the 14CUX to send a character over the serial port may change depending on its current state; for example, read requests may be serviced slightly faster before the engine has been started due to the reduced load on the processor.</p>
+<h2 id="command-byte-sequence-and-structure">Command byte sequence and structure</h2>
+<p>The first command byte (call it <em>Command Byte A</em>) contains three fields: (a) a fixed identifier of 0, (b) the quantity of bytes to read (if applicable) and (c) the top two bits of the address that will be read/written. If performing a write command, the Quantity field is ignored. This command byte is structured like so:</p>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed ID (set to 0)</td>
+<td>Quantity</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Bits 15:14 of address</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>After the 14CUX receives this command byte, it will be echoed over the serial port. The client should not send the next command byte until the echo of the first is received.
+Because of the limited width of the Quantity field, the 14CUX uses an encoding scheme to select a quantity. If reading between 1 and 16 bytes, the Quantity field must be set to (<em>n</em> - 1), where <em>n</em> is the number of bytes desired. Otherwise, <em>n</em> must be one of four predefined values and use the corresponding 5-bit code:</p>
+<table>
+<thead>
+<tr>
+<th>n (decimal)</th>
+<th>Encoding (binary)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 through 16</td>
+<td>00000 through 01111</td>
+</tr>
+<tr>
+<td>80</td>
+<td>10000</td>
+</tr>
+<tr>
+<td>100</td>
+<td>10001</td>
+</tr>
+<tr>
+<td>400</td>
+<td>10010</td>
+</tr>
+<tr>
+<td>512</td>
+<td>10011</td>
+</tr>
+</tbody>
+</table>
+<p>The second command byte (<em>Command Byte B</em>) sets the next eight bits of the read/write address. This byte is also echoed back over the serial link upon receipt, and the client should wait to receive the echo before continuing. This byte has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bits 13:6 of address</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The third command byte (<em>Command Byte C</em>) contains the last six bits of the address, and it finally determines whether this is a read or a write operation:</p>
+<table>
+<thead>
+<tr>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11 for read <em>or</em> 10 for write</td>
+<td></td>
+<td>Bits 5:0 of address</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>If the third command byte indicates a read operation, then the command string is complete and the 14CUX will begin to respond with the requested byte(s) from memory. Note that the third command byte is <em>not</em> echoed in this case.</p>
+<p>Otherwise, if the third command byte indicates a write operation, it <em>is</em> echoed, and the client should wait to receive the echo before it sends the fourth and final byte, which is the value to be written. The 14CUX echoes this last byte as well to confirm completion of the write operation.</p>
+<p>An example: to read 512 bytes from location $C562, the bytes 4F 15 E2 should be sent to the 14CUX.</p>
+<p>Memory offsets that contain information of interest are listed in a table in the <a href="./">main 14CUX article</a>.</p>
+<h1 id="software">Software</h1>
+<p>To read data from the 14CUX and display it in a useful way, I wrote some free/open-source, cross-platform software. It's licensed under the GNU General Public License v3.0, and it's designed in two parts:</p>
+<ul>
+<li><a href="http://github.com/colinbourassa/libcomm14cux"><strong>libcomm14cux</strong></a> is a library that handles the mechanics of the serial protocol required to read from (and write to) 14CUX memory via the diagnostic serial port. It depends on the PC having a serial device capable of communicating using the 14CUX signalling scheme and baud rate. Note: although the serial port allows a "write" operation, <strong>the ECU's stored code and data (such as fuel maps) cannot be changed via the serial port.</strong> The PROM itself must be removed and altered to change the code, fuel maps, or other data. Writing via the serial port can only change memory locations in RAM, though this should still be done with care due to the possibility of creating a bad running condition.</li>
+<li><a href="http://github.com/colinbourassa/rovergauge"><strong>RoverGauge</strong></a> is a graphical front-end that uses libcomm14cux to read data from the ECU. It displays engine temperature, road speed, engine speed, and other details, using meters and gauges.</li>
+</ul>
+<p><a data-lightbox="all_images" data-title="RoverGauge 0.6.0 screenshot" href="../images/rovergauge_0.6.0.png"><img alt="RoverGauge 0.6.0 screenshot" class="centerthumb" src="../images/rovergauge_0.6.0.png" /></a></p>
+<h2 id="downloads">Downloads</h2>
+<p>Both Linux and Windows packages are available to download:</p>
+<ul>
+<li><a href="https://github.com/colinbourassa/libcomm14cux/releases/latest">libcomm14cux</a></li>
+<li><a href="https://github.com/colinbourassa/rovergauge/releases/latest">RoverGauge</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+    <script type="text/javascript" defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(false);
+        };
+    </script>
+
+</body>
+</html>

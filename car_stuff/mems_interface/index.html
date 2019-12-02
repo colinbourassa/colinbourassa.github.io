@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Rover MEMS diagnostics - Bearinghead</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../../css/lightbox.min.css" />
+  <link href="../../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Rover MEMS diagnostics";
+    var mkdocs_page_input_path = "car_stuff/mems_interface.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../js/lightbox.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Bearinghead</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../contact/">Contact</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Car stuff</span></p>
+                <ul class="current">
+                    <li class="toctree-l1">
+    <a class="" href="../14cux/">14CUX</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../14cux_rescue/">14CUX rescue kit</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../europa_jps/">Lotus Europa JPS</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../blue_star/">Mini Blue Star</a>
+                    </li>
+                    <li class="toctree-l1 current">
+    <a class="current" href="./">Rover MEMS diagnostics</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#updates">Updates</a></li>
+    
+
+    <li class="toctree-l2"><a href="#overview">Overview</a></li>
+    
+
+    <li class="toctree-l2"><a href="#software">Software</a></li>
+    
+
+    <li class="toctree-l2"><a href="#building-a-cable">Building a cable</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#table-0-pin-assignment-for-usb-pc-interface-cable">Table 0: Pin assignment for USB PC interface cable</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#protocol">Protocol</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#table-1-initialization-sequence">Table 1: Initialization sequence</a></li>
+        
+            <li><a class="toctree-l3" href="#table-2-software-counterssettings-used-in-the-firmware-on-mne101170-all-values-in-hex">Table 2: Software counters/settings used in the firmware on MNE101170. All values in hex.</a></li>
+        
+            <li><a class="toctree-l3" href="#table-3-protocol-command-bytes-values-in-hex">Table 3: Protocol command bytes (values in hex)</a></li>
+        
+            <li><a class="toctree-l3" href="#table-4-data-frame-command-0x7d">Table 4: Data frame (Command 0x7D)</a></li>
+        
+            <li><a class="toctree-l3" href="#table-5-data-frame-command-0x80">Table 5: Data frame (Command 0x80)</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../sykes_acr/">Sykes-Pickavant ACR</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Media</span></p>
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/connections/">Connections</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/cosmos/">Cosmos</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/quarantine/">Quarantine (Gametek)</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools</span></p>
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../tools/tire_inflators/">Tire inflators</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Bearinghead</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Car stuff &raquo;</li>
+        
+      
+    
+    <li>Rover MEMS diagnostics</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>See also the <a href="https://groups.google.com/forum/#!forum/mems-diagnostics">Google discussion group</a>.</p>
+<h1 id="updates">Updates</h1>
+<p><strong>2015-10-27:</strong> Converted the data frame offsets to hex and added a few more fields.</p>
+<p><strong>2015-06-12:</strong> I learned that the ECU's 32-byte response to the command 7D is also a frame of diagnostic data, and it contains some lambda sensor voltage and fuel trim information. I've added a new table toward the end of this article with a start to the description of this data structure. I also noted the idle error, ignition advance, and coil time fields in the data frame for command 80.</p>
+<h1 id="overview">Overview</h1>
+<p>Earlier versions of Rover MEMS (Modular Engine Management System) use a round three-pin diagnostic socket and a proprietary software protocol known as ROSCO (ROver Service COmmunications). With an oscilloscope, I was able to determine the signalling characteristics and baud rate, and a logic analyzer revealed some basic information about the protocol. Here in North America, early versions of this system are very uncommon. I only have access to a couple MEMS 1.6 SPi units, so I don't know how much of my research applies to other configurations. The information collected in this article may be helpful for anyone working to reverse engineer the diagnostic protocol(s) used by other variants of the system, and I hope that others publish their findings as well.</p>
+<h1 id="software">Software</h1>
+<p>I've written some free, open-source software that can display diagnostic information and test actuators on MEMS 1.6. It's written in two parts, a library and a front-end graphical interface. To use it, you'll need to build a cable to connect to the car (see "Building a cable", below.) Both Linux and Windows versions are available to download:</p>
+<ul>
+<li><a href="http://github.com/colinbourassa/librosco/releases/latest">librosco</a></li>
+<li><a href="http://github.com/colinbourassa/memsgauge/releases/latest">MEMSGauge</a></li>
+</ul>
+<p><a data-lightbox="all_images" data-title="MEMSGauge 0.1.0 screenshot" href="../images/memsgauge_0.1.0.png"><img alt="MEMSGauge 0.1.0 screenshot" class="centerthumb" src="../images/memsgauge_0.1.0.png" /></a></p>
+<h1 id="building-a-cable">Building a cable</h1>
+<p>To build a cable that will connect to the ECU's diagnostic port, you will need three things:</p>
+<ul>
+<li>
+<p>A 5V (TTL level) USB to serial converter. I strongly recommend the FTDI TTL-232R-5V. Note that it's important to have a 5V converter -- a normal RS-232 port <strong>will not work</strong>, and neither will a converter that uses regular RS-232 voltage levels. The FTDI cable (or an equivalent, such as the GearMo 5V cable) is available from different retailers:</p>
+<ul>
+<li><a href="http://www.mouser.com/ProductDetail/FTDI/TTL-232R-5V-WE">FTDI TTL-232R-5V-WE from Mouser (US)</a></li>
+<li><a href="http://www.amazon.com/dp/B004LC28G2/">GearMo TTL-232R-5V equivalent from Amazon (US)</a></li>
+</ul>
+<p>If you're in the UK/Europe, you may want to check your local Amazon site for one of these. Remember that it is important to get one that uses 0V-5V voltage levels.</p>
+</li>
+<li>
+<p>A TE Connectivity type 172201 connector, which will mate to the connector on the car's diagnostic port. The shell for this connector is available from different retailers, although stock quantities may vary:</p>
+<ul>
+<li><a href="http://www.mouser.com/ProductDetail/TE-Connectivity-AMP/172201-1/?qs=mfBlxA6VMP46pCPSoAJQ0g==">Mouser (US)</a></li>
+<li><a href="https://www.tencell.com/products/172201-1.html">Tencell (UK)</a></li>
+</ul>
+</li>
+<li>
+<p>Three pins for the connector shell. The pins are also manufactured by TE Connectivity, part number 170280 for strips of 50. I've been told that they're also available singly, part number 170293.</p>
+<ul>
+<li><a href="http://www.alliedelec.com/search/productdetail.aspx?SKU=70284521">Allied Electronics (US)</a></li>
+<li><a href="http://uk.rs-online.com/web/p/products/7121729/">RS (UK)</a></li>
+</ul>
+</li>
+</ul>
+<p>Once you have the above components, solder leads onto the pins, insert them into the connector shell, and solder the FTDI cable wires to the pin leads according to the following table. For the pin numbering on the 172201 connector, look at the face of the connector with the key (notch) on the bottom. The first pin (C549-1) will be on the top, and the numbering continues clockwise. (If you're looking at the mating connector in the car, the numbering goes counter-clockwise.)</p>
+<p>When looking for the diagnostic connector on the vehicle, note that cars with a security/immobilizer module (such as the Lucas 5AS) will often have a second connector of the same type. On the Mini SPi, the engine ECU connector is beige, while the security module connector is green. Make sure you're connecting to the right one.</p>
+<h2 id="table-0-pin-assignment-for-usb-pc-interface-cable">Table 0: Pin assignment for USB PC interface cable</h2>
+<table>
+<thead>
+<tr>
+<th>Pin number</th>
+<th>FTDI wire color</th>
+<th>Pin assignment</th>
+<th>Wire color on mating connector in car</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C549-1</td>
+<td>Black</td>
+<td>Signal ground</td>
+<td>Pink w/ black</td>
+</tr>
+<tr>
+<td>C549-2</td>
+<td>Yellow</td>
+<td>Rx (car ECU to PC)</td>
+<td>White w/ yellow</td>
+</tr>
+<tr>
+<td>C549-3</td>
+<td>Orange</td>
+<td>Tx (PC to car ECU)</td>
+<td>Black w/ green</td>
+</tr>
+</tbody>
+</table>
+<p><a data-lightbox="all_images" data-title="TE Connectivity 172201 pin numbering" href="../images/te_connectivity_172201.jpg"><img alt="TE Connectivity 172201 pin numbering" class="centerthumb" src="../images/te_connectivity_172201.jpg" /></a></p>
+<h1 id="protocol">Protocol</h1>
+<p>The ECU's diagnostic port uses a serial protocol, with 8 data bits, no parity, and 1 stop bit, running at 9600 bps.</p>
+<p>When a diagnotic tool (or a PC running diagnostic software) is first connected to the ECU, it must send an initialization sequence to enable further communication. I haven't looked inside the SPi MEMS firmware and I've only run experiments with a single car, so I can't provide any further insight on the meaning of this sequence. I'd certainly like to hear from anyone who has more information. Note that the first byte returned by the ECU appears to always be an echo of the command byte.</p>
+<h2 id="table-1-initialization-sequence">Table 1: Initialization sequence</h2>
+<table>
+<thead>
+<tr>
+<th>Sent by tool</th>
+<th>Response from ECU (MNE101170)</th>
+<th>Response from ECU (MNE101070)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CA</td>
+<td>CA</td>
+<td>CA</td>
+</tr>
+<tr>
+<td>75</td>
+<td>75</td>
+<td>75</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>D0 99 00 03 03</td>
+<td>D0 99 00 02 03</td>
+</tr>
+</tbody>
+</table>
+<p>Once the initialization sequence is complete, any of several single-byte commands may be sent to the ECU. They are described in Table 3.</p>
+<p>Some of the commands appear to increment or decrement settings that have a predefined range. The settings that I've found are described in Table 2.</p>
+<h2 id="table-2-software-counterssettings-used-in-the-firmware-on-mne101170-all-values-in-hex">Table 2: Software counters/settings used in the firmware on MNE101170. All values in hex.</h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default value</th>
+<th>Minimum</th>
+<th>Maximum</th>
+<th>Decremented by command(s)</th>
+<th>Incremented by command(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fuel trim</td>
+<td>8A</td>
+<td>00</td>
+<td>FE</td>
+<td>7A and 7C</td>
+<td>79 and 7B</td>
+</tr>
+<tr>
+<td>Idle decay</td>
+<td>23</td>
+<td>0A</td>
+<td>3C</td>
+<td>8A</td>
+<td>89</td>
+</tr>
+<tr>
+<td>Idle speed</td>
+<td>80</td>
+<td>78</td>
+<td>88</td>
+<td>92</td>
+<td>91</td>
+</tr>
+<tr>
+<td>Ignition advance offset</td>
+<td>80</td>
+<td>74</td>
+<td>8C</td>
+<td>94</td>
+<td>93</td>
+</tr>
+</tbody>
+</table>
+<p>Although some of the actuators have pairs of on/off commands to drive them, I've found that the system fitted to the Mini SPi will actually turn off the AC relay, PTC relay, and fuel pump relay automatically after a short time (i.e. without requiring the 'off' command). The 'off' command is acknowledged by the ECU, but apparently has no effect.</p>
+<h2 id="table-3-protocol-command-bytes-values-in-hex">Table 3: Protocol command bytes (values in hex)</h2>
+<table>
+<thead>
+<tr>
+<th>Command byte (sent to ECU)</th>
+<th>Description</th>
+<th>Response from ECU (MNE101170)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Open fuel pump relay (stop fuel pump)</td>
+<td>01 00</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Open PTC relay (inlet manifold heater)</td>
+<td>02 00</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Open air conditioning relay</td>
+<td>03 00</td>
+</tr>
+<tr>
+<td>08</td>
+<td>Close purge valve?</td>
+<td>08 00</td>
+</tr>
+<tr>
+<td>09</td>
+<td>Open O2 heater relay?</td>
+<td>09 00</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Close fuel pump relay (run fuel pump)</td>
+<td>11 00</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Close PTC relay (inlet manifold heater)</td>
+<td>12 00</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Close air conditioning relay</td>
+<td>13 00</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Open purge valve?</td>
+<td>18 00</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Close O2 heater relay?</td>
+<td>19 00</td>
+</tr>
+<tr>
+<td>1D</td>
+<td>Close Fan 1 relay? Together with command 1E, I found through protocol analysis that this has something to do with testing an electric fan, but my ECUs didn't respond beyond the echo byte.</td>
+<td>1D</td>
+</tr>
+<tr>
+<td>1E</td>
+<td>Close Fan 2 relay?</td>
+<td>1E</td>
+</tr>
+<tr>
+<td>65</td>
+<td>?</td>
+<td>65 00</td>
+</tr>
+<tr>
+<td>6D</td>
+<td>?</td>
+<td>6D 00</td>
+</tr>
+<tr>
+<td>79</td>
+<td>Increments fuel trim setting and returns the current value.</td>
+<td>79 xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>7A</td>
+<td>Decrements fuel trim setting and returns the current value.</td>
+<td>7A xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>7B</td>
+<td>Increments fuel trim setting and returns the current value.</td>
+<td>7B xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>7C</td>
+<td>Decrements fuel trim setting and returns the current value.</td>
+<td>7C xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>7D</td>
+<td>Request data frame</td>
+<td>7D, followed by 32-byte data frame; see Table 4</td>
+</tr>
+<tr>
+<td>7E</td>
+<td>?</td>
+<td>7E 08</td>
+</tr>
+<tr>
+<td>7F</td>
+<td>?</td>
+<td>7F 05</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Request data frame</td>
+<td>80, followed by 28-byte data frame; see Table 5</td>
+</tr>
+<tr>
+<td>82</td>
+<td>?</td>
+<td>82 09 9E 1D 00 00 60 05 FF FF</td>
+</tr>
+<tr>
+<td>89</td>
+<td>Increments idle decay setting and returns the current value</td>
+<td>89 xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>8A</td>
+<td>Decrements idle decay setting and returns the current value</td>
+<td>8A xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>91</td>
+<td>Increments idle speed setting and returns the current value</td>
+<td>91 xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>92</td>
+<td>Decrements idle speed setting and returns the current value</td>
+<td>92 xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>93</td>
+<td>Increments ignition advance offset and returns the current value</td>
+<td>93 xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>94</td>
+<td>Decrements ignition advance offset and returns the current value</td>
+<td>94 xx, where the second byte is the counter value</td>
+</tr>
+<tr>
+<td>CB</td>
+<td>?</td>
+<td>CB 00</td>
+</tr>
+<tr>
+<td>CC</td>
+<td>Clear fault codes</td>
+<td>CC 00</td>
+</tr>
+<tr>
+<td>CD</td>
+<td>?</td>
+<td>CD 01</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>?</td>
+<td>D0 99 00 03 03</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>?</td>
+<td>D1 41 42 4E 4D 50 30 30 33 99 00 03 03 41 42 4E 4D 50 30 30 33 99 00 03 03 41 42 4E 4D 50 30 30 33 99 00 03 03</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>?</td>
+<td>D2, followed by 02 01, 00 01, or 01 01</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>?</td>
+<td>D3, followed by 02 01, 00 02, or 01 01</td>
+</tr>
+<tr>
+<td>E7</td>
+<td>?</td>
+<td>E7 02</td>
+</tr>
+<tr>
+<td>E8</td>
+<td>?</td>
+<td>E8 05 26 01 00 01</td>
+</tr>
+<tr>
+<td>ED</td>
+<td>?</td>
+<td>ED 00</td>
+</tr>
+<tr>
+<td>EE</td>
+<td>?</td>
+<td>EE 00</td>
+</tr>
+<tr>
+<td>EF</td>
+<td>Actuate fuel injectors? (MPi?)</td>
+<td>EF 03</td>
+</tr>
+<tr>
+<td>F0</td>
+<td>?</td>
+<td>F0 50</td>
+</tr>
+<tr>
+<td>F3</td>
+<td>?</td>
+<td>F3 00</td>
+</tr>
+<tr>
+<td>F4</td>
+<td>NOP / heartbeat? Sent continuously by handheld diagnostic tools to verify serial link.</td>
+<td>F4 00</td>
+</tr>
+<tr>
+<td>F5</td>
+<td>?</td>
+<td>F5 00</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>Unknown. Disconnect or sleep command? During a bench test, the Mini SPi ECU changed its behavior after being commanded with F6; it would only echo single bytes that it received, but nothing else. For example, sending 80 would cause it to echo 80 but no data frame followed. Re-sending the init sequence of CA, 75, and D0 restored normal behavior.</td>
+<td>F6 00</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>Actuate fuel injector (SPi?)</td>
+<td>F7 03</td>
+</tr>
+<tr>
+<td>F8</td>
+<td>Fire ignition coil</td>
+<td>F8 02</td>
+</tr>
+<tr>
+<td>FB</td>
+<td>Request current IAC position</td>
+<td>FB xx, where the second byte represents the IAC position</td>
+</tr>
+<tr>
+<td>FC</td>
+<td>?</td>
+<td>FC 00</td>
+</tr>
+<tr>
+<td>FD</td>
+<td>Open IAC by one step and report current position</td>
+<td>FD xx, where the second byte represents the IAC position</td>
+</tr>
+<tr>
+<td>FE</td>
+<td>Close IAC by one step and report current position</td>
+<td>FE xx, where the second byte represents the IAC position</td>
+</tr>
+<tr>
+<td>FF</td>
+<td>Request current IAC position?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The tables below describe the known fields in the data frames that are sent by the ECU in response to commands 0x7D and 0x80, respectively. Multi-byte fields are sent in big-endian format.</p>
+<h2 id="table-4-data-frame-command-0x7d">Table 4: Data frame (Command 0x7D)</h2>
+<table>
+<thead>
+<tr>
+<th>Byte position</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00</td>
+<td>Size of data frame, including this byte</td>
+</tr>
+<tr>
+<td>0x01</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x02</td>
+<td>Throttle angle?</td>
+</tr>
+<tr>
+<td>0x03</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x04</td>
+<td>Sometimes documented to be air/fuel ratio, but often observed to never change from 0xFF</td>
+</tr>
+<tr>
+<td>0x05</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x06</td>
+<td>Lambda sensor voltage, 0.5mv per LSB</td>
+</tr>
+<tr>
+<td>0x07</td>
+<td>Lambda sensor frequency?</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td>Lambda sensor duty cycle?</td>
+</tr>
+<tr>
+<td>0x09</td>
+<td>Lambda sensor status? 0x01 for good, any other value for no good</td>
+</tr>
+<tr>
+<td>0x0A</td>
+<td>Loop indicator, 0 for open loop and nonzero for closed loop</td>
+</tr>
+<tr>
+<td>0x0B</td>
+<td>Long term trim?</td>
+</tr>
+<tr>
+<td>0x0C</td>
+<td>Short term trim, 1% per LSB</td>
+</tr>
+<tr>
+<td>0x0D</td>
+<td>Carbon canister purge valve duty cycle?</td>
+</tr>
+<tr>
+<td>0x0E</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x0F</td>
+<td>Idle base position</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x12</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x13</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x14</td>
+<td>Idle error?</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x16</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x17</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x19</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1A</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1B</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1C</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1D</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1E</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1F</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+<h2 id="table-5-data-frame-command-0x80">Table 5: Data frame (Command 0x80)</h2>
+<table>
+<thead>
+<tr>
+<th>Byte position</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00</td>
+<td>Size of data frame, including this byte. This should be 0x1C (28 bytes) for the frame described here.</td>
+</tr>
+<tr>
+<td>0x01-2</td>
+<td>Engine speed in RPM (16 bits)</td>
+</tr>
+<tr>
+<td>0x03</td>
+<td>Coolant temperature in degrees C with +55 offset and 8-bit wrap</td>
+</tr>
+<tr>
+<td>0x04</td>
+<td>Computed ambient temperature in degrees C with +55 offset and 8-bit wrap</td>
+</tr>
+<tr>
+<td>0x05</td>
+<td>Intake air temperature in degrees C with +55 offset and 8-bit wrap</td>
+</tr>
+<tr>
+<td>0x06</td>
+<td>Fuel temperature in degrees C with +55 offset and 8-bit wrap. This is not supported on the Mini SPi, and always appears as 0xFF.</td>
+</tr>
+<tr>
+<td>0x07</td>
+<td>MAP sensor value in kilopascals</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td>Battery voltage, 0.1V per LSB (e.g. 0x7B == 12.3V)</td>
+</tr>
+<tr>
+<td>0x09</td>
+<td>Throttle pot voltage, 0.02V per LSB. WOT should probably be close to 0xFA or 5.0V.</td>
+</tr>
+<tr>
+<td>0x0A</td>
+<td>Idle switch. Bit 4 will be set if the throttle is closed, and it will be clear otherwise.</td>
+</tr>
+<tr>
+<td>0x0B</td>
+<td>Unknown. Probably a bitfield. Observed as 0x24 with engine off, and 0x20 with engine running. A single sample during a fifteen minute test drive showed a value of 0x30.</td>
+</tr>
+<tr>
+<td>0x0C</td>
+<td>Park/neutral switch. Zero is closed, nonzero is open.</td>
+</tr>
+<tr>
+<td>0x0D</td>
+<td>Fault codes. On the Mini SPi, only two bits in this location are checked:</td>
+</tr>
+<tr>
+<td></td>
+<td>Bit 0: Coolant temp sensor fault (Code 1)</td>
+</tr>
+<tr>
+<td></td>
+<td>Bit 1: Inlet air temp sensor fault (Code 2)</td>
+</tr>
+<tr>
+<td>0x0E</td>
+<td>Fault codes. On the Mini SPi, only two bits in this location are checked:</td>
+</tr>
+<tr>
+<td></td>
+<td>Bit 1: Fuel pump circuit fault (Code 10)</td>
+</tr>
+<tr>
+<td></td>
+<td>Bit 7: Throttle pot circuit fault (Code 16)</td>
+</tr>
+<tr>
+<td>0x0F</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x12</td>
+<td>Idle air control motor position. On the Mini SPi's A-series engine, 0 is closed, and 180 is wide open.</td>
+</tr>
+<tr>
+<td>0x13-14</td>
+<td>Idle speed deviation (16 bits)</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x16</td>
+<td>Ignition advance, 0.5 degrees per LSB with range of -24 deg (0x00) to 103.5 deg (0xFF)</td>
+</tr>
+<tr>
+<td>0x17-18</td>
+<td>Coil time, 0.002 milliseconds per LSB (16 bits)</td>
+</tr>
+<tr>
+<td>0x19</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1A</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0x1B</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+    <script type="text/javascript" defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(false);
+        };
+    </script>
+
+</body>
+</html>

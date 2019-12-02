@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Sykes-Pickavant ACR - Bearinghead</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../../css/lightbox.min.css" />
+  <link href="../../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sykes-Pickavant ACR";
+    var mkdocs_page_input_path = "car_stuff/sykes_acr.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../js/lightbox.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Bearinghead</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../contact/">Contact</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Car stuff</span></p>
+                <ul class="current">
+                    <li class="toctree-l1">
+    <a class="" href="../14cux/">14CUX</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../14cux_rescue/">14CUX rescue kit</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../europa_jps/">Lotus Europa JPS</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../blue_star/">Mini Blue Star</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../mems_interface/">Rover MEMS diagnostics</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                    </li>
+                    <li class="toctree-l1 current">
+    <a class="current" href="./">Sykes-Pickavant ACR</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#hardware">Hardware</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#mainboard">Mainboard</a></li>
+        
+            <li><a class="toctree-l3" href="#rover-1-pod-300565">Rover 1 pod (300565)</a></li>
+        
+            <li><a class="toctree-l3" href="#rover-3-pod-30350800">Rover 3 pod (30350800)</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Media</span></p>
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/connections/">Connections</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/cosmos/">Cosmos</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../media/quarantine/">Quarantine (Gametek)</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools</span></p>
+                <ul>
+                    <li class="toctree-l1">
+    <a class="" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                    </li>
+                    <li class="toctree-l1">
+    <a class="" href="../../tools/tire_inflators/">Tire inflators</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Bearinghead</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Car stuff &raquo;</li>
+        
+      
+    
+    <li>Sykes-Pickavant ACR</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>The Sykes-Pickavant ACR is an automotive fault code reader and diagnostic tool. It's one of a small number of tools that can interface with early versions of the <a href="http://en.wikipedia.org/wiki/Modular_Engine_Management_System">Modular Engine Management System (MEMS)</a> that was used in Rover products in the 1990s. Sykes-Pickavant also produced later revisions of the ACR, which were named "ACR2" and "ACR4" and are distinguished by their blue plastic housings and, in the case of the ACR4, its larger LCD display. My experience with this tool is limited to the original revision (part number 300550 with the gray plastic housing) and I've only used it to communicate with a MEMS 1.6 SPi engine management system.</p>
+<p>The ACR is actually able to interface with many different engine management systems by changing the removable "pod" and interface cable. At one end of a cable is an eight-pin mini DIN connector that connects to the ACR, and at the other end is a connector that mates with the diagnostic port on the car. The cable is also responsible for providing a connection to a 12VDC source to power the ACR; in some cases, this is done through the car's diagnostic connector, but in the case of the early MEMS cable (part no. 302116), a separate battery clamp is attached. The interchangeable pod connects to the ACR unit via a 48-pin connector. This connector is a <a href="http://en.wikipedia.org/wiki/DIN_41612">DIN 41612</a> standard, with three 16-pin rows.</p>
+<p>There is no permanent storage inside the ACR unit itself, so it requires that a pod be connected to operate. With a pod connected, the memory it contains is mapped into the processor's address space at $0000, which is the microprocessor's reset location. Program execution therefore begins at the first byte in the image.</p>
+<h1 id="hardware">Hardware</h1>
+<div class="imagerow">
+<p><a data-lightbox="all_images" data-title="Mainboard front" href="../images/sp_acr_main_pcb_front.jpg"><img alt="Mainboard front" class="rowthumb" src="../images/sp_acr_main_pcb_front.jpg" /></a>
+<a data-lightbox="all_images" data-title="Mainboard back" href="../images/sp_acr_main_pcb_back.jpg"><img alt="Mainboard back" class="rowthumb" src="../images/sp_acr_main_pcb_back.jpg" /></a></p>
+</div>
+<h2 id="mainboard">Mainboard</h2>
+<p>Externally, we can see that the ACR has a 2 x 16 character LCD display, a keypad with four keys (Up, Down, OK, and Esc), two mini DIN ports (one 6-pin and one 8-pin), and the 48-pin pod connector mentioned above. Looking inside, we find that it's a simple design based around a Zilog Z80 microprocessor (Z84C00), Z80 Parallel I/O controller (Z84C20), and an 8KB bank of SRAM (M5165AL-10). The PIO chip provides an interface to the serial port lines, the keypad inputs, and a piezo tweeter (which is made to beep when the user performs certain actions.) There is also a dual two-input demultiplexer (a Harris CD74HC139) to provide address decoding, and a couple other ICs to do input signal processing and line inverting. The LCD display is on a daughtercard module and controlled by a Hitachi HD44780.</p>
+<p>The silkscreening on the mainboard in my ACR unit identifies it as "Phoenix Mk 3, 1011/00/02".</p>
+<div class="imagerow">
+<p><a data-lightbox="all_images" data-title="Display module front" href="../images/sp_acr_display_pcb_front.jpg"><img alt="Display module front" class="rowthumb" src="../images/sp_acr_display_pcb_front.jpg" /></a>
+<a data-lightbox="all_images" data-title="Display module back" href="../images/sp_acr_display_pcb_back.jpg"><img alt="Display module back" class="rowthumb" src="../images/sp_acr_display_pcb_back.jpg" /></a></p>
+</div>
+<p>The cable for the Rover MEMS SPi connects to the DIN port toward the right side of the handset; this port is identified as "SKT2" by the silkscreening on the mainboard, and it's the one <strong>without</strong> the red tape in the photo. Although the signal ground, transmit, and receive lines are all routed through this port for MEMS SPi communication, the firmware in the "Rover (1)" pod also asserts and de-asserts lines that are routed to the other DIN socket, SKT1. I'm not sure about the purpose of the SKT1 activity.</p>
+<p>Tracing the CPU's address lines reveals the address map:</p>
+<table>
+<thead>
+<tr>
+<th>Range</th>
+<th>Device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memory: $0000 - $7FFF</td>
+<td>ROM (32KB)</td>
+</tr>
+<tr>
+<td>Memory: $8000 - $9FFF</td>
+<td>RAM (8KB)</td>
+</tr>
+<tr>
+<td>I/O: $0000 - $0003</td>
+<td>PIO controller</td>
+</tr>
+<tr>
+<td>I/O: $00C0 - $00C3</td>
+<td>LCD controller</td>
+</tr>
+</tbody>
+</table>
+<p>The 48-pin pod connector has three rows with sixteen pins each. Many of these pins are assigned directly to address, data, and chip-enable lines on the ROM (or flash) chip in the pod. The table below shows the pin assignments. I've tried to keep the table generic so as to apply to as many different pods as possible. Certain pods have additional pin assignments, so any blank entries in the table do <strong>not</strong> imply that a pin has no connection. CE, OE, and WE are 'chip enable', 'output enable', and 'write enable', respectively, although the last would only apply to pods that have writable storage, such as flash memory.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Row</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pin number</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+</tr>
+<tr>
+<td>1</td>
+<td>GND</td>
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CE</td>
+<td>D3</td>
+<td>D4</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>D2</td>
+<td>D5</td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td>D1</td>
+<td>D6</td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td>D0</td>
+<td>D7</td>
+</tr>
+<tr>
+<td>6</td>
+<td>OE</td>
+<td></td>
+<td>A0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>WE</td>
+<td>A14</td>
+<td>A1</td>
+</tr>
+<tr>
+<td>8</td>
+<td></td>
+<td>A13</td>
+<td>A2</td>
+</tr>
+<tr>
+<td>9</td>
+<td></td>
+<td>A12</td>
+<td>A3</td>
+</tr>
+<tr>
+<td>10</td>
+<td></td>
+<td>A11</td>
+<td>A4</td>
+</tr>
+<tr>
+<td>11</td>
+<td></td>
+<td>A10</td>
+<td>A5</td>
+</tr>
+<tr>
+<td>12</td>
+<td></td>
+<td>A9</td>
+<td>A6</td>
+</tr>
+<tr>
+<td>13</td>
+<td></td>
+<td>A8</td>
+<td>A7</td>
+</tr>
+<tr>
+<td>14</td>
+<td></td>
+<td></td>
+<td>GND</td>
+</tr>
+<tr>
+<td>15</td>
+<td></td>
+<td></td>
+<td>GND</td>
+</tr>
+<tr>
+<td>16</td>
+<td></td>
+<td></td>
+<td>Vcc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rover-1-pod-300565">Rover 1 pod (300565)</h2>
+<p>In the case of the "Rover 1" pod (part number 300565), the permanent storage is a UV-erasable EPROM (ST Micro M27C256B-12F1), which is covered with a sticker reading "1031-03-1 ISS1 / ROVER GB". There is also a small amount of circuitry specific to this pod, including a transistor switch for the TTL-level serial port output, as well as certain pins looped-back into the 48-pin mating connector.</p>
+<div class="imagerow">
+<p><a data-lightbox="all_images" data-title="Rover 1 pod PCB front" href="../images/sp_acr_rover1_pod_front.jpg"><img alt="Rover 1 pod PCB front" class="rowthumb" src="../images/sp_acr_rover1_pod_front.jpg" /></a>
+<a data-lightbox="all_images" data-title="Rover 1 pod PCB back" href="../images/sp_acr_rover1_pod_back.jpg"><img alt="Rover 1 pod PCB back" class="rowthumb" src="../images/sp_acr_rover1_pod_back.jpg" /></a></p>
+</div>
+<p>The 32KB ROM image in this pod contains about 12KB of code and data, with the remaining spaced filled by a repeating copyright message ("Design Copyright S.P Technology Group.", "Software Copyright G.J Clarkson 1993,1994.") There are some data tables and ASCII strings interspersed with executable code, but most of the strings are stored in a section between $224B and $309F that contains only data.</p>
+<p>The code in the Rover 1 pod (and presumably other pods as well) performs a few self-tests on startup. It runs an integrity check on the RAM and computes a 16-bit checksum over the entire contents of the ROM. If the ROM checksum does not match the expected value, the display is changed to read "CHKSUM ERROR", together with both the expected and computed checksums. In this case, the code dead-ends in a JMP loop. Note that a bit error in the copyright-message filler text will cause a checksum error and prevent the ACR from functioning, even though no code or data would have been affected in this case.</p>
+<p>The ACR does not have a dedicated hardware serial port controller, so the code manipulates and samples the serial port lines as a bit-bang interface. The desired baud rate is achieved through the use of tuned delay loops.</p>
+<h2 id="rover-3-pod-30350800">Rover 3 pod (30350800)</h2>
+<p>My Rover 3 pod is a later design than my Rover 1 pod. It contains programmable logic and flash memory, which probably allowed the manufacturer to more easily produce generic pods that can be programmed for any application. The Rover 3 pod still uses the same 48-pin main connector, but the design of the plastic housing is somewhat different because it was intended for use with the later ACR2 or ACR4. It will still work in the old-style ACR unit, although it sometimes requires the user to "scroll" a three- or four-line text message that cannot be shown in its entirety on the older two-line display.</p>
+<p><a data-lightbox="all_images" data-title="Rover 3 pod PCB front" href="../images/sp_acr_rover3_pod_front.jpg"><img alt="Rover 3 pod PCB front" class="centerthumb" src="../images/sp_acr_rover3_pod_front.jpg" /></a></p>
+<p>The permanent storage in this newer pod design is an AMD flash part, AM29F004BT-70JI. Also on the PCB is a Lattice ispLSI1016E-80LJ programmable logic device, and many of its I/O lines are tied to address and data lines on the flash. The PLD is in a PLCC44 package, and has a sticker on it that reads "ME006923", which likely identifies the revision of the image loaded to it. All of the parts are surface-mount, in contrast to the through-hole mounting used in the Rover 1 pod.</p>
+<p>Another difference on the Rover 3 pod is the handling of the two highest address lines (A14 and A13): the main connector pins B7 and B8 are <strong>not</strong> connected directly to the A14 and A13 lines on the flash part. Instead, the connector pins are routed to two inputs on the PLD, which are 'I/O 7' and 'I/O 29'. By tracing the A14 and A13 flash pins, we can infer that a portion of the PLD logic uses this mapping:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>PLD input</th>
+<th>PLD output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A14</td>
+<td>I/O 7 (pin 22)</td>
+<td>I/O 10 (pin 27)</td>
+</tr>
+<tr>
+<td>A13</td>
+<td>I/O 29 (pin 8)</td>
+<td>I/O 30 (pin 9)</td>
+</tr>
+</tbody>
+</table>
+<p>Finally, the card has a block of eight header pins. These provide a JTAG interface to program the Lattice PLD, using a variation of the <a href="http://www.jtagtest.com/pinouts/pld-jtag">PLD-JTAG</a> pinout standard. Rather than being arranged in a single line, there are two columns of four pins each. Pin 1 is toward the nearest corner of the card, away from the 48-pin connector. The standard "nSRST" (system reset) JTAG pin is connected to the ispEN line on the PLD.</p>
+              
+            </div>
+          </div>
+          <footer>
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+    <script type="text/javascript" defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(false);
+        };
+    </script>
+
+</body>
+</html>
