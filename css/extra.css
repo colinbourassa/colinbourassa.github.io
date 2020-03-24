@@ -1,19 +1,21 @@
-/* Out of the box, the readthedocs theme colors every other row in a table with #f3f6f6.
- * We want to override that in such a way that it matches the other colors we're
- * specifying in this CSS extension. */
-.wy-table-odd td, .wy-table-striped tr:nth-child(2n-1) td, .rst-content table.docutils:not(.field-list) tr:nth-child(2n-1) td
-{
-  color: #e0e0e0;
-  background-color: #283039;
+.wy-nav-content {
+  max-width: 900px;
+}
+
+table {
+  margin: 15px;
 }
 
 td {
   color: #e0e0e0;
+  padding: 4px;
 }
 
 th {
   color: #e0e0e0;
+  background: #1C2840;
   font-weight: 700;
+  padding: 4px;
 }
 
 div.wy-side-nav-search {
@@ -37,7 +39,7 @@ div.wy-side-scroll {
 }
 
 a {
-  color: #e72323;
+  color: #c77323;
   font-weight: 700;
 }
 
@@ -47,6 +49,10 @@ a:hover {
 
 p, li, h1, h2, h3, h4, h5 {
   color: #e0e0e0;
+}
+
+h1, h2, h3 {
+  margin-top:35px;
 }
 
 div.imagerow {
@@ -71,5 +77,24 @@ img.center {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.rst-content code {
+  border: none;
+  background: #203050;
+  font-size: 10pt;
+  color: #e8c010;
+}
+
+code .hljs-keyword {
+  color: #fffdd0;
+}
+
+code .hljs-number {
+  color: #30d515;
+}
+
+p.caption {
+  background: #202020;
 }
 

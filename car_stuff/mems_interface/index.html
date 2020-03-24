@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Rover MEMS diagnostics - Bearinghead</title>
+  <title>Rover MEMS diagnostics - cmb</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -41,103 +41,84 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Bearinghead</a>
+        <a href="../.." class="icon icon-home"> cmb</a>
         
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    <li class="toctree-l1">
-    <a class="" href="../../contact/">Contact</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../contact/">Contact</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Car stuff</span></p>
                 <ul class="current">
-                    <li class="toctree-l1">
-    <a class="" href="../14cux/">14CUX</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../14cux/">14CUX</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../14cux_rescue/">14CUX rescue kit</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../14cux_rescue/">14CUX rescue kit</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../europa_jps/">Lotus Europa JPS</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../europa_jps/">Lotus Europa JPS</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../blue_star/">Mini Blue Star</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../blue_star/">Mini Blue Star</a>
                     </li>
-                    <li class="toctree-l1 current">
-    <a class="current" href="./">Rover MEMS diagnostics</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#updates">Updates</a></li>
-    
-
-    <li class="toctree-l2"><a href="#overview">Overview</a></li>
-    
-
-    <li class="toctree-l2"><a href="#software">Software</a></li>
-    
-
-    <li class="toctree-l2"><a href="#building-a-cable">Building a cable</a></li>
-    
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Rover MEMS diagnostics</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#updates">Updates</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#software">Software</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-a-cable">Building a cable</a>
         <ul>
-        
-            <li><a class="toctree-l3" href="#table-0-pin-assignment-for-usb-pc-interface-cable">Table 0: Pin assignment for USB PC interface cable</a></li>
-        
+    <li class="toctree-l3"><a class="reference internal" href="#table-0-pin-assignment-for-usb-pc-interface-cable">Table 0: Pin assignment for USB PC interface cable</a>
+    </li>
         </ul>
-    
-
-    <li class="toctree-l2"><a href="#protocol">Protocol</a></li>
-    
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#protocol">Protocol</a>
         <ul>
-        
-            <li><a class="toctree-l3" href="#table-1-initialization-sequence">Table 1: Initialization sequence</a></li>
-        
-            <li><a class="toctree-l3" href="#table-2-software-counterssettings-used-in-the-firmware-on-mne101170-all-values-in-hex">Table 2: Software counters/settings used in the firmware on MNE101170. All values in hex.</a></li>
-        
-            <li><a class="toctree-l3" href="#table-3-protocol-command-bytes-values-in-hex">Table 3: Protocol command bytes (values in hex)</a></li>
-        
-            <li><a class="toctree-l3" href="#table-4-data-frame-command-0x7d">Table 4: Data frame (Command 0x7D)</a></li>
-        
-            <li><a class="toctree-l3" href="#table-5-data-frame-command-0x80">Table 5: Data frame (Command 0x80)</a></li>
-        
+    <li class="toctree-l3"><a class="reference internal" href="#table-1-initialization-sequence">Table 1: Initialization sequence</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#table-2-software-counterssettings-used-in-the-firmware-on-mne101170-all-values-in-hex">Table 2: Software counters/settings used in the firmware on MNE101170. All values in hex.</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#table-3-protocol-command-bytes-values-in-hex">Table 3: Protocol command bytes (values in hex)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#table-4-data-frame-command-0x7d">Table 4: Data frame (Command 0x7D)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#table-5-data-frame-command-0x80">Table 5: Data frame (Command 0x80)</a>
+    </li>
         </ul>
-    
-
+    </li>
     </ul>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../r380_oil_pump/">Rover R380 oil pump</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../steering_wheel_adapters/">Steering wheel adapters</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../sykes_acr/">Sykes-Pickavant ACR</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../sykes_acr/">Sykes-Pickavant ACR</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Media</span></p>
                 <ul>
-                    <li class="toctree-l1">
-    <a class="" href="../../media/connections/">Connections</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../media/connections/">Connections</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../../media/cosmos/">Cosmos</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../media/cosmos/">Cosmos</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../../media/quarantine/">Quarantine (Gametek)</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../media/nomad/">Nomad</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../media/quarantine/">Quarantine (Gametek)</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Tools</span></p>
                 <ul>
-                    <li class="toctree-l1">
-    <a class="" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
                     </li>
-                    <li class="toctree-l1">
-    <a class="" href="../../tools/tire_inflators/">Tire inflators</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../tools/tire_inflators/">Tire inflators</a>
                     </li>
                 </ul>
       </div>
@@ -149,7 +130,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Bearinghead</a>
+        <a href="../..">cmb</a>
       </nav>
 
       
@@ -170,25 +151,28 @@
       
     </li>
   </ul>
+  
   <hr/>
 </div>
           <div role="main">
             <div class="section">
               
-                <p>See also the <a href="https://groups.google.com/forum/#!forum/mems-diagnostics">Google discussion group</a>.</p>
-<h1 id="updates">Updates</h1>
+                <h1 id="rover-mems-16-diagnostic-protocol">Rover MEMS 1.6 diagnostic protocol</h1>
+<p>Published: 2014-04-21</p>
+<p>See also the <a href="https://groups.google.com/forum/#!forum/mems-diagnostics">Google discussion group</a>.</p>
+<h2 id="updates">Updates</h2>
 <p><strong>2015-10-27:</strong> Converted the data frame offsets to hex and added a few more fields.</p>
 <p><strong>2015-06-12:</strong> I learned that the ECU's 32-byte response to the command 7D is also a frame of diagnostic data, and it contains some lambda sensor voltage and fuel trim information. I've added a new table toward the end of this article with a start to the description of this data structure. I also noted the idle error, ignition advance, and coil time fields in the data frame for command 80.</p>
-<h1 id="overview">Overview</h1>
+<h2 id="overview">Overview</h2>
 <p>Earlier versions of Rover MEMS (Modular Engine Management System) use a round three-pin diagnostic socket and a proprietary software protocol known as ROSCO (ROver Service COmmunications). With an oscilloscope, I was able to determine the signalling characteristics and baud rate, and a logic analyzer revealed some basic information about the protocol. Here in North America, early versions of this system are very uncommon. I only have access to a couple MEMS 1.6 SPi units, so I don't know how much of my research applies to other configurations. The information collected in this article may be helpful for anyone working to reverse engineer the diagnostic protocol(s) used by other variants of the system, and I hope that others publish their findings as well.</p>
-<h1 id="software">Software</h1>
+<h2 id="software">Software</h2>
 <p>I've written some free, open-source software that can display diagnostic information and test actuators on MEMS 1.6. It's written in two parts, a library and a front-end graphical interface. To use it, you'll need to build a cable to connect to the car (see "Building a cable", below.) Both Linux and Windows versions are available to download:</p>
 <ul>
 <li><a href="http://github.com/colinbourassa/librosco/releases/latest">librosco</a></li>
 <li><a href="http://github.com/colinbourassa/memsgauge/releases/latest">MEMSGauge</a></li>
 </ul>
 <p><a data-lightbox="all_images" data-title="MEMSGauge 0.1.0 screenshot" href="../images/memsgauge_0.1.0.png"><img alt="MEMSGauge 0.1.0 screenshot" class="centerthumb" src="../images/memsgauge_0.1.0.png" /></a></p>
-<h1 id="building-a-cable">Building a cable</h1>
+<h2 id="building-a-cable">Building a cable</h2>
 <p>To build a cable that will connect to the ECU's diagnostic port, you will need three things:</p>
 <ul>
 <li>
@@ -216,7 +200,7 @@
 </ul>
 <p>Once you have the above components, solder leads onto the pins, insert them into the connector shell, and solder the FTDI cable wires to the pin leads according to the following table. For the pin numbering on the 172201 connector, look at the face of the connector with the key (notch) on the bottom. The first pin (C549-1) will be on the top, and the numbering continues clockwise. (If you're looking at the mating connector in the car, the numbering goes counter-clockwise.)</p>
 <p>When looking for the diagnostic connector on the vehicle, note that cars with a security/immobilizer module (such as the Lucas 5AS) will often have a second connector of the same type. On the Mini SPi, the engine ECU connector is beige, while the security module connector is green. Make sure you're connecting to the right one.</p>
-<h2 id="table-0-pin-assignment-for-usb-pc-interface-cable">Table 0: Pin assignment for USB PC interface cable</h2>
+<h3 id="table-0-pin-assignment-for-usb-pc-interface-cable">Table 0: Pin assignment for USB PC interface cable</h3>
 <table>
 <thead>
 <tr>
@@ -248,10 +232,10 @@
 </tbody>
 </table>
 <p><a data-lightbox="all_images" data-title="TE Connectivity 172201 pin numbering" href="../images/te_connectivity_172201.jpg"><img alt="TE Connectivity 172201 pin numbering" class="centerthumb" src="../images/te_connectivity_172201.jpg" /></a></p>
-<h1 id="protocol">Protocol</h1>
+<h2 id="protocol">Protocol</h2>
 <p>The ECU's diagnostic port uses a serial protocol, with 8 data bits, no parity, and 1 stop bit, running at 9600 bps.</p>
 <p>When a diagnotic tool (or a PC running diagnostic software) is first connected to the ECU, it must send an initialization sequence to enable further communication. I haven't looked inside the SPi MEMS firmware and I've only run experiments with a single car, so I can't provide any further insight on the meaning of this sequence. I'd certainly like to hear from anyone who has more information. Note that the first byte returned by the ECU appears to always be an echo of the command byte.</p>
-<h2 id="table-1-initialization-sequence">Table 1: Initialization sequence</h2>
+<h3 id="table-1-initialization-sequence">Table 1: Initialization sequence</h3>
 <table>
 <thead>
 <tr>
@@ -280,7 +264,7 @@
 </table>
 <p>Once the initialization sequence is complete, any of several single-byte commands may be sent to the ECU. They are described in Table 3.</p>
 <p>Some of the commands appear to increment or decrement settings that have a predefined range. The settings that I've found are described in Table 2.</p>
-<h2 id="table-2-software-counterssettings-used-in-the-firmware-on-mne101170-all-values-in-hex">Table 2: Software counters/settings used in the firmware on MNE101170. All values in hex.</h2>
+<h3 id="table-2-software-counterssettings-used-in-the-firmware-on-mne101170-all-values-in-hex">Table 2: Software counters/settings used in the firmware on MNE101170. All values in hex.</h3>
 <table>
 <thead>
 <tr>
@@ -328,7 +312,7 @@
 </tbody>
 </table>
 <p>Although some of the actuators have pairs of on/off commands to drive them, I've found that the system fitted to the Mini SPi will actually turn off the AC relay, PTC relay, and fuel pump relay automatically after a short time (i.e. without requiring the 'off' command). The 'off' command is acknowledged by the ECU, but apparently has no effect.</p>
-<h2 id="table-3-protocol-command-bytes-values-in-hex">Table 3: Protocol command bytes (values in hex)</h2>
+<h3 id="table-3-protocol-command-bytes-values-in-hex">Table 3: Protocol command bytes (values in hex)</h3>
 <table>
 <thead>
 <tr>
@@ -606,7 +590,7 @@
 </tbody>
 </table>
 <p>The tables below describe the known fields in the data frames that are sent by the ECU in response to commands 0x7D and 0x80, respectively. Multi-byte fields are sent in big-endian format.</p>
-<h2 id="table-4-data-frame-command-0x7d">Table 4: Data frame (Command 0x7D)</h2>
+<h3 id="table-4-data-frame-command-0x7d">Table 4: Data frame (Command 0x7D)</h3>
 <table>
 <thead>
 <tr>
@@ -745,7 +729,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="table-5-data-frame-command-0x80">Table 5: Data frame (Command 0x80)</h2>
+<h3 id="table-5-data-frame-command-0x80">Table 5: Data frame (Command 0x80)</h3>
 <table>
 <thead>
 <tr>
@@ -893,16 +877,16 @@
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
     </span>
 </div>
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
-    <script type="text/javascript" defer>
+    <script defer>
         window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(false);
+            SphinxRtdTheme.Navigation.enable(true);
         };
     </script>
 
