@@ -175,7 +175,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#objecttab-inventory-object-table">OBJECT.TAB - Inventory Object Table</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#pclasstab-planet-class-data">PCLASS.TAB - Planet Class Data</a>
+    <li class="toctree-l3"><a class="reference internal" href="#pclasstab-place-class-data">PCLASS.TAB - Place Class Data</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#placetab">PLACE.TAB</a>
     </li>
@@ -496,8 +496,8 @@ uint32_t offset;
 <li><strong>Direct byte sequence copy from input:</strong> Marked by both bits 7 and 6 being clear. This copies the next <em>n</em> bytes, in sequence, from the input, where <em>n</em> is the value of this RLE byte.</li>
 </ul>
 <h3 id="planet-surface-textures-pln">Planet surface textures (.PLN)</h3>
-<p>The image data that represents the surface of planets is stored in the TEST.DAT archive as a series of .pln files. Each .pln file has at least one palette file (.pal) associated with it, and most of the .plns files have multiple possible palettes.</p>
-<p>The image files are named WORLD##a.pln", where ## is a two-digit, zero-prefixed decimal number in the range 00-50 (skipping 21, 22, and 23). The associated palette filenames use the .pal extension. They start with the same seven characters, but the lowercase '<em>a</em>' suffix is incremented for every associated palette beyond the first. For example, WORLD20a.pln can use any palette from WORLD20a.pal through WORLD20m.pal. (WORLD20 happens to have the greatest number of associated palette files, at thirteen -- <em>a</em> through <em>m</em>.)</p>
+<p>The image data that represents the surface of planets is stored in the TEST.DAT archive as a series of .pln files. Each .pln file has at least one palette file (.pal) associated with it, and most of the .pln files have multiple possible palettes.</p>
+<p>The image files are named "WORLD##a.pln", where ## is a two-digit, zero-prefixed decimal number in the range 00-50 (skipping 21, 22, and 23). The associated palette filenames use the .pal extension. They start with the same seven characters, but the lowercase '<em>a</em>' suffix is incremented for every associated palette beyond the first. For example, WORLD20a.pln can use any palette from WORLD20a.pal through WORLD20m.pal. (WORLD20 happens to have the greatest number of associated palette files, at thirteen -- <em>a</em> through <em>m</em>.)</p>
 <p>Inside each .pln file is an uncompressed 8-bit palette-indexed image. They are all the same size at 200x100 pixels. The only header information is a single little-endian 16-bit word containing the number of pixels per line. All .pln files therefore have the same header (C8 00) and same filesize, at 20002 bytes.</p>
 <p>The mapping between planet IDs and their texture/palette files is not done by a data file, but a hardcoded table in the game's executable. In my copy, it appears as a series of two-byte pairs at offset <code>DS:51F4</code> (or <code>35384h</code> in the binary.) The index of the pair matches the ID of the planet (see PLACE.TAB, below). The first byte in each pair is the base number for the texture/palette filename, and the second byte is the lower-case alpha character used as a suffix to select one of the multiple palette files. Places that are not valid travel destinations (i.e. the stars) do not have surface textures that are rendered in game, and their entries in this table are zeroed.</p>
 <h2 id="alien-animations">Alien animations</h2>
@@ -634,7 +634,7 @@ uint32_t offset;
 </tbody>
 </table>
 <h2 id="sound">Sound</h2>
-<p>The game's audio files are packed into .NNV containers, stored in SAMPLES.DAT and TEST.DAT. The container format itself is very simple: the first byte is the number of contained files, and it is immediately followed by pairs of 32-bit words that contain the starting offset and size, respectively, for each of the file in the container. For example, an .NNV that contains four files will have a header of 33 bytes (one byte for the file count, plus four sets of two 32-bit words). Note that some NNVs have index entries that refer to contained files of zero length. This is valid, and simply means that the following file's data will start at the same offset as the zero-length file.</p>
+<p>The game's audio files are packed into .NNV containers, stored in SAMPLES.DAT and TEST.DAT. The container format itself is very simple: the first byte is the number of contained files, and it is immediately followed by pairs of 32-bit words that contain the starting offset and size, respectively, for each of the files in the container. For example, an .NNV that contains four files will have a header of 33 bytes (one byte for the file count, plus four sets of two 32-bit words). Note that some NNVs have index entries that refer to contained files of zero length. This is valid, and simply means that the following file's data will start at the same offset as the zero-length file.</p>
 <p>The sound data itself is encoded with a 4-bit delta PCM scheme. It represents a single channel of unsigned 8-bit PCM audio intended for playback at 7042Hz. (This unusual playback rate is the result of the time constant divisor math that is used by the Sound Blaster DSP programming interface.) The table of PCM delta values used by the algorithm is made up of fifteen sections, with each being sixteen bytes long. In my copy of the game, this table is stored in the main executable at offset <code>29705h</code>, which becomes <code>seg060:1055</code> at runtime.</p>
 <p>While doing some research, I found that DPCM delta arrays with the exact same values are used by the 1995 Sega Genesis game <em>Comix Zone</em>, and probably other games as well. It seemed that there must be a common reference that was used by the developers, and I then found that <em>The Data Compression Book</em> (Nelson, 1991) contains a description of audio compression techniques with these precise delta values in an example. They are derived from the following exponential transfer function:</p>
 <p><code>output = 127.0 * ( pow(2.0, input / max_input_val) - 1.0 )</code></p>
@@ -1051,7 +1051,7 @@ uint32_t offset;
 </tr>
 <tr>
 <td>09</td>
-<td>Multipurpose ID information.<br/>If bit 0 in offset 08 is set, then the value in this field is used as an index to a 4-byte record in OBJTEXT.IDX, which in turn provides an offset into OBJTEXT.TXT for informational text associated with this object. Otherwise, if bit 08.0 is clear, this field is interpreted as an enum value that maps to the different levels of shields, missiles, scanners, etc.</td>
+<td>Multipurpose ID information.<br/>If the item is of type 01 (i.e. it has informational text associated with it), then the value in this field is used as an index to a 4-byte record in OBJTEXT.IDX, which in turn provides an offset into OBJTEXT.TXT for the text. Otherwise, if the item is of another type, this field is interpreted as an enum value that maps to the different levels of shields, missiles, scanners, etc.</td>
 </tr>
 <tr>
 <td>0A</td>
@@ -1067,7 +1067,7 @@ uint32_t offset;
 </tr>
 </tbody>
 </table>
-<h3 id="pclasstab-planet-class-data">PCLASS.TAB - Planet Class Data</h3>
+<h3 id="pclasstab-place-class-data">PCLASS.TAB - Place Class Data</h3>
 <ul>
 <li>Total size: 3072 (C00h) bytes</li>
 <li>Record size: 48 (30h) bytes</li>
@@ -1213,7 +1213,7 @@ uint32_t offset;
 <li>Record size: 2 bytes</li>
 <li>Record count: 10 (Ah), of which 5 are used (indices 1 through 5)</li>
 </ul>
-<p>Data for ship-repair robots. Each field only contains a single value, which translates to the robots' effectiveness.</p>
+<p>Data for ship-repair robots. Each record only contains a single value, which translates to the robots' effectiveness.</p>
 <h3 id="scclasstab-scanner-class-table">SCCLASS.TAB - Scanner Class Table</h3>
 <ul>
 <li>Total size: 60 (3Ch) bytes</li>
@@ -1285,7 +1285,7 @@ uint32_t offset;
 <li>Record size: 70 (46h) bytes</li>
 <li>Record count: 256 (100h), of which 255 are used (including one for the Player's Ship)</li>
 </ul>
-<p>The last entry is for the player's own ship, and the game executable has several routines with hardcoded access to specific fields in this record (at offset 45BAh).</p>
+<p>The last entry is for the player's own ship, and the game executable has several routines with hardcoded access to specific fields in this record (at offset <code>45BAh</code>).</p>
 <table>
 <thead>
 <tr>
@@ -1504,7 +1504,7 @@ uint32_t offset;
 <tbody>
 <tr>
 <td>00</td>
-<td>Type indicator:<br/><em> 00: Ask about person, place, or object, or give fact<br/></em> 01: ?<br/><em> 02: Alien sees object in player's inventory<br/></em> 03: Trades for object<br/><em> 04: Display object<br/></em> 05: Greeting (first meeting)<br/><em> 06: Greeting (subsequent meetings)<br/></em> 07: Ask about alien race<br/>* 08: Give object</td>
+<td>Type indicator:<br/>00: Ask about person, place, or object, or give fact<br/>01: ?<br/>02: Alien sees object in player's inventory<br/>03: Trades for object<br/>04: Display object<br/>05: Greeting (first meeting)<br/>06: Greeting (subsequent meetings)<br/>07: Ask about alien race<br/>08: Give object</td>
 </tr>
 <tr>
 <td>01</td>
