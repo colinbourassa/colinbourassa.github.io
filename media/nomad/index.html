@@ -85,7 +85,15 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#nomad-resource-explorer">Nomad Resource Explorer</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#methodology">Methodology</a>
+    <li class="toctree-l2"><a class="reference internal" href="#notes-to-other-developers-and-hackers">Notes to other developers and hackers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#disassembly-methodology">Disassembly methodology</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resource-explorer-source-code">Resource Explorer source code</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#modifying-the-original-game">Modifying the original game</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#related-resources">Related resources</a>
     </li>
@@ -284,10 +292,16 @@
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - object" href="../images/nre-screenshot-object.png"><img alt="Nomad Resource Explorer - object" class="rowthumb" src="../images/nre-screenshot-object.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - fullscreen" href="../images/nre-screenshot-fullscreen.png"><img alt="Nomad Resource Explorer - fullscreen" class="rowthumb" src="../images/nre-screenshot-fullscreen.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - conversation" href="../images/nre-screenshot-conversation.png"><img alt="Nomad Resource Explorer - conversation" class="rowthumb" src="../images/nre-screenshot-conversation.png" /></a></p>
-<h2 id="methodology">Methodology</h2>
+<h2 id="notes-to-other-developers-and-hackers">Notes to other developers and hackers</h2>
+<h3 id="disassembly-methodology">Disassembly methodology</h3>
 <p>Disassembly of the main executable was a substantial task given its size and its use of code overlays. Early in the process, I focused on identifying code that loaded data tables from the game's resource files. Labeling the segments/offsets where these tables were stored in memory was very useful in identifying routines that handled that data.</p>
 <p><a data-lightbox="all_images" data-title="Nomad disassembly in IDA" href="../images/nomad-ida.png"><img alt="Nomad disassembly in IDA" class="centerthumb" src="../images/nomad-ida.png" /></a></p>
 <p>The game's system for defining the layout of dialog boxes uses several different structs that carry information about X,Y positioning and the types of widgets to display. These dialog data structs also contain function pointers to routines that do the drawing for certain regions. There are a large number of fields across several different structure definitions used by the game, and I only scratched the surface of this system; it wasn't really necessary for reversing the game's data file formats, which was my primary goal.</p>
+<p>You may have noticed that there's no information in this article about the game's 3D ship models. I personally have no experience with 3D rendering engines, but if anyone out there can shed some light on the details of the game's 3D engine or (especially) the format of the .BIN models (from TEST.DAT), please <a href="mailto:colin.bourassa@gmail.com">get in touch</a>.</p>
+<h3 id="resource-explorer-source-code">Resource Explorer source code</h3>
+<p>The Nomad Resource Explorer code relies on tightly packed struct definitions (without padding) to match up to the binary file formats. This struct packing is not a feature that is strictly defined by the C/C++ language, but rather is implemented differently depending on the compiler. The code currently uses the <code>__attribute__((packed))</code> directive, which is respected by the GCC family of compilers as well as LLVM/Clang. MinGW also works, although some versions apparently require the GCC parameter <code>-mno-ms-bitfields</code> to force the packing. (This is therefore added as a compiler option in CMakeLists.txt.) If anyone attempts to use a Microsoft compiler, note that some additional work will be required to introduce the <code>#pragma pack(1)</code> directive.</p>
+<h3 id="modifying-the-original-game">Modifying the original game</h3>
+<p>With the information available here, it would certainly be possible to modify the original game. To simplify matters, you should be able to skip the step of LZ-compressing the files packed into the DAT archives. These archives support storage of uncompressed files as well, with the flags in the index entries set appropriately. This would result in significantly larger DAT archives, but it would also allow changing the game's data files directly within their container and without unpacking/repacking. If you want to simply change a few values with a hex editor, this would be much more convenient.</p>
 <h2 id="related-resources">Related resources</h2>
 <ul>
 <li><a href="https://wiki.multimedia.cx/">MultimediaWiki</a>: documents the technical details on a wide range of audio/video codecs</li>
