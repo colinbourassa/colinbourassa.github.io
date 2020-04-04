@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Nomad - cmb</title>
+  <title>Nomad (GameTek) - cmb</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -20,7 +20,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Nomad";
+    var mkdocs_page_name = "Nomad (GameTek)";
     var mkdocs_page_input_path = "media/nomad.md";
     var mkdocs_page_url = null;
   </script>
@@ -81,7 +81,7 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../ferrari_vhs/">Ferrari promotional VHS</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Nomad</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Nomad (GameTek)</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#nomad-resource-explorer">Nomad Resource Explorer</a>
     </li>
@@ -98,6 +98,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#related-resources">Related resources</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#game-version">Game version</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#other-releases">Other releases</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#disney-association">Disney association</a>
     </li>
@@ -113,7 +117,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#static-image-data">Static image data</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#inventory-objects-and-overlay-images-stp">Inventory objects and overlay images (.STP)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#overlay-images-stamps-and-stamp-rolls-stp-rol">Overlay images - stamps and stamp rolls (.STP, .ROL)</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#planet-surface-textures-pln">Planet surface textures (.PLN)</a>
     </li>
@@ -231,9 +235,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#demo-file">Demo file</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#list-of-filenames-in-the-original-source">List of filenames in the original source</a>
+    </li>
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../quarantine/">Quarantine (Gametek)</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../quarantine/">Quarantine (GameTek)</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Tools</span></p>
@@ -268,7 +274,7 @@
         
       
     
-    <li>Nomad</li>
+    <li>Nomad (GameTek)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -301,7 +307,7 @@
 <h3 id="resource-explorer-source-code">Resource Explorer source code</h3>
 <p>The Nomad Resource Explorer code relies on tightly packed struct definitions (without padding) to match up to the binary file formats. This struct packing is not a feature that is strictly defined by the C/C++ language, but rather is implemented differently depending on the compiler. The code currently uses the <code>__attribute__((packed))</code> directive, which is respected by the GCC family of compilers as well as LLVM/Clang. MinGW also works, although some versions apparently require the GCC parameter <code>-mno-ms-bitfields</code> to force the packing. (This is therefore added as a compiler option in CMakeLists.txt.) If anyone attempts to use a Microsoft compiler, note that some additional work will be required to introduce the <code>#pragma pack(1)</code> directive.</p>
 <h3 id="modifying-the-original-game">Modifying the original game</h3>
-<p>With the information available here, it would certainly be possible to modify the original game. To simplify matters, you should be able to skip the step of LZ-compressing the files packed into the DAT archives. These archives support storage of uncompressed files as well, with the flags in the index entries set appropriately. This would result in significantly larger DAT archives, but it would also allow changing the game's data files directly within their container and without unpacking/repacking. If you want to simply change a few values with a hex editor, this would be much more convenient.</p>
+<p>With the information available here, it would certainly be possible to modify the original game's resources. To simplify matters, you should be able to skip the step of LZ-compressing the files packed into the DAT archives. These archives support storage of uncompressed files as well (as long as their index entry fields are set appropriately.) Storing only uncompressed data would result in significantly larger DAT archives, but it would also allow changing the game's data files directly within their container and without unpacking/repacking. If you want to simply change a few values with a hex editor, this would be much more convenient.</p>
 <h2 id="related-resources">Related resources</h2>
 <ul>
 <li><a href="https://wiki.multimedia.cx/">MultimediaWiki</a>: documents the technical details on a wide range of audio/video codecs</li>
@@ -312,51 +318,85 @@
 <li><a href="http://www.scs.stanford.edu/05au-cs240c/lab/hardware/SoundBlaster.pdf">Sound Blaster Series - Hardware Programming Guide</a></li>
 </ul>
 <h2 id="game-version">Game version</h2>
-<p>All of my work here was done with the following version of this game:</p>
+<p>All of my work here was done with the following version of this game, which is the v1.01 bugfix patch to the original 3.5" disk release:</p>
 <blockquote>
 <p>Nomad v1.01.00<br/>
 Compiled: 14:16:48 on February 01 1994</p>
 </blockquote>
-<p>The files packaged with this release can be identified with the following md5sum fingerprints:</p>
+<p>The files packaged with this release can be identified with the following SHA-256 fingerprints:</p>
 <table>
 <thead>
 <tr>
 <th>Filename</th>
-<th>md5sum</th>
+<th>SHA-256</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>NOMAD.EXE</td>
-<td><code>24246d51b851c02260992ec1d10de3bb</code></td>
+<td><code>8fdc6d59d102fe786cbbf471bfdd94b7b1fcf7df3c886f52c098720e20f56454</code></td>
 </tr>
 <tr>
 <td>ANIM.DAT</td>
-<td><code>9502592e48404dca17dda84b2b79caca</code></td>
+<td><code>8c24057919509c082b6bd707f99de5ee3c112234b0ed579befe24b0e9a7418e5</code></td>
 </tr>
 <tr>
 <td>CONVERSE.DAT</td>
-<td><code>394b8fad1025f0f2526ce71f8ab59cf2</code></td>
+<td><code>1c28539c94ea77da7bb083372fbf4db2f53317590d2266faac11b1eded3b16ea</code></td>
 </tr>
 <tr>
 <td>INVENT.DAT</td>
-<td><code>bd80c2012775dcfe03a58fc0a444137b</code></td>
+<td><code>eed24c1bfbc9d3edc70255f7f044fdd09e9083373d43415834b37e03ba3a4130</code></td>
 </tr>
 <tr>
 <td>SAMPLES.DAT</td>
-<td><code>8d5615377223f2d4d10fdc373aaaba90</code></td>
+<td><code>73d8e924d6f42ca1ee0699cd595c512b16f8179fcc79cf6e49d03be5042c6edc</code></td>
 </tr>
 <tr>
 <td>TEST.DAT</td>
-<td><code>fd0e46e22eb844d685958e3e17005413</code></td>
+<td><code>7e6a0c773c1d46837b2ec63d32981263ce155bb2a572f7f21af3904168b0d6d7</code></td>
 </tr>
 </tbody>
 </table>
-<p>In the routines used by NOMAD.EXE to manage buffer regions, the marker bytes 52 47 ("RG") and 4F 4B ("OK") are used. These might be the signatures of two programmers that worked on the game -- Richard Garcia and Omar Khudari.</p>
+<p>In the routines used by NOMAD.EXE to manage buffer regions, the marker bytes <code>52 47</code> ("RG") and <code>4F 4B</code> ("OK") are used. These might be the signatures of two programmers that worked on the game -- Richard Garcia and Omar Khudari.</p>
+<h3 id="other-releases">Other releases</h3>
+<p>There are a number of <a href="https://www.mobygames.com/game/dos/nomad/release-info">different versions of the game</a> that can be found in the wild:</p>
+<ul>
+<li>Pre-release/beta. This was released as "Project Nomad" by the scene group Razor1911 on seven 740KB disk images. It was followed up with <code>NOMADDOX.ZIP</code>, described as "quick docs" for the game. The <a href="http://textfiles.com/piracy/RAZOR/nomad.diz">.diz file</a> and <a href="http://textfiles.com/piracy/RAZOR/nomad.nfo">.nfo file</a> are still available.<ul>
+<li>Identified by "Space Mountain v0.97.01 / Compiled: 18:07:10 on Oct 07 1993"</li>
+<li>The intro/endgame art for this release is very different, and shows the player's character without a helmet and in normal civilian clothes. This may have lasted through other early European releases.</li>
+</ul>
+</li>
+<li>North American release on four 1.44MB 3.5" disks<ul>
+<li>Identified by "Nomad v1.00.00 / Compiled: 22:31:45 on Jan 04 1994"</li>
+</ul>
+</li>
+<li>Demo. The DAT archives packaged with this version are stripped down to a minimum number of elements required for a demo experience.<ul>
+<li>Identified by "Nomad Demo v1.00.00 / Compiled: 15:50:31 on Jan 28 1994"</li>
+</ul>
+</li>
+<li>European release on four 1.44MB 3.5" disks</li>
+<li>European release on CD-ROM</li>
+<li>v1.01 patched version<ul>
+<li>Identified by "Nomad v1.01.00 / Compiled: 14:16:48 on February 01 1994"</li>
+<li>Fixed a bug that prevented adding items to the player's inventory under certain circumstances.</li>
+</ul>
+</li>
+<li>"3-in-1" CD-ROM compilation of GameTek titles, including Star Crusader, Nomad, and Bureau 13. The version of Nomad seems to be the unpatched v1.00.00. This release was apparently one of several GameTek CD-ROM compilations, with the others being:<ul>
+<li><a href="http://redump.org/disc/4657">Maximum Road Race + Millennia + Hellfire Zone</a></li>
+<li><a href="http://redump.org/disc/32000">Road Warrior + Brutal: Paws of Fury + Evolution: Lost in Time</a></li>
+<li><a href="http://redump.org/disc/4656">Super Stardust + Cyberbykes + Quarantine</a></li>
+</ul>
+</li>
+</ul>
+<p><a data-lightbox="all_images" data-title="European endgame screen" href="../images/nomad-endgame.png"><img alt="European endgame screen" class="centerthumb" src="../images/nomad-endgame.png" /></a></p>
+<p>Nomad seems to have enjoyed more success in the German market, where it was the subject of <a href="https://www.kultboy.com/testbericht-uebersicht/4420/">several positive reviews in PC gaming magazines</a>.</p>
 <h2 id="disney-association">Disney association</h2>
 <p>Some reviewers of this game have commented on the fact that it contains several references to the Disneyland "Space Mountain" attraction, apparently because of some early licensing agreement with Disney that did not survive to the final release. The in-game log is titled "Space Mountain Log", and the design of the player's ship matches that used in the Space Mountain roller coaster at the theme park.</p>
 <p>I've read that some versions of the game have a very different introduction that specifically mentions Disneyland. Although I have never played such a version, I did find some unused audio files packed in the game's data archives in which a narrator does indeed mention the theme park by name. The narrator also establishes the game's premise: the player was the unwitting passenger on the Space Mountain ship as it was accidentally activated and departed Earth. (This game story was ultimately replaced by the one in which the ship crash-lands on Earth, and the player is an operative assigned by a shadowy international intelligence organization.)</p>
 <p>The Disney connection may also help to explain the support for the Disney Sound Source hardware, which was otherwise not popular among game developers.</p>
+<p><strong>Update 2020-04-04:</strong> I've had a chance to look at the data files for the earliest (pre-release?) copy of the game, and they contain even more Disney material, including an alternate title screen with the name "Space Mountain":
+<a data-lightbox="all_images" data-title="Alternate Space Mountain title screen" href="../images/nomad-space-mountain.png"><img alt="Alternate Space Mountain title screen" class="centerthumb" src="../images/nomad-space-mountain.png" /></a></p>
 <h2 id="dat-archive-format">DAT archive format</h2>
 <p>Apart from the main executable, NOMAD.EXE, the only interesting files are the five data archives:</p>
 <ul>
@@ -405,92 +445,124 @@ uint32_t offset;
 <thead>
 <tr>
 <th>Command byte</th>
+<th># of parameter bytes</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>01</td>
+<td>0</td>
 <td>Insert the Player's name.</td>
 </tr>
 <tr>
 <td>02</td>
+<td>0</td>
 <td>Insert the name of the Player's ship.</td>
 </tr>
 <tr>
 <td>03</td>
+<td>0</td>
 <td>Name of current location.</td>
 </tr>
 <tr>
 <td>04</td>
+<td>0</td>
 <td>Insert the string <code>&lt;GAMESTR&gt;</code></td>
 </tr>
 <tr>
 <td>05</td>
-<td>Insert meta text (e.g. a randomly chosen synonym, Shaasa phrase that may be translated, or Losten gateway code). See sections on META.TAB and METATXT.TAB.</td>
+<td>2</td>
+<td>Insert meta text (e.g. a randomly chosen synonym, Shaasa phrase that may be translated, or Losten gateway code). The two parameter bytes are combined into a 16-bit little-endian value that specifies the number of the index in META.TAB. Note that this number is given as if META.TAB used 1-based indexing; since it actually uses 0-based indexing, this value must be decremented before being used. See sections on <a href="#metatab">META.TAB</a> and <a href="#metatxttab">METATXT.TAB</a>.</td>
 </tr>
 <tr>
 <td>06</td>
+<td>1</td>
 <td>Add one item (specified by the following byte) to the Player's inventory.</td>
 </tr>
 <tr>
 <td>07</td>
+<td>0</td>
 <td>Insert the string <code>&lt;METAMOVE&gt;</code></td>
 </tr>
 <tr>
 <td>08</td>
-<td>Change temperament of alien speaking the text.</td>
+<td>1</td>
+<td>Change temperament of alien speaking the text (by the value specified in the following byte.)</td>
 </tr>
 <tr>
 <td>09</td>
+<td>1</td>
 <td>Grant knowledge of fact (specified by the following byte).</td>
 </tr>
 <tr>
 <td>0A</td>
+<td>1</td>
 <td>Grant knowledge of place (specified by the following byte or byte pair). If the first byte following the command byte has its MSB clear, then it may be used directly as an index into the Place Table. Otherwise, if the first byte has its MSB set, then it must be combined with the following byte to form the Place Table index: <code>(firstbyte &amp; 7Fh) | (secondbyte &lt;&lt; 7)</code>.</td>
 </tr>
 <tr>
 <td>0B</td>
+<td>1</td>
 <td>Set bit 0 in the first byte of the current Alien State Table entry.</td>
 </tr>
 <tr>
 <td>0C</td>
+<td>1</td>
 <td>Grant knowledge of item (specified by the following byte).</td>
 </tr>
 <tr>
 <td>0D</td>
+<td>0</td>
 <td>Set bit 1 in the first byte of the current Alien State Table entry.</td>
 </tr>
 <tr>
 <td>0E</td>
+<td>0</td>
 <td>Copy contents of 'encount_relate2' table to 'encount_relate' table.</td>
 </tr>
 <tr>
 <td>0F</td>
+<td>1</td>
 <td>Grant knowledge of race (specified by the following byte).</td>
 </tr>
 <tr>
 <td>10</td>
+<td>2</td>
 <td>Modify 'encount_relate' tables in memory.</td>
 </tr>
 <tr>
 <td>11</td>
-<td>Grant knowledge of ship (specified by the following byte).</td>
+<td>1</td>
+<td>Store ship ID (specified by the following byte) in the Setup Table. The game doesn't track knowledge of ships in the same way as people, places, and objects. However, mentions of ships in conversation are usually followed with this command that causes the game to modify the "setup table" for that particular ship.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>2</td>
+<td>Modify Setup Table.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>0</td>
+<td>Set flag that controls alien conversation/behavior.</td>
 </tr>
 <tr>
 <td>14</td>
+<td>0</td>
 <td>Set alien attribute (friendliness?) to maximum (64h). The alien table entry to be modified is selected by existing pointers in memory.</td>
 </tr>
 <tr>
 <td>15</td>
+<td>0</td>
 <td>Set alien attribute (friendliness?) to minimum (00h). The alien table entry to be modified is selected by existing pointers in memory.</td>
 </tr>
 <tr>
 <td>16</td>
+<td>1</td>
 <td>Modify mission table state for the mission specified by the following byte. In byte 12 of the MISSION.TAB entry: if bit 1 is set and bit 0 is clear, then set bit 7.</td>
 </tr>
 </tbody>
 </table>
+<p>Any nonzero byte less than 20h that appears in mission/conversation text and that <em>isn't</em> covered by the above table will cause the game to insert the string <code>&lt;HUH?&gt;</code>.</p>
 <h2 id="palettes">Palettes</h2>
 <p>The palette data is stored in a number of .PAL files in the TEST.DAT archive. Each contains a three-byte header in which the first byte appears to always be 00h. The second byte is the VGA palette index at which the color data should be written. The third byte holds the number of palette entries, but only in the smaller palettes; it is 00h for the 256-color files. After this short header, the colors follow as 6-bit RGB triplets, with one color component per byte. Each palette is one of two different sizes:</p>
 <ul>
@@ -501,14 +573,16 @@ uint32_t offset;
 <code>r = (r_raw &lt;&lt; 2) | (r_raw &gt;&gt; 4);</code></p>
 <p>The starting palette index is important because image data can use colors from any location in the VGA palette (which is defaulted by the graphics hardware BIOS.) Different elements in the game use different index ranges in the palette. The planet textures use up to 64 colors in the range 80h to BFh. The 3D ship models use the range C0h to FFh.</p>
 <h2 id="static-image-data">Static image data</h2>
-<h3 id="inventory-objects-and-overlay-images-stp">Inventory objects and overlay images (.STP)</h3>
-<p>Most of the images in Nomad are stored as run-length-encoded (RLE) data with 8 bits per pixel, indexing into a palette. (Note that the RLE compression is another layer inside the LZ compression of the archive, so many of these files are effectively compressed twice.) Images in this format are stored with a filename using the ".stp" extension, which is likely a proprietary format created for the game.</p>
-<p>The STP image format has very little header information: it stores only the image width and height as little-endian 16-bit values in the first four bytes. The files I've used for testing all had zeroes in the following four bytes, and then image data starting at offset 0008. Each chunk of data in the file starts with a runlength byte, which describes that chunk as being one of three types:</p>
+<h3 id="overlay-images-stamps-and-stamp-rolls-stp-rol">Overlay images - stamps and stamp rolls (.STP, .ROL)</h3>
+<p>The images in Nomad that are treated as overlays on a background are called "stamps" and stored in files with an .STP extension. STP data is run-length-encoded (RLE) with 8 bits per pixel, indexing into a palette. (Note that the RLE compression is another layer inside the LZ compression of the archive, so many of these files are effectively compressed twice.) The game images stored in this format are the inventory objects, navigation star map background, individual starfield sprites, sheild and explosion sprites, and overlays from the intro sequence.</p>
+<p>The STP image format has a small amount of header information: it stores the image width and height as little-endian 16-bit values in the first four bytes. Following this are another two 16-bit values that represent the <em>negative</em> pixel offsets (for column and row, respectively) on screen at which the drawing should start. For example, if the game engine is preparing to draw a stamp at 100,100 and the .STP data contain <code>02 00 02 00</code> at offsets 04 through 07, then the stamp will actually be drawn with the upper left corner at 98,98.</p>
+<p>The STP raster image data starts at offset 08. Each chunk of data in the file starts with a runlength byte, which describes that chunk as being one of three types:</p>
 <ul>
 <li><strong>Pointer advance / background:</strong> Marked by bit 7 being set (bitmask 80h). In the game engine, this simply advances the pointer in the output buffer by the number of bytes specified in the lower seven bits of this RLE byte (bitmask 7Fh). For example, B8h will advance the output pointer by 38h bytes. The effect of this is that the existing content of the output buffer will persist, unchanged by the decoding sequence. The game engine can prefill the buffer with whatever values is appropriate for the type of image being displayed. In the case of inventory items, the buffer is mostly filled with 00h. The color at index 00h in most of the game's palettes is black, which provides a black background for the image.</li>
 <li><strong>Repeat byte from input:</strong> Marked by bit 7 being clear and bit 6 being set. This loads the next byte from the input buffer, and repeats it to the output buffer the number of times specified in the lower six bits of this RLE byte (bitmask &amp; 3Fh).</li>
 <li><strong>Direct byte sequence copy from input:</strong> Marked by both bits 7 and 6 being clear. This copies the next <em>n</em> bytes, in sequence, from the input, where <em>n</em> is the value of this RLE byte.</li>
 </ul>
+<p>The .ROL file format represents a "stamp roll", which is a simple packaging of related .STP files. The .ROL header is a simple sequence of 32-bit words, each one representing the start offset for one of the contained .STPs. The .ROL file header does not contain an explicit count of the number of contained files; this number is calculated by dividing the very first 32-bit word (which is the offset of the first STP file and therefore also the size of the ROL header) by 4. Overlay animations in the game's intro use stamp rolls, as do some of the diagrams that appear in the game's dialog boxes (engineering schematics of ships, flight control arrows).</p>
 <h3 id="planet-surface-textures-pln">Planet surface textures (.PLN)</h3>
 <p>The image data that represents the surface of planets is stored in the TEST.DAT archive as a series of .pln files. Each .pln file has at least one palette file (.pal) associated with it, and most of the .pln files have multiple possible palettes.</p>
 <p>The image files are named "WORLD##a.pln", where ## is a two-digit, zero-prefixed decimal number in the range 00-50 (skipping 21, 22, and 23). The associated palette filenames use the .pal extension. They start with the same seven characters, but the lowercase '<em>a</em>' suffix is incremented for every associated palette beyond the first. For example, WORLD20a.pln can use any palette from WORLD20a.pal through WORLD20m.pal. (WORLD20 happens to have the greatest number of associated palette files, at thirteen -- <em>a</em> through <em>m</em>.)</p>
@@ -1366,7 +1440,7 @@ uint32_t offset;
 </tr>
 <tr>
 <td>32</td>
-<td>Shield type?</td>
+<td>Shield status (raised/lowered)?</td>
 </tr>
 <tr>
 <td>33</td>
@@ -1381,8 +1455,8 @@ uint32_t offset;
 <td>Shield strength?</td>
 </tr>
 <tr>
-<td>36</td>
-<td>Shield-related?</td>
+<td>36-37</td>
+<td>Pointer to ship being tracked?</td>
 </tr>
 <tr>
 <td>38</td>
@@ -1842,7 +1916,7 @@ Each record corresponds to a single alien, using the same indexing as ALIEN.TAB.
 <td>Rate of operation?</td>
 </tr>
 <tr>
-<td>08</td>
+<td>08-09</td>
 <td>Place Table ID of location</td>
 </tr>
 </tbody>
@@ -1899,6 +1973,80 @@ Each record corresponds to a single alien, using the same indexing as ALIEN.TAB.
 </tr>
 </tbody>
 </table>
+<h2 id="list-of-filenames-in-the-original-source">List of filenames in the original source</h2>
+<p>The debug code in the game executable reveals the name of the original source code modules:</p>
+<ul>
+<li>space.c</li>
+<li>save.c</li>
+<li>state.c</li>
+<li>ems.c</li>
+<li>sound.c</li>
+<li>show.c</li>
+<li>intro.c</li>
+<li>alien.c</li>
+<li>object.c</li>
+<li>place.c</li>
+<li>fact.c</li>
+<li>init.c</li>
+<li>talk.c</li>
+<li>talkd.c</li>
+<li>say.c</li>
+<li>invent.c</li>
+<li>inventd.c</li>
+<li>trade.c</li>
+<li>meta.c</li>
+<li>mission.c</li>
+<li>encount.c</li>
+<li>computer.c</li>
+<li>log.c</li>
+<li>planscan.c</li>
+<li>shipscan.c</li>
+<li>effect.c</li>
+<li>anim.c</li>
+<li>setup.c</li>
+<li>losten.c</li>
+<li>nav.c</li>
+<li>msg.c</li>
+<li>missiond.c</li>
+<li>fly.c</li>
+<li>robot.c</li>
+<li>labor.c</li>
+<li>pod.c</li>
+<li>ship.c</li>
+<li>com.c</li>
+<li>engine.c</li>
+<li>missile.c</li>
+<li>scan.c</li>
+<li>map.c</li>
+<li>shield.c</li>
+<li>combat.c</li>
+<li>ship3d.c</li>
+<li>part.c</li>
+<li>threed.c</li>
+<li>planet3d.c</li>
+<li>planet.c</li>
+<li>ctrl.c</li>
+<li>rtext.c</li>
+<li>pick.c</li>
+<li>based.c</li>
+<li>window.c</li>
+<li>dialog.c</li>
+<li>icon.c</li>
+<li>edit.c</li>
+<li>editor.c</li>
+<li>fractal.c</li>
+<li>bitmap.c</li>
+<li>stamp.c</li>
+<li>palette.c</li>
+<li>lib.c</li>
+<li>disk.c</li>
+<li>dual.c</li>
+<li>mcga.c</li>
+<li>event.c</li>
+<li>text.c</li>
+<li>font.c</li>
+<li>err.c</li>
+</ul>
               
             </div>
           </div>
