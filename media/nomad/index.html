@@ -97,7 +97,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#related-resources">Related resources</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#game-version">Game version</a>
+    <li class="toctree-l2"><a class="reference internal" href="#game-versions">Game versions</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#other-releases">Other releases</a>
     </li>
@@ -317,7 +317,7 @@
 <li><a href="http://vgmpf.com/Wiki/index.php?title=Main_Page">Video Game Music Preservation Foundation</a></li>
 <li><a href="http://www.scs.stanford.edu/05au-cs240c/lab/hardware/SoundBlaster.pdf">Sound Blaster Series - Hardware Programming Guide</a></li>
 </ul>
-<h2 id="game-version">Game version</h2>
+<h2 id="game-versions">Game versions</h2>
 <p>All of my work here was done with the following version of this game, which is the v1.01 bugfix patch to the original 3.5" disk release:</p>
 <blockquote>
 <p>Nomad v1.01.00<br/>
@@ -375,8 +375,6 @@ Compiled: 14:16:48 on February 01 1994</p>
 <li>Identified by "Nomad Demo v1.00.00 / Compiled: 15:50:31 on Jan 28 1994"</li>
 </ul>
 </li>
-<li>European release on four 1.44MB 3.5" disks</li>
-<li>European release on CD-ROM</li>
 <li>v1.01 patched version<ul>
 <li>Identified by "Nomad v1.01.00 / Compiled: 14:16:48 on February 01 1994"</li>
 <li>Fixed a bug that prevented adding items to the player's inventory under certain circumstances.</li>
@@ -388,9 +386,16 @@ Compiled: 14:16:48 on February 01 1994</p>
 <li><a href="http://redump.org/disc/4656">Super Stardust + Cyberbykes + Quarantine</a></li>
 </ul>
 </li>
+<li>CD-ROM release (v1.02 or v1.03)</li>
 </ul>
 <p><a data-lightbox="all_images" data-title="European endgame screen" href="../images/nomad-endgame.png"><img alt="European endgame screen" class="centerthumb" src="../images/nomad-endgame.png" /></a></p>
-<p>Nomad seems to have enjoyed more success in the German market, where it was the subject of <a href="https://www.kultboy.com/testbericht-uebersicht/4420/">several positive reviews in PC gaming magazines</a>.</p>
+<p>Both the 3.5" disk and CD-ROM releases were available in North America and Europe, with the European version having a slightly different box design. Nomad seems to have enjoyed more success in the German market, where it was the subject of <a href="https://www.kultboy.com/testbericht-uebersicht/4420/">several positive reviews in PC gaming magazines</a>.</p>
+<p>I own a box copy of the US CD-ROM release, and there is essentially no difference in the game content (versus the 3.5" disk version). Applied to the front of the box is a triangular red sticker proclaiming "With never before seen footage!", but this is a bit of a stretch. This "footage" consists -- in its entirety -- of a one minute intro animation that shows the GameTek and Papyrus logos, credits, and a starfield with a flyby of the protagonist's ship. This intro is actually shown <em>instead</em> of the previous introduction that also displayed the Intense! Interactive logo. The data files that contain the in-game content are exactly the same as those from the 3.5" disk release.</p>
+<p>The CD-ROM version contains a read.me file that was not quite intended for the end user. It's a note from Richard Garcia to GameTek producer Rod Humble, dated March 14, 1994. In it, Rich explains the changes that were made to the game for the CD-ROM release, which he identifies as v1.02 (although the included game executable reports v1.03.) He points out two differences:</p>
+<ul>
+<li>The configuration file (NOMAD.CFG) has a new line that can be added to point to the data files if they are in a different location than the executable. This allows the data files to be left on the CD to save space on the hard drive.</li>
+<li>The intro sequence was reworked to use the animation described above.</li>
+</ul>
 <h2 id="disney-association">Disney association</h2>
 <p>Some reviewers of this game have commented on the fact that it contains several references to the Disneyland "Space Mountain" attraction, apparently because of some early licensing agreement with Disney that did not survive to the final release. The in-game log is titled "Space Mountain Log", and the design of the player's ship matches that used in the Space Mountain roller coaster at the theme park.</p>
 <p>I've read that some versions of the game have a very different introduction that specifically mentions Disneyland. Although I have never played such a version, I did find some unused audio files packed in the game's data archives in which a narrator does indeed mention the theme park by name. The narrator also establishes the game's premise: the player was the unwitting passenger on the Space Mountain ship as it was accidentally activated and departed Earth. (This game story was ultimately replaced by the one in which the ship crash-lands on Earth, and the player is an operative assigned by a shadowy international intelligence organization.)</p>
@@ -1548,7 +1553,7 @@ uint32_t offset;
 </tr>
 <tr>
 <td>03</td>
-<td>Nonzero for the lines that are actually a question to the player. The number in this field is the number of possible responses from which the player can choose.</td>
+<td>Nonzero for the lines that are a question to the player. The number in this field is the number of possible responses from which the player can choose.</td>
 </tr>
 <tr>
 <td>04</td>
