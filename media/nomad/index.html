@@ -286,14 +286,18 @@
             <div class="section">
               
                 <h1 id="nomad-reverse-engineering">Nomad reverse engineering</h1>
-<p>Published: 2020-03-24</p>
+<ul>
+<li>Published: 2020-03-24</li>
+<li>Last updated: 2020-04-23</li>
+</ul>
 <p><em>Nomad</em> is an obscure space-exploration PC game, developed by Papyrus Design Group and Intense! Interactive, and published by GameTek in 1993. My copy was given to me by a classmate who had found it in a discount bin for $4 not long after its release (thanks Pete!) I've been curious about the nature of the game engine and its data files for a long time, so I recently spent some time reverse engineering a good portion of it. The main tools I used for this effort were the debugger in <a href="https://www.dosbox.com/">DOSBox</a> and IDA Freeware Version 5.0 (a copy of which is <a href="https://www.scummvm.org/news/20180331/">hosted by the ScummVM project</a>).</p>
 <p>I credit my dad (Dan) with introducing me to this type of hacking in the early '90s, and for encouraging the technical curiosity that I have had ever since.</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
 <h2 id="nomad-resource-explorer">Nomad Resource Explorer</h2>
 <p>I've created a graphical tool that you can use to browse/view the game resources. The code is available <a href="https://github.com/colinbourassa/nomad-resource-explorer">from my GitHub repo</a>, and you can also <a href="https://github.com/colinbourassa/nomad-resource-explorer/releases/latest">download executables for Linux and Windows</a>. This utility is licensed GNU GPL v3.</p>
 <p>Although the information here could certainly be used to create saved-game editors or game resource editors, that's beyond the scope of this project. I invite others to use this documentation to create their own software. As always, if you have additional information that you could contribute to this page, please <a href="mailto:colin.bourassa@gmail.com">contact me</a>.</p>
-<p><a data-lightbox="all_images" data-title="Nomad Resource Explorer - planet" href="../images/nre-screenshot-planet.png"><img alt="Nomad Resource Explorer - planet" class="rowthumb" src="../images/nre-screenshot-planet.png" /></a>
+<p><a data-lightbox="all_images" data-title="Nomad Resource Explorer - ship" href="../images/nre-screenshot-ship.png"><img alt="Nomad Resource Explorer - ship" class="rowthumb" src="../images/nre-screenshot-ship.png" /></a>
+<a data-lightbox="all_images" data-title="Nomad Resource Explorer - planet" href="../images/nre-screenshot-planet.png"><img alt="Nomad Resource Explorer - planet" class="rowthumb" src="../images/nre-screenshot-planet.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - alien" href="../images/nre-screenshot-alien.png"><img alt="Nomad Resource Explorer - alien" class="rowthumb" src="../images/nre-screenshot-alien.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - object" href="../images/nre-screenshot-object.png"><img alt="Nomad Resource Explorer - object" class="rowthumb" src="../images/nre-screenshot-object.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - fullscreen" href="../images/nre-screenshot-fullscreen.png"><img alt="Nomad Resource Explorer - fullscreen" class="rowthumb" src="../images/nre-screenshot-fullscreen.png" /></a>
@@ -364,9 +368,12 @@ Compiled: 14:16:48 on February 01 1994</p>
 <ul>
 <li>Pre-release/beta. This was released as "Project Nomad" by the scene group Razor1911 on seven 740KB disk images. It was followed up with <code>NOMADDOX.ZIP</code>, described as "quick docs" for the game. The <a href="http://textfiles.com/piracy/RAZOR/nomad.diz">.diz file</a> and <a href="http://textfiles.com/piracy/RAZOR/nomad.nfo">.nfo file</a> are still available.<ul>
 <li>Identified by "Space Mountain v0.97.01 / Compiled: 18:07:10 on Oct 07 1993"</li>
-<li>The intro/endgame art for this release is very different, and shows the player's character without a helmet and in normal civilian clothes. This may have lasted through other early European releases.</li>
+<li>The intro/endgame art for this release is very different, and shows the player's character without a helmet and in normal civilian clothes.</li>
 </ul>
 </li>
+</ul>
+<p><a data-lightbox="all_images" data-title="European endgame screen" href="../images/nomad-endgame.png"><img alt="European endgame screen" class="centerthumb" src="../images/nomad-endgame.png" /></a></p>
+<ul>
 <li>North American release on four 1.44MB 3.5" disks<ul>
 <li>Identified by "Nomad v1.00.00 / Compiled: 22:31:45 on Jan 04 1994"</li>
 </ul>
@@ -388,8 +395,7 @@ Compiled: 14:16:48 on February 01 1994</p>
 </li>
 <li>CD-ROM release (v1.02 or v1.03)</li>
 </ul>
-<p><a data-lightbox="all_images" data-title="European endgame screen" href="../images/nomad-endgame.png"><img alt="European endgame screen" class="centerthumb" src="../images/nomad-endgame.png" /></a></p>
-<p>Both the 3.5" disk and CD-ROM releases were available in North America and Europe, with the European version having a slightly different box design. Nomad seems to have enjoyed more success in the German market, where it was the subject of <a href="https://www.kultboy.com/testbericht-uebersicht/4420/">several positive reviews in PC gaming magazines</a>.</p>
+<p>Both the 3.5" disk and CD-ROM releases were available in North America and Europe, with the European version having a slightly different box design. Nomad seems to have enjoyed more visibility in the German market, where it was the subject of <a href="https://www.kultboy.com/testbericht-uebersicht/4420/">several reviews in PC gaming magazines</a>.</p>
 <p>I own a box copy of the US CD-ROM release, and there is essentially no difference in the game content (versus the 3.5" disk version). Applied to the front of the box is a triangular red sticker proclaiming "With never before seen footage!", but this is a bit of a stretch. This "footage" consists -- in its entirety -- of a one minute intro animation that shows the GameTek and Papyrus logos, credits, and a starfield with a flyby of the protagonist's ship. This intro is actually shown <em>instead</em> of the previous introduction that also displayed the Intense! Interactive logo. The data files that contain the in-game content are exactly the same as those from the 3.5" disk release.</p>
 <p>The CD-ROM version contains a read.me file that was not quite intended for the end user. It's a note from Richard Garcia to GameTek producer Rod Humble, dated March 14, 1994. In it, Rich explains the changes that were made to the game for the CD-ROM release, which he identifies as v1.02 (although the included game executable reports v1.03.) He points out two differences:</p>
 <ul>
@@ -1106,7 +1112,7 @@ uint32_t offset;
 <p>This table contains information about the game's inventory objects. It also reveals some interesting elements and a significant bug:</p>
 <ul>
 <li>In agreement with the storyline, the Altec Hocker do not place any value on any material items.</li>
-<li>There are a few objects that might only be used as placeholders since they do not physically appear in-game. These include "The Alliance", "Facts", "The Volm", and the W.A.P.. The first three of these actually have images, although they look like unused images for items that were removed from the game.</li>
+<li>A few of the objects are abstract concepts that do not physically appear in-game. These include "The Alliance", "Facts", "The Volm", and the W.A.P.. The first three of these actually have images associated with their IDs, although they look like unused images for items that were removed from the game.</li>
 <li>The Farm-Bot Aquatic Kit has an entry and an image, but the image appears to have been left unfinished by the artist.</li>
 <li>The relative-value fields for the Korok and the Kenelm are swapped! This is very apparent when inspecting the data. Based on the storyline, the Kenelm <em>should</em> place maximum value on the Eye of Kenelm but no value on any other object, while the Korok should place value primarily on raw materials and tactical equipment. However, exactly the opposite is true in the OBJECT.TAB data. Although this is a bug in the game, it only manifests as a tendency for the Korok to accept strange items in trade that shouldn't actually interest them.</li>
 </ul>
