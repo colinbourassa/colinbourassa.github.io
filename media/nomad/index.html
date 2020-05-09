@@ -292,7 +292,7 @@
 </ul>
 <p><em>Nomad</em> is an obscure space-exploration PC game, developed by Papyrus Design Group and Intense! Interactive, and published by GameTek in 1993. My copy was given to me by a classmate who had found it in a discount bin for $4 not long after its release (thanks Pete!) I've been curious about the nature of the game engine and its data files for a long time, so I recently spent some time reverse engineering a good portion of it. The main tools I used for this effort were the debugger in <a href="https://www.dosbox.com/">DOSBox</a> and IDA Freeware Version 5.0 (a copy of which is <a href="https://www.scummvm.org/news/20180331/">hosted by the ScummVM project</a>).</p>
 <p>I credit my dad (Dan) with introducing me to this type of hacking in the early '90s, and for encouraging the technical curiosity that I have had ever since.</p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a>.</p>
 <h2 id="nomad-resource-explorer">Nomad Resource Explorer</h2>
 <p>I've created a graphical tool that you can use to browse/view the game resources. The code is available <a href="https://github.com/colinbourassa/nomad-resource-explorer">from my GitHub repo</a>, and you can also <a href="https://github.com/colinbourassa/nomad-resource-explorer/releases/latest">download executables for Linux and Windows</a>. This utility is licensed GNU GPL v3.</p>
 <p>Although the information here could certainly be used to create saved-game editors or game resource editors, that's beyond the scope of this project. I invite others to use this documentation to create their own software. As always, if you have additional information that you could contribute to this page, please <a href="mailto:colin.bourassa@gmail.com">contact me</a>.</p>
@@ -489,7 +489,7 @@ uint32_t offset;
 <tr>
 <td>06</td>
 <td>1</td>
-<td>Add one item (specified by the following byte) to the Player's inventory.</td>
+<td>Add one item (specified by the parameter byte) to the Player's inventory.</td>
 </tr>
 <tr>
 <td>07</td>
@@ -499,17 +499,17 @@ uint32_t offset;
 <tr>
 <td>08</td>
 <td>1</td>
-<td>Change temperament of alien speaking the text (by the value specified in the following byte.)</td>
+<td>Change temperament of alien speaking the text (by the value specified in the parameter byte.)</td>
 </tr>
 <tr>
 <td>09</td>
 <td>1</td>
-<td>Grant knowledge of fact (specified by the following byte).</td>
+<td>Grant knowledge of fact (specified by the parameter byte).</td>
 </tr>
 <tr>
 <td>0A</td>
 <td>1</td>
-<td>Grant knowledge of place (specified by the following byte or byte pair). If the first byte following the command byte has its MSB clear, then it may be used directly as an index into the Place Table. Otherwise, if the first byte has its MSB set, then it must be combined with the following byte to form the Place Table index: <code>(firstbyte &amp; 7Fh) | (secondbyte &lt;&lt; 7)</code>.</td>
+<td>Grant knowledge of place (specified by the parameter byte or byte pair). If the first byte following the command byte has its MSB clear, then it may be used directly as an index into the Place Table. Otherwise, if the first byte has its MSB set, then it must be combined with the following byte to form the Place Table index: <code>(firstbyte &amp; 7Fh) | (secondbyte &lt;&lt; 7)</code>.</td>
 </tr>
 <tr>
 <td>0B</td>
@@ -519,7 +519,7 @@ uint32_t offset;
 <tr>
 <td>0C</td>
 <td>1</td>
-<td>Grant knowledge of item (specified by the following byte).</td>
+<td>Grant knowledge of item (specified by the parameter byte).</td>
 </tr>
 <tr>
 <td>0D</td>
@@ -534,7 +534,7 @@ uint32_t offset;
 <tr>
 <td>0F</td>
 <td>1</td>
-<td>Grant knowledge of race (specified by the following byte).</td>
+<td>Grant knowledge of race (specified by the parameter byte).</td>
 </tr>
 <tr>
 <td>10</td>
@@ -544,7 +544,7 @@ uint32_t offset;
 <tr>
 <td>11</td>
 <td>1</td>
-<td>Store ship ID (specified by the following byte) in the Setup Table. The game doesn't track knowledge of ships in the same way as people, places, and objects. However, mentions of ships in conversation are usually followed with this command that causes the game to modify the "setup table" for that particular ship.</td>
+<td>Store ship ID (specified by the parameter byte) in the Setup Table. The game doesn't track knowledge of ships in the same way as people, places, and objects. However, mentions of ships in conversation are usually followed with this command that causes the game to modify the "setup table" for that particular ship.</td>
 </tr>
 <tr>
 <td>12</td>
@@ -569,7 +569,7 @@ uint32_t offset;
 <tr>
 <td>16</td>
 <td>1</td>
-<td>Modify mission table state for the mission specified by the following byte. In byte 12 of the MISSION.TAB entry: if bit 1 is set and bit 0 is clear, then set bit 7.</td>
+<td>Modify mission table state for the mission specified by the parameter byte. In byte 12 of the MISSION.TAB entry: if bit 1 is set and bit 0 is clear, then set bit 7.</td>
 </tr>
 </tbody>
 </table>
