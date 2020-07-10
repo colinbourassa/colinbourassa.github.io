@@ -153,6 +153,12 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3d-models">3D models</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#notes-about-3d-engine-behavior">Notes about 3D engine behavior</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#data-tables">Data tables</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#enumerations-and-indexing">Enumerations and indexing</a>
@@ -307,7 +313,8 @@
 <p>Disassembly of the main executable was a substantial task given its size and its use of code overlays. Early in the process, I focused on identifying code that loaded data tables from the game's resource files. Labeling the segments/offsets where these tables were stored in memory was very useful in identifying routines that handled that data.</p>
 <p><a data-lightbox="all_images" data-title="Nomad disassembly in IDA" href="../images/nomad-ida.png"><img alt="Nomad disassembly in IDA" class="centerthumb" src="../images/nomad-ida.png" /></a></p>
 <p>The game's system for defining the layout of dialog boxes uses several different structs that carry information about X,Y positioning and the types of widgets to display. These dialog data structs also contain function pointers to routines that do the drawing for certain regions. There are a large number of fields across several different structure definitions used by the game, and I only scratched the surface of this system; it wasn't really necessary for reversing the game's data file formats, which was my primary goal.</p>
-<p>You may have noticed that there's no information in this article about the game's 3D ship models. I personally have no experience with 3D rendering engines, but if anyone out there can shed some light on the details of the game's 3D engine or (especially) the format of the .BIN models (from TEST.DAT), please <a href="mailto:colin.bourassa@gmail.com">get in touch</a>.</p>
+<p><strike>You may have noticed that there's no information in this article about the game's 3D ship models. I personally have no experience with 3D rendering engines, but if anyone out there can shed some light on the details of the game's 3D engine or (especially) the format of the .BIN models (from TEST.DAT), please <a href="mailto:colin.bourassa@gmail.com">get in touch</a>.</strike></p>
+<p><strong>Update 2020-07-10:</strong> I've reversed enough of the 3D model .BIN format to be able to render them with OpenGL in the Resource Explorer. See the <a href="#3d-models">section on 3D models</a>.</p>
 <h3 id="resource-explorer-source-code">Resource Explorer source code</h3>
 <p>The Nomad Resource Explorer code relies on tightly packed struct definitions (without padding) to match up to the binary file formats. This struct packing is not a feature that is strictly defined by the C/C++ language, but rather is implemented differently depending on the compiler. The code currently uses the <code>__attribute__((packed))</code> directive, which is respected by the GCC family of compilers as well as LLVM/Clang. MinGW also works, although some versions apparently require the GCC parameter <code>-mno-ms-bitfields</code> to force the packing. (This is therefore added as a compiler option in CMakeLists.txt.) If anyone attempts to use a Microsoft compiler, note that some additional work will be required to introduce the <code>#pragma pack(1)</code> directive.</p>
 <h3 id="modifying-the-original-game">Modifying the original game</h3>
@@ -751,6 +758,54 @@ uint32_t offset;
 <li>Read nibble <code>1</code>. This is another delta value selection. We are still using the same delta table section selected by the first two nibbles in this input stream, and the delta value at position <code>1</code> in that section happens to be <code>-17h</code>. This is added to <code>75h</code> to compute the next output value of <code>5Eh</code></li>
 </ul>
 <p>This example input stream generates the following output: <code>75 75 75 75 75 5E</code></p>
+<h2 id="3d-models">3D models</h2>
+<p>The 3D model data is stored in a series of .BIN files, all packed into TEST.DAT. (Note that the .BIN extension is not unique to the 3D models and is shared with the font data files, planet scale table, and copy protection data.) All the ship models are rendered untextured, with flat shading.</p>
+<p>The model BIN format starts with a 16-bit word that provides the number of polygons in the model. Immediately following this is a series of polygon records. Each polygon record is a minimum of 18 bytes, and is two bytes longer for each vertex beyond the third. (Note that polygons may have an arbitrary number of points; there are examples with up to 22 vertices.)</p>
+<p>Within each polygon record:</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00-01<br/>02-03<br/>04-05</td>
+<td>Three signed 16-bit words that are almost certainly 3D coordinates. I originally thought that they were used to define a surface normal, but that may not be the case. Perhaps they're used to provide a direction vector for the surface during the ship explosion animation?</td>
+</tr>
+<tr>
+<td>06-07</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>08-09</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>0A</td>
+<td>7-bit vertex count (stored in the lower 7 bits). The high bit is also sometimes set, but its purpose is unknown.</td>
+</tr>
+<tr>
+<td>0B</td>
+<td>Color for this polygon surface. This will be an index 00 through 07, which happens to match up to the first eight colors of the EGA palette. In reality, each of the these base colors will be one of eight shades when it is rendered on screen (as the 3D engine selects the appropriate one for highlights/shadows.) The 64 total colors that are used for drawing 3D models to the screen are provided by the palette SHIP.PAL.</td>
+</tr>
+<tr>
+<td>0C-0D</td>
+<td>Start of the list of vertex indices. There will be at least three 16-bit words in this section, and possibly more, depending on the number of vertices in the polygon. Each word is simply a zero-based index into the list of vertices that comprises the last section of the .BIN file. Note that the vertices for a given polygon must appear in contiguous order, i.e. each listed vertex must be adjacent to the previous one.</td>
+</tr>
+</tbody>
+</table>
+<p>Immediately after the last vertex ID at the end of the polygon record, the next polygon record begins. After the last polygon record is a 16-bit count of the total number of 3D vertices used in the model. The data for these vertices then follows, with the X,Y,Z 3D coordinates being represented as triplets of signed 16-bit integers.</p>
+<p>TEST.DAT contains three models that are not used in the game:</p>
+<ul>
+<li><strong>BOTA.BIN:</strong> Labor bot capsule. This is an alternative to the familiar BOTB and BOTC models that are used during 3D animated scenes. They appear when completing a trade with an alien, or when sending/retrieving a labor bot. There are hardcoded offsets in the game executable (within <code>ovr114:112B</code>) that determine the selection of BOTB vs. BOTC depending on labor bot type, and one or more of these could easily by modified to use the previously unseen BOTA model instead.</li>
+<li><strong>SHABC.BIN:</strong> Shaasa ship, perhaps intended to be a fighter</li>
+<li><strong>SHABS.BIN:</strong> Shaasa ship, and probably the strangest design of any ship in the game</li>
+</ul>
+<h3 id="notes-about-3d-engine-behavior">Notes about 3D engine behavior</h3>
+<p>The game's 3D engine uses a series of transform buffers, each associated with one of the 3D models that are loaded into the scene. For the scripted 3D animation sequences -- including the snowfield crash from the intro sequence, the conclusion of a trade with an alien ship, and sending or retrieving a labor bot -- all of the data for positioning and movement of the 3D models is hardcoded as parameters to a series of transform functions. The sound effects associated with these animations are simply queued by function calls at the appropriate point in between model transforms. In other words, the sequence of movements in these scenes cannot be changed without modifying code in the game executable.</p>
+<p>When the developers coded the 3D camera sequence in which the player's ship enters orbit around a planet, they wanted a natural-feeling flight path with coordinates that followed a smooth curve. Rather than compute them on the fly, these coordinates are precalculated and stored in a table of two hundred 16-bit words in <code>seg056</code>.</p>
 <h2 id="data-tables">Data tables</h2>
 <p>Nomad has a series of data tables that are read into memory and used to define attributes for ships, planets, aliens, inventory objects, engineering upgrades, and other aspects of the game. In addition to defining the initial state of the game universe, many of these tables contain fields that are updated dynamically while the game is being played; for example, the Object Table entries each contain a flag that is set when the player is granted knowledge of that object. When a player saves his progress, a .SAV file is created that contains a subset of the game's data tables plus some additional dynamic data. The .SAV files also include a few discrete pieces of data, such as the number of Korok vessels that have been destroyed, and a boolean flag indicating whether the Altec Hocker have been discovered by the player.</p>
 <h3 id="enumerations-and-indexing">Enumerations and indexing</h3>
@@ -1322,7 +1377,7 @@ uint32_t offset;
 <li>Record size: 12 (0Ch) bytes</li>
 <li>Record count: 32 (20h)</li>
 </ul>
-<p>The Altec Hocker have their own ship class, despite the fact that they do not have physical ships.</p>
+<p>Of the 32 record slots in this file, 30 are populated with data (08 and 31 being unused.) These slots correspond one-for-one with the first 31 entries in a table of 3D model filenames stored in the game executable. There are more ship classes than there are unique ship models, so some models are re-used. Note that the Altec Hocker have a class allocated to them although they do not have physical ships. (The game assigns them the same ship model as the Musin, but this is of no consequence since it is never spawned.) Because the Second Harmony star station is represented as a 3D model, its corresponding slot in SCLASS.TAB is skipped to keep the indexing consistent.</p>
 <table>
 <thead>
 <tr>
