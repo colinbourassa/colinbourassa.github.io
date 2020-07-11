@@ -803,6 +803,7 @@ uint32_t offset;
 <li><strong>SHABC.BIN:</strong> Shaasa ship, perhaps intended to be a fighter</li>
 <li><strong>SHABS.BIN:</strong> Shaasa ship, and probably the strangest design of any ship in the game</li>
 </ul>
+<p><a data-lightbox="all_images" data-title="SHABS - Unused Shaasa ship model" href="../images/nomad-shabs.gif"><img alt="SHABS - Unused Shaasa ship model" class="centerthumb" src="../images/nomad-shabs.gif" /></a></p>
 <h3 id="notes-about-3d-engine-behavior">Notes about 3D engine behavior</h3>
 <p>The game's 3D engine uses a series of transform buffers, each associated with one of the 3D models that are loaded into the scene. For the scripted 3D animation sequences -- including the snowfield crash from the intro sequence, the conclusion of a trade with an alien ship, and sending or retrieving a labor bot -- all of the data for positioning and movement of the 3D models is hardcoded as parameters to a series of transform functions. The sound effects associated with these animations are simply queued by function calls at the appropriate point in between model transforms. In other words, the sequence of movements in these scenes cannot be changed without modifying code in the game executable.</p>
 <p>When the developers coded the 3D camera sequence in which the player's ship enters orbit around a planet, they wanted a natural-feeling flight path with coordinates that followed a smooth curve. Rather than compute them on the fly, these coordinates are precalculated and stored in a table of two hundred 16-bit words in <code>seg056</code>.</p>
