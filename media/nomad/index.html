@@ -83,6 +83,8 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Nomad (GameTek)</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#updates">Updates</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#nomad-resource-explorer">Nomad Resource Explorer</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#notes-to-other-developers-and-hackers">Notes to other developers and hackers</a>
@@ -114,6 +116,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#mission-and-conversation-text">Mission and conversation text</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#palettes">Palettes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#hidden-ega-mode">Hidden EGA mode</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#static-image-data">Static image data</a>
         <ul>
@@ -150,6 +156,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#sound">Sound</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#decoding-dpcm-audio">Decoding DPCM audio</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sound-file-notes">Sound file notes</a>
     </li>
         </ul>
     </li>
@@ -294,11 +302,15 @@
                 <h1 id="nomad-reverse-engineering">Nomad reverse engineering</h1>
 <ul>
 <li>Published: 2020-03-24</li>
-<li>Last updated: 2020-07-11</li>
+<li>Last updated: 2020-08-07</li>
 </ul>
 <p><em>Nomad</em> is an obscure space-exploration PC game, developed by Papyrus Design Group and Intense! Interactive, and published by GameTek in 1993. My copy was given to me by a classmate who had found it in a discount bin for $4 not long after its release (thanks Pete!) I've been curious about the nature of the game engine and its data files for a long time, so I recently spent some time reverse engineering a good portion of it. The main tools I used for this effort were the debugger in <a href="https://www.dosbox.com/">DOSBox</a> and IDA Freeware Version 5.0 (a copy of which is <a href="https://www.scummvm.org/news/20180331/">hosted by the ScummVM project</a>).</p>
 <p>I credit my dad (Dan) with introducing me to this type of hacking in the early '90s, and for encouraging the technical curiosity that I have had ever since.</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a>.</p>
+<h2 id="updates">Updates</h2>
+<ul>
+<li>2020-08-07: Added sections on the <a href="#hidden-ega-mode">hidden EGA mode</a>, and some <a href="#sound-file-notes">sound file notes</a>.</li>
+</ul>
 <h2 id="nomad-resource-explorer">Nomad Resource Explorer</h2>
 <p>I've created a graphical tool that you can use to browse/view the game resources. The code is available <a href="https://github.com/colinbourassa/nomad-resource-explorer">from my GitHub repo</a>, and you can also <a href="https://github.com/colinbourassa/nomad-resource-explorer/releases/latest">download executables for Linux and Windows</a>. This utility is licensed GNU GPL v3.</p>
 <p>Although the information here could certainly be used to create saved-game editors or game resource editors, that's beyond the scope of this project. I invite others to use this documentation to create their own software. As always, if you have additional information that you could contribute to this page, please <a href="mailto:colin.bourassa@gmail.com">contact me</a>.</p>
@@ -591,6 +603,9 @@ uint32_t offset;
 <p>A common convention for converting 6-bit RGB data to the more ubiquitous 8-bit RGB data involves shifting the value left by two, and then replicating the top two bits in the lower two:
 <code>r = (r_raw &lt;&lt; 2) | (r_raw &gt;&gt; 4);</code></p>
 <p>The starting palette index is important because image data can use colors from any location in the VGA palette (which is defaulted by the graphics hardware BIOS.) Different elements in the game use different index ranges in the palette. The planet textures use up to 64 colors in the range 80h to BFh. The 3D ship models use the range C0h to FFh.</p>
+<h3 id="hidden-ega-mode">Hidden EGA mode</h3>
+<p>The game contains a lot of code written to support 16-color EGA video (mode 0Dh), but the config file does not allow any option to switch to this mode. The executable is hardcoded to always use 256-color 320x200 VGA (mode 13h). However, it can be hacked to use EGA instead by changing a single operand. It seemed to work fine when I tested it.</p>
+<p>To try this out on v1.01 of NOMAD.EXE, use a hex editor to change the 16-bit value at <code>468B6</code> from <code>13 00</code> to <code>0D 00</code>.</p>
 <h2 id="static-image-data">Static image data</h2>
 <h3 id="overlay-images-stamps-and-stamp-rolls-stp-rol">Overlay images - stamps and stamp rolls (.STP, .ROL)</h3>
 <p>The images in Nomad that are treated as overlays on a background are called "stamps" and stored in files with an .STP extension. STP data is run-length-encoded (RLE) with 8 bits per pixel, indexing into a palette. (Note that the RLE compression is another layer inside the LZ compression of the archive, so many of these files are effectively compressed twice.) The game images stored in this format are the inventory objects, navigation star map background, individual starfield sprites, shield and explosion sprites, and overlays from the intro sequence.</p>
@@ -758,6 +773,8 @@ uint32_t offset;
 <li>Read nibble <code>1</code>. This is another delta value selection. We are still using the same delta table section selected by the first two nibbles in this input stream, and the delta value at position <code>1</code> in that section happens to be <code>-17h</code>. This is added to <code>75h</code> to compute the next output value of <code>5Eh</code></li>
 </ul>
 <p>This example input stream generates the following output: <code>75 75 75 75 75 5E</code></p>
+<h3 id="sound-file-notes">Sound file notes</h3>
+<p>There is a table of sound filenames that each correspond to one of the game's alien races. Each of these sounds is a short musical theme that plays when the player begins conversation with an alien. The table contains an entry for human (<code>HUM.NNV</code>), although this file does not actually exist in the game's data and the player does not encounter other humans during gameplay. Also, the table contains a Kenelm entry (<code>KEN.NNV</code>), but this file is also missing since the Kenelm have no musical theme and begin speaking immediately when communication is opened.</p>
 <h2 id="3d-models">3D models</h2>
 <p>The 3D model data is stored in a series of .BIN files, all packed into TEST.DAT. (Note that the .BIN extension is not unique to the 3D models and is shared with the font data files, planet scale table, and copy protection data.) All the ship models are rendered untextured, with flat shading.</p>
 <p>The model BIN format starts with a 16-bit word that provides the number of polygons in the model. Immediately following this is a series of polygon records. Each polygon record is a minimum of 18 bytes, and is two bytes longer for each vertex beyond the third. (Note that polygons may have an arbitrary number of points; there are examples with up to 22 vertices.)</p>
