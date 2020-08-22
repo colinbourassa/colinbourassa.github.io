@@ -476,7 +476,7 @@ uint32_t offset;
 </li>
 </ul>
 <h2 id="mission-and-conversation-text">Mission and conversation text</h2>
-<p>For the most part, the decompressed text in the game is human-readable ASCII, but many of the strings do contain special command bytes used to insert strings or modify game state. For example, a mission posting that mentions a particular alien vessel will grant knowledge of that vessel to the player when he reads the mission text. Once the player has knowledge of a topic, that topic can be used in conversation with aliens to uncover more facts. Mission and conversation text can also have embedded commands that add an item to the player's inventory, or change the alien character's temperament. Following is a table of the supported embedded command bytes and their functions:</p>
+<p>For the most part, the decompressed text in the game is human-readable ASCII, but many of the strings do contain special command bytes used to insert strings or modify game state. For example, a mission posting that mentions a particular planet will grant knowledge of that planet to the player when he reads the mission text. Once the player has knowledge of a topic, that topic can be used in conversation with aliens to uncover more facts. Mission and conversation text can also have embedded commands that add an item to the player's inventory, or change the alien character's temperament. Following is a table of the supported embedded command bytes and their functions:</p>
 <table>
 <thead>
 <tr>
@@ -1351,7 +1351,7 @@ uint32_t offset;
 </tr>
 <tr>
 <td>02-03</td>
-<td>Bits:<br/>0: ?<br/>1: Known by player<br/>2: ?<br/>3: Labor robot site</td>
+<td>Bits:<br/>0: ?<br/>1: Known by player<br/>2: Visited by player<br/>3: Labor robot site</td>
 </tr>
 <tr>
 <td>04</td>
@@ -1486,7 +1486,11 @@ uint32_t offset;
 </tr>
 <tr>
 <td>06-07</td>
-<td>Offset</td>
+<td>Offset to ?</td>
+</tr>
+<tr>
+<td>12-13</td>
+<td>Pointer to other ship being targeted</td>
 </tr>
 <tr>
 <td>22-23</td>
