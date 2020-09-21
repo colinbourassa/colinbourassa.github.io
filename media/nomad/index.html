@@ -826,6 +826,7 @@ uint32_t offset;
 <li><strong>SHABS.BIN:</strong> Shaasa ship, and probably the strangest design of any ship in the game</li>
 </ul>
 <p><a data-lightbox="all_images" data-title="SHABS - Unused Shaasa ship model" href="../images/nomad-shabs.gif"><img alt="SHABS - Unused Shaasa ship model" class="centerthumb" src="../images/nomad-shabs.gif" /></a></p>
+<p>There is at least one minor error in the set of models: the URSCG.BIN Ursor ship model is not completely closed -- there's a gap left by the panel on the upper port side. Oddly, the model does not have this error in the early "Space Mountain" pre-release version of the game.</p>
 <h3 id="notes-about-3d-engine-behavior">Notes about 3D engine behavior</h3>
 <p>The game's 3D engine uses a series of transform buffers, each associated with one of the 3D models that are loaded into the scene. For the scripted 3D animation sequences -- including the snowfield crash from the intro sequence, the conclusion of a trade with an alien ship, and sending or retrieving a labor bot -- all of the data for positioning and movement of the 3D models is hardcoded as parameters to a series of transform functions. The sound effects associated with these animations are simply queued by function calls at the appropriate point in between model transforms. In other words, the sequence of movements in these scenes cannot be changed without modifying code in the game executable.</p>
 <p>When the developers coded the 3D camera sequence in which the player's ship enters orbit around a planet, they wanted a natural-feeling flight path with coordinates that followed a smooth curve. Rather than compute them on the fly, these coordinates are precalculated and stored in a table of two hundred 16-bit words in <code>seg056</code>.</p>
@@ -1146,6 +1147,14 @@ uint32_t offset;
 <td>Place ID of the location that the Player must visit to either obtain or deliver a mission item</td>
 </tr>
 <tr>
+<td>02-07</td>
+<td>In-game time at which mission becomes available. One byte each for year, month, day, hour, minute, and a pad.</td>
+</tr>
+<tr>
+<td>08-0D</td>
+<td>In-game time at which mission becomes unavailable. One byte each for year, month, day, hour, minute, and a pad.</td>
+</tr>
+<tr>
 <td>0F</td>
 <td>ID of other mission -- prerequisite?</td>
 </tr>
@@ -1156,6 +1165,10 @@ uint32_t offset;
 <tr>
 <td>11</td>
 <td>ID of target ship, or ID of required inventory object</td>
+</tr>
+<tr>
+<td>12-13</td>
+<td>Status flags</td>
 </tr>
 <tr>
 <td>14-15</td>
