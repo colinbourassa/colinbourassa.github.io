@@ -311,9 +311,10 @@
 </ul>
 <p><em>Nomad</em> is an obscure space-exploration PC game, developed by Papyrus Design Group and Intense! Interactive, and published by GameTek in 1993. My copy was given to me by a classmate who had found it in a discount bin for $4 not long after its release (thanks Pete!) I've been curious about the nature of the game engine and its data files for a long time, so I recently spent some time reverse engineering a good portion of it. The main tools I used for this effort were the debugger in <a href="https://www.dosbox.com/">DOSBox</a> and IDA Freeware Version 5.0 (a copy of which is <a href="https://www.scummvm.org/news/20180331/">hosted by the ScummVM project</a>).</p>
 <p>I credit my dad (Dan) with introducing me to this type of hacking in the early '90s, and for encouraging the technical curiosity that I have had ever since.</p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a>.</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a> and <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>.</p>
 <h2 id="updates">Updates</h2>
 <ul>
+<li>2020-10-21: Mention of <a href="#tlkxcxxxtxtidx-and-tlkxrxxxtxtidx">conversation text file for Kenelm</a>, link to <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>, and a few more fields in <a href="#shiptab-ship-data">SHIP.TAB</a>.</li>
 <li>2020-08-07: Added sections on the <a href="#hidden-ega-mode">hidden EGA mode</a>, and some <a href="#sound-file-notes">sound file notes</a>.</li>
 </ul>
 <h2 id="nomad-resource-explorer">Nomad Resource Explorer</h2>
@@ -1495,11 +1496,19 @@ uint32_t offset;
 </tr>
 <tr>
 <td>04-05</td>
-<td>Bitfield. If bits 3, 9 or 13 are set, the vessel will not respond to communication hails.</td>
+<td>Bitfield. If bits 3, 9 or 13 are set, the vessel will not respond to communication hails.<br/>If bit 11 is set, the ship will not appear on the radar scope.</td>
 </tr>
 <tr>
 <td>06-07</td>
 <td>Offset to ?</td>
+</tr>
+<tr>
+<td>0C-0D</td>
+<td>3D model transform buffer pointer</td>
+</tr>
+<tr>
+<td>10-11</td>
+<td>Flight dynamics struct pointer</td>
 </tr>
 <tr>
 <td>12-13</td>
@@ -1558,12 +1567,8 @@ uint32_t offset;
 <td>Shield strength?</td>
 </tr>
 <tr>
-<td>36-37</td>
-<td>Pointer to ship being tracked?</td>
-</tr>
-<tr>
-<td>38</td>
-<td>Shield-related?</td>
+<td>36-39</td>
+<td>Ship table pointer for shield-related activity?</td>
 </tr>
 <tr>
 <td>3A</td>
@@ -1579,7 +1584,7 @@ uint32_t offset;
 </tr>
 <tr>
 <td>3E-41</td>
-<td>Pointer to ?</td>
+<td>Ship table pointer for scanner target</td>
 </tr>
 <tr>
 <td>42</td>
@@ -1626,6 +1631,7 @@ uint32_t offset;
 <p>Collection of strings, where each string is a line of alien dialogue. String data begins at offset 0 in the .TXT and consists of null-terminated strings using the same metatext system as elsewhere in the game.</p>
 <p>The .IDX contains a list of 32-bit offsets into the .TXT, each one pointing to the start of a string. In the .IDX file, bytes 00-01 are always zeroed, followed by a 16-bit count (in bytes 02-03) of the total number of offsets in this file. The list of 32-bit offsets follows immediately, so string index 0 actually starts at byte offset 04.</p>
 <p>Easter egg: in the file for the player's character ID (TLKXC255.TXT), there is only a single string which was apparently never intended to be seen in-game. It reads, "Go away!!!"</p>
+<p>Also, TLKXR005.TXT -- the file for the Kenelm -- contains some unused conversational phrases.</p>
 <p>The formats of the TLKXC and TLKXR files are identical, but the game's conversation engine will always check the TLKXC files first and use TLKXR as a fallback if the individual alien table did not have any entries matching the conversation topic.</p>
 <h3 id="tlkncxxxtab-and-tlknrxxxtab">TLKNC<em>xxx</em>.TAB and TLKNR<em>xxx</em>.TAB</h3>
 <ul>
