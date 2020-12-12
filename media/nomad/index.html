@@ -109,7 +109,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dat-archive-format">DAT archive format</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#lz-compression-algorithm">LZ compression algorithm</a>
+    <li class="toctree-l3"><a class="reference internal" href="#lzss-compression-algorithm">LZSS compression algorithm</a>
     </li>
         </ul>
     </li>
@@ -314,6 +314,7 @@
 <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a> and <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>.</p>
 <h2 id="updates">Updates</h2>
 <ul>
+<li>2020-12-11: Clarification in <a href="#lzss-compression-algorithm">LZSS algorithm description</a>, better description of command byte 12h in <a href="#mission-and-conversation-text">mission and conversation text</a>.</li>
 <li>2020-10-21: Mention of <a href="#tlkxcxxxtxtidx-and-tlkxrxxxtxtidx">conversation text file for Kenelm</a>, link to <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>, and a few more fields in <a href="#shiptab-ship-data">SHIP.TAB</a>.</li>
 <li>2020-08-07: Added sections on the <a href="#hidden-ega-mode">hidden EGA mode</a>, and some <a href="#sound-file-notes">sound file notes</a>.</li>
 </ul>
@@ -457,8 +458,8 @@ uint32_t offset;
 <li><strong>flags.2</strong> indicates whether the file is stored with uncompressed header data. If this bit is set, the entirety of the file's data is stored with LZ compression. If this bit is clear, the first two words (four bytes) are uncompressed and may be copied directly from the .DAT, leaving the remaining data to pass through LZ decompression. Note that the <code>compressed_size</code> field does <strong>not</strong> include this four-byte header, and as a result, the next file in the .DAT archive will start at <code>offset + compressed_size + 4</code>.</li>
 </ul>
 <p>The data for the first contained file starts immediately after the last index entry.</p>
-<h3 id="lz-compression-algorithm">LZ compression algorithm</h3>
-<p>The LZ compressed files themselves are individually deflated with a modified 8-bit Lemper-Ziv (LZ) algorithm. Data is grouped into chunks, and each chunk can consist of either a literal byte, or a back-reference to a string of bytes that was previously encountered during decompression. In this way, byte sequences that repeat can be represented by an abbreviated codeword, thereby saving space.</p>
+<h3 id="lzss-compression-algorithm">LZSS compression algorithm</h3>
+<p>The compressed files themselves are individually deflated with a modified 8-bit Lempel–Ziv–Storer–Szymanski (LZSS) algorithm. Data is grouped into chunks, and each chunk can consist of either a literal byte, or a back-reference to a string of bytes that was previously encountered during decompression. In this way, byte sequences that repeat can be represented by an abbreviated codeword, thereby saving space.</p>
 <p>In addition to the output stream, the algorithm maintains a 4096-byte ring buffer that provides the source of data for the back-references. This buffer must be initialized with all bytes set to 20h, and the offset pointer into the buffer set to FEEh. This pointer value was chosen because it is 18 bytes from the end of the buffer, and that is the maximum length of a single back-reference sequence (as we will see later.) Therefore, at least one chunk will be decoded before the pointer wraps back to the start.</p>
 <p>In the compressed source data, each sequence of eight chunks is preceded by a flag byte, in which each bit indicates the nature of one of the following chunks:</p>
 <ul>
@@ -476,6 +477,7 @@ uint32_t offset;
 <p>Offset into ring buffer (bits 11:0): A zero-based offset from the start of the 4096-byte ring buffer at which to begin reading the number of bytes specified in the byte count field. As noted, the decoder must start filling this buffer from offset FEEh, so the first few back-references seen in a compressed file may be in this higher range (FEEh to FFFh).</p>
 </li>
 </ul>
+<p>Note that the encoding of these fields is somewhat different from other popular implementations of LZSS. Specifically, the nibbles in the second byte -- containing the byte count and the high-order bits of the offset -- are swapped. Other implementations (such as the <a href="http://wiki.ffrtt.ru/index.php?title=FF7/LZSS_format">Final Fantasy 7 LZSS</a>) place the byte count field in the lowest four bits of the second byte.</p>
 <h2 id="mission-and-conversation-text">Mission and conversation text</h2>
 <p>For the most part, the decompressed text in the game is human-readable ASCII, but many of the strings do contain special command bytes used to insert strings or modify game state. For example, a mission posting that mentions a particular planet will grant knowledge of that planet to the player when he reads the mission text. Once the player has knowledge of a topic, that topic can be used in conversation with aliens to uncover more facts. Mission and conversation text can also have embedded commands that add an item to the player's inventory, or change the alien character's temperament. Following is a table of the supported embedded command bytes and their functions:</p>
 <table>
@@ -570,12 +572,12 @@ uint32_t offset;
 <tr>
 <td>11</td>
 <td>1</td>
-<td>Store ship ID (specified by the parameter byte) in the Setup Table. The game doesn't track knowledge of ships in the same way as people, places, and objects. However, mentions of ships in conversation are usually followed with this command that causes the game to modify the "setup table" for that particular ship.</td>
+<td>Store ship ID (specified by the parameter byte) in the Setup Table. The game doesn't track knowledge of ships in the same way as people, places, and objects. However, mentions of ships in conversation are usually followed with this command that causes the game to modify the Setup Table for that particular ship.</td>
 </tr>
 <tr>
 <td>12</td>
 <td>2</td>
-<td>Modify Setup Table.</td>
+<td>Store place ID (specified by the parameter bytes) in the Setup Table.</td>
 </tr>
 <tr>
 <td>13</td>
@@ -2053,8 +2055,8 @@ Each record corresponds to a single alien, using the same indexing as ALIEN.TAB.
 <td>Ship ID?</td>
 </tr>
 <tr>
-<td>08</td>
-<td>Mission ID?</td>
+<td>08-0C (or to 0D?)</td>
+<td>Age-out time</td>
 </tr>
 </tbody>
 </table>
