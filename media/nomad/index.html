@@ -452,10 +452,14 @@ char filename[14]; // includes null terminator
 uint32_t offset;
 </code></pre>
 
-<p>At least two of the flag bits are important for indicating the compression method used to store the file:</p>
+<p>At least two of the flag bits are important for indicating the method used to store the file:</p>
 <ul>
 <li><strong>flags.8</strong> indicates whether the file is stored with the LZ compression algorithm described below. If this bit is clear, the <code>uncompressed_size</code> and <code>compressed_size</code> fields must match. In this case, the file is uncompressed and its content may be copied byte-for-byte from the .DAT.</li>
-<li><strong>flags.2</strong> indicates whether the file is stored with uncompressed header data. If this bit is set, the entirety of the file's data is stored with LZ compression. If this bit is clear, the first two words (four bytes) are uncompressed and may be copied directly from the .DAT, leaving the remaining data to pass through LZ decompression. Note that the <code>compressed_size</code> field does <strong>not</strong> include this four-byte header, and as a result, the next file in the .DAT archive will start at <code>offset + compressed_size + 4</code>.</li>
+<li><strong>flags.2</strong> indicates whether the file is prefixed by a pair of uncompressed header words:<ul>
+<li>If this bit is <strong>clear</strong>, the file is prefixed by two words (four bytes) that are not part of the LZ compressed data, so the LZ decompression must start at <code>offset + 4</code>. The only files in the game that are stored like this are the fullscreen raw VGA images, and these two words contain the width and height of the image, respectively. Note: the <code>compressed_size</code> and <code>uncompressed_size</code> fields in the FAT do <strong>not</strong> include the extra four bytes, so the next file in the archive will start at <code>offset + compressed_size + 4</code>.</li>
+<li>If this bit is <strong>set</strong>, these two words are not present and the enitrety of the data must be run through LZ decompression.</li>
+</ul>
+</li>
 </ul>
 <p>The data for the first contained file starts immediately after the last index entry.</p>
 <h3 id="lzss-compression-algorithm">LZSS compression algorithm</h3>
