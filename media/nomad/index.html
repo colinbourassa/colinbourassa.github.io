@@ -119,9 +119,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#hidden-ega-mode">Hidden EGA mode</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#remaining-debug-code">Remaining debug code</a>
-    </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#remaining-debug-code">Remaining debug code</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#static-image-data">Static image data</a>
         <ul>
@@ -316,6 +316,7 @@
 <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a> and <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>.</p>
 <h2 id="updates">Updates</h2>
 <ul>
+<li>2021-02-09: Note about some <a href="#remaining-debug-code">debug code</a> that was left in the game</li>
 <li>2020-12-11: Clarification in <a href="#lzss-compression-algorithm">LZSS algorithm description</a>, better description of command byte 12h in <a href="#mission-and-conversation-text">mission and conversation text</a>.</li>
 <li>2020-10-21: Mention of <a href="#tlkxcxxxtxtidx-and-tlkxrxxxtxtidx">conversation text file for Kenelm</a>, link to <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>, and a few more fields in <a href="#shiptab-ship-data">SHIP.TAB</a>.</li>
 <li>2020-08-07: Added sections on the <a href="#hidden-ega-mode">hidden EGA mode</a>, and some <a href="#sound-file-notes">sound file notes</a>.</li>
@@ -620,7 +621,7 @@ uint32_t offset;
 <h3 id="hidden-ega-mode">Hidden EGA mode</h3>
 <p>The game contains a lot of code written to support 16-color EGA video (mode 0Dh), but the config file does not allow any option to switch to this mode. The executable is hardcoded to always use 256-color 320x200 VGA (mode 13h). However, it can be hacked to use EGA instead by changing a single operand. It seemed to work fine when I tested it.</p>
 <p>To try this out on v1.01 of NOMAD.EXE, use a hex editor to change the 16-bit value at <code>468B6</code> from <code>13 00</code> to <code>0D 00</code>. You'll also need to add the line <code>nointro</code> to <code>NOMAD.CFG</code> as the intro sequence does not work properly in EGA mode.</p>
-<h3 id="remaining-debug-code">Remaining debug code</h3>
+<h2 id="remaining-debug-code">Remaining debug code</h2>
 <p>As the game engine runs, it is constantly allocating/deallocating from a memory pool that it maintains for game resources. The developers monitored this memory activity by outputing diagnostic text to the Monochrome Display Adapter, which can actually be used simultaneously with the VGA if a second video card is installed. This code still exists in the final game, and can be enabled with the <code>/aux</code> command line switch.</p>
 <h2 id="static-image-data">Static image data</h2>
 <h3 id="overlay-images-stamps-and-stamp-rolls-stp-rol">Overlay images - stamps and stamp rolls (.STP, .ROL)</h3>
