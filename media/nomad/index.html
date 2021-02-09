@@ -119,6 +119,8 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#hidden-ega-mode">Hidden EGA mode</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remaining-debug-code">Remaining debug code</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#static-image-data">Static image data</a>
@@ -618,6 +620,8 @@ uint32_t offset;
 <h3 id="hidden-ega-mode">Hidden EGA mode</h3>
 <p>The game contains a lot of code written to support 16-color EGA video (mode 0Dh), but the config file does not allow any option to switch to this mode. The executable is hardcoded to always use 256-color 320x200 VGA (mode 13h). However, it can be hacked to use EGA instead by changing a single operand. It seemed to work fine when I tested it.</p>
 <p>To try this out on v1.01 of NOMAD.EXE, use a hex editor to change the 16-bit value at <code>468B6</code> from <code>13 00</code> to <code>0D 00</code>. You'll also need to add the line <code>nointro</code> to <code>NOMAD.CFG</code> as the intro sequence does not work properly in EGA mode.</p>
+<h3 id="remaining-debug-code">Remaining debug code</h3>
+<p>As the game engine runs, it is constantly allocating/deallocating from a memory pool that it maintains for game resources. The developers monitored this memory activity by outputing diagnostic text to the Monochrome Display Adapter, which can actually be used simultaneously with the VGA if a second video card is installed. This code still exists in the final game, and can be enabled with the <code>/aux</code> command line switch.</p>
 <h2 id="static-image-data">Static image data</h2>
 <h3 id="overlay-images-stamps-and-stamp-rolls-stp-rol">Overlay images - stamps and stamp rolls (.STP, .ROL)</h3>
 <p>The images in Nomad that are treated as overlays on a background are called "stamps" and stored in files with an .STP extension. STP data is run-length-encoded (RLE) with 8 bits per pixel, indexing into a palette. (Note that the RLE compression is another layer inside the LZ compression of the archive, so many of these files are effectively compressed twice.) The game images stored in this format are the inventory objects, navigation star map background, individual starfield sprites, shield and explosion sprites, and overlays from the intro sequence.</p>
@@ -833,9 +837,8 @@ uint32_t offset;
 <li><strong>SHABS.BIN:</strong> Shaasa ship, and probably the strangest design of any ship in the game</li>
 </ul>
 <p><a data-lightbox="all_images" data-title="SHABS - Unused Shaasa ship model" href="../images/nomad-shabs.gif"><img alt="SHABS - Unused Shaasa ship model" class="centerthumb" src="../images/nomad-shabs.gif" /></a></p>
-<p>There is at least one minor error in the set of models: the URSCG.BIN Ursor ship model is not completely closed -- there's a gap left by the panel on the upper port side. Oddly, the model does not have this error in the early "Space Mountain" pre-release version of the game.</p>
 <h3 id="notes-about-3d-engine-behavior">Notes about 3D engine behavior</h3>
-<p>The game's 3D engine uses a series of transform buffers, each associated with one of the 3D models that are loaded into the scene. For the scripted 3D animation sequences -- including the snowfield crash from the intro sequence, the conclusion of a trade with an alien ship, and sending or retrieving a labor bot -- all of the data for positioning and movement of the 3D models is hardcoded as parameters to a series of transform functions. The sound effects associated with these animations are simply queued by function calls at the appropriate point in between model transforms. In other words, the sequence of movements in these scenes cannot be changed without modifying code in the game executable.</p>
+<p>The game's 3D engine uses a series of transform buffers, each associated with one of the 3D models that are loaded into the scene. For the scripted 3D animation sequences -- including the snowfield crash from the intro sequence, the conclusion of a trade with an alien ship, and sending or retrieving a labor bot -- all of the data for positioning and movement of the 3D models is hardcoded as parameters to a series of transform functions. The sound effects associated with these animations are simply cued by function calls at the appropriate point in between model transforms. In other words, the sequence of movements in these scenes cannot be changed without modifying code in the game executable.</p>
 <p>When the developers coded the 3D camera sequence in which the player's ship enters orbit around a planet, they wanted a natural-feeling flight path with coordinates that followed a smooth curve. Rather than compute them on the fly, these coordinates are precalculated and stored in a table of two hundred 16-bit words in <code>seg056</code>.</p>
 <h2 id="data-tables">Data tables</h2>
 <p>Nomad has a series of data tables that are read into memory and used to define attributes for ships, planets, aliens, inventory objects, engineering upgrades, and other aspects of the game. In addition to defining the initial state of the game universe, many of these tables contain fields that are updated dynamically while the game is being played; for example, the Object Table entries each contain a flag that is set when the player is granted knowledge of that object. When a player saves his progress, a .SAV file is created that contains a subset of the game's data tables plus some additional dynamic data. The .SAV files also include a few discrete pieces of data, such as the number of Korok vessels that have been destroyed, and a boolean flag indicating whether the Altec Hocker have been discovered by the player.</p>
