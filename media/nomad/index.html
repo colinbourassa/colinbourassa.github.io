@@ -111,6 +111,8 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#lzss-compression-algorithm">LZSS compression algorithm</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dat-format-usage-in-other-games">DAT format usage in other games</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#mission-and-conversation-text">Mission and conversation text</a>
@@ -309,13 +311,14 @@
                 <h1 id="nomad-reverse-engineering">Nomad reverse engineering</h1>
 <ul>
 <li>Published: 2020-03-24</li>
-<li>Last updated: 2020-08-07</li>
+<li>Last updated: 2021-02-23</li>
 </ul>
-<p><em>Nomad</em> is an obscure space-exploration PC game, developed by Papyrus Design Group and Intense! Interactive, and published by GameTek in 1993. My copy was given to me by a classmate who had found it in a discount bin for $4 not long after its release (thanks Pete!) I've been curious about the nature of the game engine and its data files for a long time, so I recently spent some time reverse engineering a good portion of it. The main tools I used for this effort were the debugger in <a href="https://www.dosbox.com/">DOSBox</a> and IDA Freeware Version 5.0 (a copy of which is <a href="https://www.scummvm.org/news/20180331/">hosted by the ScummVM project</a>).</p>
+<p><em>Nomad</em> is an obscure space-exploration PC game, developed by Papyrus Design Group and Intense! Interactive, and published by GameTek in 1993. My copy was given to me by a classmate who had found it in a discount bin for $4 not long after its release (thanks Pete!) I'd been curious about the nature of the game engine and its data files for a long time, so I eventually spent some time reverse engineering a good portion of it. The main tools I used for this effort were the debugger in <a href="https://www.dosbox.com/">DOSBox</a> and IDA Freeware Version 5.0 (a copy of which is <a href="https://www.scummvm.org/news/20180331/">hosted by the ScummVM project</a>).</p>
 <p>I credit my dad (Dan) with introducing me to this type of hacking in the early '90s, and for encouraging the technical curiosity that I have had ever since.</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>, and I've also added much of it to the <a href="http://www.shikadi.net/moddingwiki/Nomad">DOS Game Modding Wiki</a> and <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>.</p>
 <h2 id="updates">Updates</h2>
 <ul>
+<li>2021-02-23: Broadened scope of DAT file format <a href="#dat-format-usage-in-other-games">usage</a>, added info about main executable format (toward the end of the section on <a href="#game-versions">game versions</a>), added link to experimental multi-display build of DOSBox in the <a href="#remaining-debug-code">debug code</a> section</li>
 <li>2021-02-09: Note about some <a href="#remaining-debug-code">debug code</a> that was left in the game</li>
 <li>2020-12-11: Clarification in <a href="#lzss-compression-algorithm">LZSS algorithm description</a>, better description of command byte 12h in <a href="#mission-and-conversation-text">mission and conversation text</a>.</li>
 <li>2020-10-21: Mention of <a href="#tlkxcxxxtxtidx-and-tlkxrxxxtxtidx">conversation text file for Kenelm</a>, link to <a href="https://tcrf.net/Nomad">The Cutting Room Floor</a>, and a few more fields in <a href="#shiptab-ship-data">SHIP.TAB</a>.</li>
@@ -323,7 +326,7 @@
 </ul>
 <h2 id="nomad-resource-explorer">Nomad Resource Explorer</h2>
 <p>I've created a graphical tool that you can use to browse/view the game resources. The code is available <a href="https://github.com/colinbourassa/nomad-resource-explorer">from my GitHub repo</a>, and you can also <a href="https://github.com/colinbourassa/nomad-resource-explorer/releases/latest">download executables for Linux and Windows</a>. This utility is licensed GNU GPL v3.</p>
-<p>Although the information here could certainly be used to create saved-game editors or game resource editors, that's beyond the scope of this project. I invite others to use this documentation to create their own software. As always, if you have additional information that you could contribute to this page, please <a href="mailto:colin.bourassa@gmail.com">contact me</a>.</p>
+<p>Although the information here could certainly be used to create saved-game editors or game resource editors, that's beyond the scope of this project. I have contributed some code to Adam Nielsen's <a href="https://github.com/Malvineous/gamearchivejs">gamearchivejs</a> and <a href="https://github.com/Malvineous/gamecompjs">gamecompjs</a> projects, and I would encourage others to contribute to his suite of software as well. As always, if you have additional information about <em>Nomad</em> that you could contribute to this page, please <a href="mailto:colin.bourassa@gmail.com">contact me</a>.</p>
 <p><a data-lightbox="all_images" data-title="Nomad Resource Explorer - ship" href="../images/nre-screenshot-ship.png"><img alt="Nomad Resource Explorer - ship" class="rowthumb" src="../images/nre-screenshot-ship.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - planet" href="../images/nre-screenshot-planet.png"><img alt="Nomad Resource Explorer - planet" class="rowthumb" src="../images/nre-screenshot-planet.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad Resource Explorer - alien" href="../images/nre-screenshot-alien.png"><img alt="Nomad Resource Explorer - alien" class="rowthumb" src="../images/nre-screenshot-alien.png" /></a>
@@ -391,11 +394,12 @@ Compiled: 14:16:48 on February 01 1994</p>
 </tr>
 </tbody>
 </table>
-<p>In the routines used by NOMAD.EXE to manage buffer regions, the marker bytes <code>52 47</code> ("RG") and <code>4F 4B</code> ("OK") are used. These might be the signatures of two programmers that worked on the game -- Richard Garcia and Omar Khudari.</p>
+<p><code>NOMAD.EXE</code> is a 16-bit DOS MZ executable that was built with Borland Turbo C 2.0. It is not compressed and does not use a DOS extender, instead relying on Borland's overlay manager to swap out its several dozen overlay segments.</p>
+<p>In the routines used by the game engine to manage buffer regions, the marker bytes <code>52 47</code> ("RG") and <code>4F 4B</code> ("OK") are used. These might be the signatures of two programmers that worked on the game -- Richard Garcia and Omar Khudari.</p>
 <h3 id="other-releases">Other releases</h3>
 <p>There are a number of <a href="https://www.mobygames.com/game/dos/nomad/release-info">different versions of the game</a> that can be found in the wild:</p>
 <ul>
-<li>Pre-release/beta. This was released as "Project Nomad" by the scene group Razor1911 on seven 740KB disk images. It was followed up with <code>NOMADDOX.ZIP</code>, described as "quick docs" for the game. The <a href="http://textfiles.com/piracy/RAZOR/nomad.diz">.diz file</a> and <a href="http://textfiles.com/piracy/RAZOR/nomad.nfo">.nfo file</a> are still available.<ul>
+<li>Pre-release/beta. This was released as <em>Project Nomad</em> by the scene group Razor1911 on seven 740KB disk images. It was followed up with <code>NOMADDOX.ZIP</code>, described as "quick docs" for the game. The <a href="http://textfiles.com/piracy/RAZOR/nomad.diz">.diz file</a> and <a href="http://textfiles.com/piracy/RAZOR/nomad.nfo">.nfo file</a> are still available.<ul>
 <li>Identified by "Space Mountain v0.97.01 / Compiled: 18:07:10 on Oct 07 1993"</li>
 <li>The intro/endgame art for this release is very different, and shows the player's character without a helmet and in normal civilian clothes.</li>
 </ul>
@@ -485,6 +489,8 @@ uint32_t offset;
 </li>
 </ul>
 <p>Note that the encoding of these fields is somewhat different from other popular implementations of LZSS. Specifically, the nibbles in the second byte -- containing the byte count and the high-order bits of the offset -- are swapped. Other implementations (such as the <a href="http://wiki.ffrtt.ru/index.php?title=FF7/LZSS_format">Final Fantasy 7 LZSS</a>) place the byte count field in the lowest four bits of the second byte.</p>
+<h3 id="dat-format-usage-in-other-games">DAT format usage in other games</h3>
+<p>Originally, I was calling this the "Nomad DAT format" because I was unaware of any use outside of Nomad. It turns out that the same format was used by several other Papyrus games, including <em>J.R.R. Tolkien's Riders of Rohan</em> and a few IndyCar and NASCAR racing simulations. From what I've seen, <em>Riders of Rohan</em> and <em>Nomad</em> use exactly the same format, while the later racing sims modified it slightly with a <code>char filename[]</code> array that is one byte shorter, making each index entry 27 bytes long instead of 28. Furthermore, LZSS compression does not appear to be used at all in the DAT files for the racing sims.</p>
 <h2 id="mission-and-conversation-text">Mission and conversation text</h2>
 <p>For the most part, the decompressed text in the game is human-readable ASCII, but many of the strings do contain special command bytes used to insert strings or modify game state. For example, a mission posting that mentions a particular planet will grant knowledge of that planet to the player when he reads the mission text. Once the player has knowledge of a topic, that topic can be used in conversation with aliens to uncover more facts. Mission and conversation text can also have embedded commands that add an item to the player's inventory, or change the alien character's temperament. Following is a table of the supported embedded command bytes and their functions:</p>
 <table>
@@ -622,7 +628,7 @@ uint32_t offset;
 <p>The game contains a lot of code written to support 16-color EGA video (mode 0Dh), but the config file does not allow any option to switch to this mode. The executable is hardcoded to always use 256-color 320x200 VGA (mode 13h). However, it can be hacked to use EGA instead by changing a single operand. It seemed to work fine when I tested it.</p>
 <p>To try this out on v1.01 of NOMAD.EXE, use a hex editor to change the 16-bit value at <code>468B6</code> from <code>13 00</code> to <code>0D 00</code>. You'll also need to add the line <code>nointro</code> to <code>NOMAD.CFG</code> as the intro sequence does not work properly in EGA mode.</p>
 <h2 id="remaining-debug-code">Remaining debug code</h2>
-<p>As the game engine runs, it is constantly allocating/deallocating from a memory pool that it maintains for game resources. The developers monitored this memory activity by outputing diagnostic text to the Monochrome Display Adapter, which can actually be used simultaneously with the VGA if a second video card is installed. This code still exists in the final game, and can be enabled with the <code>/aux</code> command line switch.</p>
+<p>As the game engine runs, it is constantly allocating/deallocating from a memory pool that it maintains for game resources. The developers monitored this memory activity by outputing diagnostic text to the Monochrome Display Adapter, which can actually be used simultaneously with the VGA if a second video card is installed. This code still exists in the final game, and can be enabled with the <code>/aux</code> command line switch. To see the output, you will need a version of DOSBox with multi-display capability. It's not a feature officially supported by the DOSBox project, but <a href="https://www.vogons.org/viewtopic.php?p=266274#p266274">this post in a Vogons.org thread</a> has a link to an experimental build that includes it.</p>
 <h2 id="static-image-data">Static image data</h2>
 <h3 id="overlay-images-stamps-and-stamp-rolls-stp-rol">Overlay images - stamps and stamp rolls (.STP, .ROL)</h3>
 <p>The images in Nomad that are treated as overlays on a background are called "stamps" and stored in files with an .STP extension. STP data is run-length-encoded (RLE) with 8 bits per pixel, indexing into a palette. (Note that the RLE compression is another layer inside the LZ compression of the archive, so many of these files are effectively compressed twice.) The game images stored in this format are the inventory objects, navigation star map background, individual starfield sprites, shield and explosion sprites, and overlays from the intro sequence.</p>
