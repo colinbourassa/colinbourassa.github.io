@@ -458,7 +458,6 @@ uint32_t compressed_size;
 char filename[14]; // includes null terminator
 uint32_t offset;
 </code></pre>
-
 <p>At least two of the flag bits are important for indicating the method used to store the file:</p>
 <ul>
 <li><strong>flags.8</strong> indicates whether the file is stored with the LZ compression algorithm described below. If this bit is clear, the <code>uncompressed_size</code> and <code>compressed_size</code> fields must match. In this case, the file is uncompressed and its content may be copied byte-for-byte from the .DAT.</li>
@@ -1227,8 +1226,9 @@ uint32_t offset;
 <p><a data-lightbox="all_images" data-title="Nomad item number 052" href="../images/nomad-item-052.png"><img alt="Nomad item number 052" class="rowthumb" src="../images/nomad-item-052.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad item number 053" href="../images/nomad-item-053.png"><img alt="Nomad item number 053" class="rowthumb" src="../images/nomad-item-053.png" /></a>
 <a data-lightbox="all_images" data-title="Nomad item number 253" href="../images/nomad-item-253.png"><img alt="Nomad item number 253" class="rowthumb" src="../images/nomad-item-253.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad item number 064 - Acodin pill" href="../images/nomad-item-064.png"><img alt="Nomad item number 064 - Acodin pill" class="rowthumb" src="../images/nomad-item-064.png" /></a>
-<p class="caption">Three unused item images that do not appear in the game, and one -- "Acodin Pill" -- that might not appear. (I didn't see it carried in any ship's inventory.)</p></p>
+<a data-lightbox="all_images" data-title="Nomad item number 064 - Acodin pill" href="../images/nomad-item-064.png"><img alt="Nomad item number 064 - Acodin pill" class="rowthumb" src="../images/nomad-item-064.png" /></a></p>
+<p class="caption">Three unused item images that do not appear in the game, and one -- "Acodin Pill" -- that might not appear. (I didn't see it carried in any ship's inventory.)</p>
+
 <table>
 <thead>
 <tr>

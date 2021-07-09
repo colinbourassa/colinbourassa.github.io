@@ -93,11 +93,25 @@ img.center {
   color: #e8c010;
 }
 
-code .hljs-keyword {
+.rst-content code.hljs.cpp {
+  border: none;
+  background: #203050;
+  font-size: 10pt;
+  color: #e8c010;
+}
+
+.rst-content code.hljs.makefile {
+  border: none;
+  background: #203050;
+  font-size: 10pt;
+  color: #e8c010;
+}
+
+.hljs-keyword {
   color: #fffdd0;
 }
 
-code .hljs-number {
+.hljs-number {
   color: #30d515;
 }
 

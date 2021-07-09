@@ -147,7 +147,6 @@
  --data '{&quot;federatedIdentity&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;deviceName&quot;:&quot;fan0&quot;,&quot;SSID&quot;:&quot;your-network-name&quot;,&quot;PASSWORD&quot;:&quot;your-network-passwd&quot;,&quot;DHCP&quot;:true,&quot;timezone&quot;,&quot;UTC-5&quot;}' \
   http://10.10.10.1/config-write-uap
 </code></pre>
-
 <p>Adjust the values of <code>deviceName</code>, <code>SSID</code>, <code>PASSWORD</code>, and <code>timezone</code> appropriately for your installation, network, and location. After receiving the request, the fan should respond with <code>HTTP/1.1 200 OK</code>, and then close the connection as it joins the new network.</p>
 <p>I suspected that Modern Forms embedded code was not completely custom, but rather a commercial network stack intended for cloud-connected devices. A web search found the URL fragment <code>config-write-uap</code> in the <code>config_server.c</code> module of the <a href="https://github.com/MXCHIP/mxos">MXOS</a> stack, and this is certainly the embedded codebase used for these fans, as they identify themselves with the hostname <code>MXCHIP</code> when they join the network.</p>
               
