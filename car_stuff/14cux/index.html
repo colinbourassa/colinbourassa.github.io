@@ -550,7 +550,7 @@
 <p>This section explains the reasons behind the unusual signalling characteristics of the 14CUX serial port. The output from the microprocessor (MPU) in the 14CUX's ECU looks like this:</p>
 <p><a data-lightbox="all_images" data-title="14CUX MPU serial port drawing" href="../images/14cux_serial_schematic.png"><img alt="14CUX MPU serial port drawing" class="centerthumb" src="../images/14cux_serial_schematic.png" /></a></p>
 <p>The Q10 transistor acts like a switch. When the signal from the MPU is high (5V), the switch is ON and the low side of <code>R150</code> is shunted to ground, so Pin 9 is zero volts. When the MPU signal goes low, the switch is OFF and the low side of <code>R150</code> is pulled up, so Pin 9 goes to 12V. This transistor circuit is designed to buffer and protect the MPU signal, but it also inverts and changes the voltage level. This is why the FTDI USB device must have its RxD signal inverted (to match the 14CUX's inverted TxD.) However, because the FTDI converter is a 5V device, the 12V signal from the ECU must be attenuated with an external resistor to prevent damage. I've found that the 5V signal from the FTDI converter is sufficient to drive the RxD line in the 14CUX.</p>
-<p>The resistor needs to be about 400Ω and soldered between the ECU's output signal and ground. The total resistance will be 400Ω + 100Ω + 500Ω (1000Ω total). The voltage across the 400Ω resistor will be about 4.8V (400/1000 x 12V). The resistor will dissipate only about 57mW when the output goes high (and since the idle state is low, the average will be much lower.)</p>
+<p>The resistor needs to be about 400Ω and soldered between the ECU's output signal and ground. The total resistance will be 400Ω + 100Ω + 500Ω (1000Ω total). The voltage across the 400Ω resistor will be about 4.8V (400/1000 x 12V).</p>
 <p>The serial port pins are brought out from the harness via the "Data Link Connector", which is C245 in the Land Rover service documentation. Its grounding plug is connector C244.</p>
 <h2 id="serial-software-protocol">Serial software protocol</h2>
 <p>The protocol works as follows: the client sends a series of bytes to the 14CUX, which together specify the memory location to read or write and the number of bytes to read (if reading). When reading, a total of three bytes are sent before the 14CUX begins responding with the requested data. When writing, a total of four bytes are sent; the first three set the address (as with the "read" command) and the fourth is the value that will be written to the specified location.</p>
@@ -560,31 +560,23 @@
 <h3 id="command-byte-sequence-and-structure">Command byte sequence and structure</h3>
 <p>The first command byte (call it <em>Command Byte A</em>) contains three fields: (a) a fixed identifier of 0, (b) the quantity of bytes to read (if applicable) and (c) the top two bits of the address that will be read/written. If performing a write command, the Quantity field is ignored. This command byte is structured like so:</p>
 <table>
-<thead>
-<tr>
-<th>7</th>
-<th>6</th>
-<th>5</th>
-<th>4</th>
-<th>3</th>
-<th>2</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Fixed ID (set to 0)</td>
-<td>Quantity</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Bits 15:14 of address</td>
-<td></td>
-</tr>
-</tbody>
+  <thead><tr>
+    <th>7</th>
+    <th>6</th>
+    <th>5</th>
+    <th>4</th>
+    <th>3</th>
+    <th>2</th>
+    <th>1</th>
+    <th>0</th>
+  </tr></thead>
+  <tr>
+    <td>Fixed ID (set to 0)</td>
+    <td colspan=5>Quantity</td>
+    <td colspan=2>Bits 15:14 of address</td>
+  </tr>
 </table>
+
 <p>After the 14CUX receives this command byte, it will be echoed over the serial port. The client should not send the next command byte until the echo of the first is received.
 Because of the limited width of the Quantity field, the 14CUX uses an encoding scheme to select a quantity. If reading between 1 and 16 bytes, the Quantity field must be set to (<em>n</em> - 1), where <em>n</em> is the number of bytes desired. Otherwise, <em>n</em> must be one of four predefined values and use the corresponding 5-bit code:</p>
 <table>
@@ -619,62 +611,43 @@ Because of the limited width of the Quantity field, the 14CUX uses an encoding s
 </table>
 <p>The second command byte (<em>Command Byte B</em>) sets the next eight bits of the read/write address. This byte is also echoed back over the serial link upon receipt, and the client should wait to receive the echo before continuing. This byte has the following structure:</p>
 <table>
-<thead>
-<tr>
-<th>7</th>
-<th>6</th>
-<th>5</th>
-<th>4</th>
-<th>3</th>
-<th>2</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bits 13:6 of address</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
+  <thead><tr>
+    <th>7</th>
+    <th>6</th>
+    <th>5</th>
+    <th>4</th>
+    <th>3</th>
+    <th>2</th>
+    <th>1</th>
+    <th>0</th>
+  </tr></thead>
+  <tr>
+    <td colspan=8>Bits 13:6 of address</td>
+  </tr>
 </table>
+
 <p>The third command byte (<em>Command Byte C</em>) contains the last six bits of the address, and it finally determines whether this is a read or a write operation:</p>
 <table>
-<thead>
-<tr>
-<th>7</th>
-<th>6</th>
-<th>5</th>
-<th>4</th>
-<th>3</th>
-<th>2</th>
-<th>1</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>11 for read <em>or</em> 10 for write</td>
-<td></td>
-<td>Bits 5:0 of address</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
+  <thead><tr>
+    <th>7</th>
+    <th>6</th>
+    <th>5</th>
+    <th>4</th>
+    <th>3</th>
+    <th>2</th>
+    <th>1</th>
+    <th>0</th>
+  </tr></thead>
+  <tr>
+    <td colspan=2>11 for read <i>or</i> 10 for write</td>
+    <td colspan=6>Bits 5:0 of address</td>
+  </tr>
 </table>
+
 <p>If the third command byte indicates a read operation, then the command string is complete and the 14CUX will begin to respond with the requested byte(s) from memory. Note that the third command byte is <em>not</em> echoed in this case.</p>
 <p>Otherwise, if the third command byte indicates a write operation, it <em>is</em> echoed, and the client should wait to receive the echo before it sends the fourth and final byte, which is the value to be written. The 14CUX echoes this last byte as well to confirm completion of the write operation.</p>
 <p>An example: to read 512 bytes from location $C562, the bytes 4F 15 E2 should be sent to the 14CUX.</p>
-<p>Memory offsets that contain information of interest are listed in a table in the <a href="./">main 14CUX article</a>.</p>
+<p>Memory offsets that contain information of interest are <a href="#notable-offsets">listed in a table above</a>.</p>
 <h2 id="software">Software</h2>
 <p>To read data from the 14CUX and display it in a useful way, I wrote some free/open-source, cross-platform software. It's licensed under the GNU General Public License v3.0, and it's designed in two parts:</p>
 <ul>
