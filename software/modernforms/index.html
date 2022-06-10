@@ -117,30 +117,22 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
-    
-      
-        
-          <li>Software/Electronics &raquo;</li>
-        
-      
-    
-    <li>Modern Forms fan IP control</li>
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Software/Electronics &raquo;</li><li>Modern Forms fan IP control</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
+
           <div role="main">
             <div class="section">
               
                 <h1 id="modern-forms-fan-ip-control">Modern Forms fan IP control</h1>
 <p>Published: 2020-08-10</p>
 <p>Some of the ceiling fans produced by the company <strong>Modern Forms</strong> allow remote control over IP via their built-in Wi-Fi. When first installed, the fans act as an access point and broadcast their own SSID. Users are intended to download the Modern Forms smartphone app, which is capable of configuring the fan for connecting to the user's home network (by supplying an SSID and password). The app is then capable of sending commands to control the fan speed and direction, and switch the light on or off.</p>
-<p>I wanted the option of using this REST API, but I was not interested in using the Modern Forms app or otherwise connecting to their cloud services. The JSON-based API for fan control is fairly well understood, and <a href="https://github.com/quielb/pypi">this GitHub repo</a> by user Barry Quiel (quielb) provides a Python implementation of the interface. It also has a <a href="https://pypi.org/project/modernforms/">Python package index page</a>.  However, I wasn't able to find any information about the process of configuring the fan with the user's network SSID and password in the first place, so I figured this out and have documented it here.</p>
-<p>The first step in the process -- connecting to the fan's access point -- is partially covered by owner's manual. The fan will broadcast the SSID <code>ModernFormsFan_XXXXXX</code>, with the last six characters being the last hex digits from the fan's MAC address. This access point will accept connections when supplied with the password <code>intelligence</code>. Via DHCP, it appears to serve an address in the subnet <code>10.10.10.0/24</code>, with the fan itself assuming <code>10.10.10.1</code>. The client must then make an HTTP POST request to the fan with the appropriate JSON payload. It's straightforward to do this from the command line with cURL:</p>
+<p>I wanted the option of using this REST API, but I was not interested in using the Modern Forms app or otherwise connecting to their cloud services. The JSON-based API for fan control is fairly well understood, and there is now a <a href="https://www.home-assistant.io/integrations/modern_forms/">Home Assistant integration</a> that supports it. (See also: <a href="https://github.com/quielb/pypi">this GitHub repo</a> by user Barry Quiel (quielb) for a Python implementation of the interface, along with its <a href="https://pypi.org/project/modernforms/">Python package index page</a>. However, I wasn't able to find any information about the process of configuring the fan with the user's network SSID and password in the first place, so I figured this out through some reverse engineering work and have documented it here.</p>
+<p>The first step in the process -- connecting to the fan's access point -- is covered by the owner's manual. The fan will broadcast the SSID <code>ModernFormsFan_XXXXXX</code>, with the last six characters being the last hex digits from the fan's MAC address. This access point will accept connections when supplied with the password <code>intelligence</code>. Via DHCP, it appears to serve an address in the subnet <code>10.10.10.0/24</code>, with the fan itself assuming <code>10.10.10.1</code>. The client must then make an HTTP POST request to the fan with the appropriate JSON payload. It's straightforward to do this from the command line with cURL, although note that different firmware revisions may require additional parameters. The following worked for me, with firmware <code>01.03.0017</code>:</p>
 <pre><code>curl -i \
  --header &quot;Content-Type: application/json; charset=utf-8&quot; \
  --request POST \
@@ -148,7 +140,8 @@
   http://10.10.10.1/config-write-uap
 </code></pre>
 <p>Adjust the values of <code>deviceName</code>, <code>SSID</code>, <code>PASSWORD</code>, and <code>timezone</code> appropriately for your installation, network, and location. After receiving the request, the fan should respond with <code>HTTP/1.1 200 OK</code>, and then close the connection as it joins the new network.</p>
-<p>I suspected that Modern Forms embedded code was not completely custom, but rather a commercial network stack intended for cloud-connected devices. A web search found the URL fragment <code>config-write-uap</code> in the <code>config_server.c</code> module of the <a href="https://github.com/MXCHIP/mxos">MXOS</a> stack, and this is certainly the embedded codebase used for these fans, as they identify themselves with the hostname <code>MXCHIP</code> when they join the network.</p>
+<p>If the above parameter set does not work on your fan, you may need to give fake email addresses as values to the <code>federatedIdentity</code> and <code>owner</code> fields. I received an email from someone with a fan running firmware <code>02.00.0026</code>, and it seems this change was required. You may want to check your firmware version by requesting <code>http://10.10.10.1/config-read</code> -- there will be a field in the returned JSON that gives the version.</p>
+<p>I suspected that Modern Forms embedded code was not completely custom, but rather a commercial network stack intended for cloud-connected devices. A web search found the URL fragment <code>config-write-uap</code> in the <code>config_server.c</code> module of the <a href="https://github.com/MXCHIP/mxos">MXOS</a> stack, and this is certainly the embedded codebase used for these fans. The fans identify themselves with the hostname <code>MXCHIP</code> when they join the network.</p>
               
             </div>
           </div>
