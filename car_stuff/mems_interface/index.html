@@ -31,7 +31,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
-</head>
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -144,13 +149,13 @@
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Car stuff &raquo;</li><li>Rover MEMS diagnostics</li>
+          <li>Car stuff &raquo;</li>
+      <li>Rover MEMS diagnostics</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main">
             <div class="section">
               
@@ -168,7 +173,7 @@
 <li><a href="http://github.com/colinbourassa/librosco/releases/latest">librosco</a></li>
 <li><a href="http://github.com/colinbourassa/memsgauge/releases/latest">MEMSGauge</a></li>
 </ul>
-<p><a data-lightbox="all_images" data-title="MEMSGauge 0.1.0 screenshot" href="../images/memsgauge_0.1.0.png"><img alt="MEMSGauge 0.1.0 screenshot" class="centerthumb" src="../images/memsgauge_0.1.0.png" /></a></p>
+<p><a class="glightbox" href="../images/memsgauge_0.1.0.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="MEMSGauge 0.1.0 screenshot" class="centerthumb" src="../images/memsgauge_0.1.0.png" /></a></p>
 <h2 id="building-a-cable">Building a cable</h2>
 <p>To build a cable that will connect to the ECU's diagnostic port, you will need three things:</p>
 <ul>
@@ -228,7 +233,7 @@
 </tr>
 </tbody>
 </table>
-<p><a data-lightbox="all_images" data-title="TE Connectivity 172201 pin numbering" href="../images/te_connectivity_172201.jpg"><img alt="TE Connectivity 172201 pin numbering" class="centerthumb" src="../images/te_connectivity_172201.jpg" /></a></p>
+<p><a class="glightbox" href="../images/te_connectivity_172201.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="TE Connectivity 172201 pin numbering" class="centerthumb" src="../images/te_connectivity_172201.jpg" /></a></p>
 <h2 id="protocol">Protocol</h2>
 <p>The ECU's diagnostic port uses a serial protocol, with 8 data bits, no parity, and 1 stop bit, running at 9600 bps.</p>
 <p>When a diagnotic tool (or a PC running diagnostic software) is first connected to the ECU, it must send an initialization sequence to enable further communication. I haven't looked inside the SPi MEMS firmware and I've only run experiments with a single car, so I can't provide any further insight on the meaning of this sequence. I'd certainly like to hear from anyone who has more information. Note that the first byte returned by the ECU appears to always be an echo of the command byte.</p>
@@ -887,5 +892,5 @@
         };
     </script>
 
-</body>
+<script>const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});</script></body>
 </html>

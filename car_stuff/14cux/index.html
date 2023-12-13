@@ -31,7 +31,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
-</head>
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -152,13 +157,13 @@
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Car stuff &raquo;</li><li>14CUX</li>
+          <li>Car stuff &raquo;</li>
+      <li>14CUX</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main">
             <div class="section">
               
@@ -492,7 +497,7 @@
 <p>On the cables I've used, the Tx and Rx lines were orange and yellow, respectively. Check the documentation for your cable to be sure about the wiring.</p>
 <p>Once you have the FTDI cable, it's a good idea to test it with a loopback: short the Tx and Rx lines, connect the USB end to a PC, and start a terminal emulator (such as <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a>). Be sure to turn off local echo, and any characters you type should appear in the terminal.</p>
 <p>Then, using the <a href="http://www.ftdichip.com/Support/Utilities.htm#FT_PROG">FT_PROG utility from FTDI</a>, invert the polarity of the Rx line (click screenshot to enlarge) and program the new configuration to the device by selecting "Devices" -&gt; "Program" or simply pressing Ctrl-P. After this, unplug and re-plug the USB end of the FTDI cable for the change to take effect.</p>
-<p><a data-lightbox="all_images" data-title="FT_PROG screenshot" href="../images/ft_prog.png"><img alt="FT_PROG screenshot" class="centerthumb" src="../images/ft_prog.png" /></a></p>
+<p><a class="glightbox" href="../images/ft_prog.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="FT_PROG screenshot" class="centerthumb" src="../images/ft_prog.png" /></a></p>
 <p>A loopback test in a terminal should no longer work once the Rx line is inverted.</p>
 <h3 id="connector-and-wiring">Connector and wiring</h3>
 <p>The wiring harness in 14CUX-equipped vehicles already has a beige 5-pin connector on the serial port lines, but the shell for the mating connector is no longer available from most retailers. You will probably want to purchase a more common pair of mating connectors (such as a DB9), and use these instead. If you want to retain the original 5-pin connector on the vehicle's wiring harness, you can splice a different one in parallel.</p>
@@ -534,13 +539,13 @@
 </tbody>
 </table>
 <p>The TTS connector pin numbers in the table above are only important if you've managed to find a mating connector and want to wire it to match the existing TTS connector in the vehicle. The pins in the vehicle side are numbered like so:</p>
-<p><a data-lightbox="all_images" data-title="14CUX TTS connector pin numbering" href="../images/14cux_tts_data_link_connector_vehicle-side.png"><img alt="14CUX TTS connector pin numbering" class="centerthumb" src="../images/14cux_tts_data_link_connector_vehicle-side.png" /></a></p>
+<p><a class="glightbox" href="../images/14cux_tts_data_link_connector_vehicle-side.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="14CUX TTS connector pin numbering" class="center" src="../images/14cux_tts_data_link_connector_vehicle-side.png" /></a></p>
 <p>If you <em>are</em> using a TTS connector on the FTDI cable, the back of the connector shell will look like the photo below when it's wired correctly. Note the 400Ω resistor between pins 4 and 5 (click photo to enlarge):</p>
-<p><a data-lightbox="all_images" data-title="FTDI cable with TTS connector attached" href="../images/ftdi_with_tts_rear.jpg"><img alt="FTDI cable with TTS connector attached" class="centerthumb" src="../images/ftdi_with_tts_rear.jpg" /></a></p>
+<p><a class="glightbox" href="../images/ftdi_with_tts_rear.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="FTDI cable with TTS connector attached" class="centerthumb" src="../images/ftdi_with_tts_rear.jpg" /></a></p>
 <p>That's it. The cable should now allow this software to communicate with the 14CUX.</p>
 <h3 id="technical-background">Technical background</h3>
 <p>This section explains the reasons behind the unusual signalling characteristics of the 14CUX serial port. The output from the microprocessor (MPU) in the 14CUX's ECU looks like this:</p>
-<p><a data-lightbox="all_images" data-title="14CUX MPU serial port drawing" href="../images/14cux_serial_schematic.png"><img alt="14CUX MPU serial port drawing" class="centerthumb" src="../images/14cux_serial_schematic.png" /></a></p>
+<p><a class="glightbox" href="../images/14cux_serial_schematic.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="14CUX MPU serial port drawing" class="centerthumb" src="../images/14cux_serial_schematic.png" /></a></p>
 <p>The Q10 transistor acts like a switch. When the signal from the MPU is high (5V), the switch is ON and the low side of <code>R150</code> is shunted to ground, so Pin 9 is zero volts. When the MPU signal goes low, the switch is OFF and the low side of <code>R150</code> is pulled up, so Pin 9 goes to 12V. This transistor circuit is designed to buffer and protect the MPU signal, but it also inverts and changes the voltage level. This is why the FTDI USB device must have its RxD signal inverted (to match the 14CUX's inverted TxD.) However, because the FTDI converter is a 5V device, the 12V signal from the ECU must be attenuated with an external resistor to prevent damage. I've found that the 5V signal from the FTDI converter is sufficient to drive the RxD line in the 14CUX.</p>
 <p>The resistor needs to be about 400Ω and soldered between the ECU's output signal and ground. The total resistance will be 400Ω + 100Ω + 500Ω (1000Ω total). The voltage across the 400Ω resistor will be about 4.8V (400/1000 x 12V).</p>
 <p>The serial port pins are brought out from the harness via the "Data Link Connector", which is C245 in the Land Rover service documentation. Its grounding plug is connector C244.</p>
@@ -646,7 +651,7 @@ Because of the limited width of the Quantity field, the 14CUX uses an encoding s
 <li><a href="http://github.com/colinbourassa/libcomm14cux"><strong>libcomm14cux</strong></a> is a library that handles the mechanics of the serial protocol required to read from (and write to) 14CUX memory via the diagnostic serial port. It depends on the PC having a serial device capable of communicating using the 14CUX signalling scheme and baud rate. Note: although the serial port allows a "write" operation, <strong>the ECU's stored code and data (such as fuel maps) cannot be changed via the serial port.</strong> The PROM itself must be removed and altered to change the code, fuel maps, or other data. Writing via the serial port can only change memory locations in RAM, though this should still be done with care due to the possibility of creating a bad running condition.</li>
 <li><a href="http://github.com/colinbourassa/rovergauge"><strong>RoverGauge</strong></a> is a graphical front-end that uses libcomm14cux to read data from the ECU. It displays engine temperature, road speed, engine speed, and other details, using meters and gauges.</li>
 </ul>
-<p><a data-lightbox="all_images" data-title="RoverGauge 0.6.0 screenshot" href="../images/rovergauge_0.6.0.png"><img alt="RoverGauge 0.6.0 screenshot" class="centerthumb" src="../images/rovergauge_0.6.0.png" /></a></p>
+<p><a class="glightbox" href="../images/rovergauge_0.6.0.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="RoverGauge 0.6.0 screenshot" class="centerthumb" src="../images/rovergauge_0.6.0.png" /></a></p>
 <h3 id="downloads">Downloads</h3>
 <p>Both Linux and Windows packages are available to download:</p>
 <ul>
@@ -687,5 +692,5 @@ Because of the limited width of the Quantity field, the 14CUX uses an encoding s
         };
     </script>
 
-</body>
+<script>const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});</script></body>
 </html>

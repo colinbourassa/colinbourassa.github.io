@@ -31,7 +31,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
-</head>
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
 
 <body class="wy-body-for-nav" role="document">
 
@@ -246,13 +251,13 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#sav-file-format">SAV file format</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#alien-state-heap-astate_heap">Alien State Heap (astate_heap)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#alien-state-heap-astate_heap">Alien State Heap (astate95heap)</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#encounterrelationship-tables-encount_relate-and-encount_relate2">Encounter/Relationship Tables (encount_relate and encount_relate2)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#encounterrelationship-tables-encount_relate-and-encount_relate2">Encounter/Relationship Tables (encount95relate and encount95relate2)</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#labor-robot-heap-labor_heap">Labor Robot Heap (labor_heap)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#labor-robot-heap-labor_heap">Labor Robot Heap (labor95heap)</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#setup-table-setup_tab">Setup Table (setup_tab)</a>
+    <li class="toctree-l3"><a class="reference internal" href="#setup-table-setup_tab">Setup Table (setup95tab)</a>
     </li>
         </ul>
     </li>
@@ -290,13 +295,13 @@
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Software/Electronics &raquo;</li><li>Nomad (GameTek)</li>
+          <li>Software/Electronics &raquo;</li>
+      <li>Nomad (GameTek)</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main">
             <div class="section">
               
@@ -319,17 +324,17 @@
 <h2 id="nomad-resource-explorer">Nomad Resource Explorer</h2>
 <p>I've created a graphical tool that you can use to browse/view the game resources. The code is available <a href="https://github.com/colinbourassa/nomad-resource-explorer">from my GitHub repo</a>, and you can also <a href="https://github.com/colinbourassa/nomad-resource-explorer/releases/latest">download executables for Linux and Windows</a>. This utility is licensed GNU GPL v3.</p>
 <p>Although the information here could certainly be used to create saved-game editors or game resource editors, that's beyond the scope of this project. I have contributed some code to Adam Nielsen's <a href="https://github.com/Malvineous/gamearchivejs">gamearchivejs</a> and <a href="https://github.com/Malvineous/gamecompjs">gamecompjs</a> projects, and I would encourage others to contribute to his suite of software as well. As always, if you have additional information about <em>Nomad</em> that you could contribute to this page, please <a href="mailto:colin.bourassa@gmail.com">contact me</a>.</p>
-<p><a data-lightbox="all_images" data-title="Nomad Resource Explorer - ship" href="../images/nre-screenshot-ship.png"><img alt="Nomad Resource Explorer - ship" class="rowthumb" src="../images/nre-screenshot-ship.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad Resource Explorer - planet" href="../images/nre-screenshot-planet.png"><img alt="Nomad Resource Explorer - planet" class="rowthumb" src="../images/nre-screenshot-planet.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad Resource Explorer - alien" href="../images/nre-screenshot-alien.png"><img alt="Nomad Resource Explorer - alien" class="rowthumb" src="../images/nre-screenshot-alien.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad Resource Explorer - object" href="../images/nre-screenshot-object.png"><img alt="Nomad Resource Explorer - object" class="rowthumb" src="../images/nre-screenshot-object.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad Resource Explorer - fullscreen" href="../images/nre-screenshot-fullscreen.png"><img alt="Nomad Resource Explorer - fullscreen" class="rowthumb" src="../images/nre-screenshot-fullscreen.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad Resource Explorer - conversation" href="../images/nre-screenshot-conversation.png"><img alt="Nomad Resource Explorer - conversation" class="rowthumb" src="../images/nre-screenshot-conversation.png" /></a></p>
+<p><a class="glightbox" href="../images/nre-screenshot-ship.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad Resource Explorer - ship" class="rowthumb" src="../images/nre-screenshot-ship.png" /></a>
+<a class="glightbox" href="../images/nre-screenshot-planet.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad Resource Explorer - planet" class="rowthumb" src="../images/nre-screenshot-planet.png" /></a>
+<a class="glightbox" href="../images/nre-screenshot-alien.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad Resource Explorer - alien" class="rowthumb" src="../images/nre-screenshot-alien.png" /></a>
+<a class="glightbox" href="../images/nre-screenshot-object.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad Resource Explorer - object" class="rowthumb" src="../images/nre-screenshot-object.png" /></a>
+<a class="glightbox" href="../images/nre-screenshot-fullscreen.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad Resource Explorer - fullscreen" class="rowthumb" src="../images/nre-screenshot-fullscreen.png" /></a>
+<a class="glightbox" href="../images/nre-screenshot-conversation.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad Resource Explorer - conversation" class="rowthumb" src="../images/nre-screenshot-conversation.png" /></a></p>
 <h2 id="notes-to-other-developers-and-hackers">Notes to other developers and hackers</h2>
 <h3 id="disassembly-methodology">Disassembly methodology</h3>
 <p>Disassembly of the main executable was a substantial task given its size and its use of code overlays. Early in the process, I focused on identifying code that loaded data tables from the game's resource files. Labeling the segments/offsets where these tables were stored in memory was very useful in identifying routines that handled that data.</p>
-<p><a data-lightbox="all_images" data-title="Nomad disassembly in IDA" href="../images/nomad-ida.png"><img alt="Nomad disassembly in IDA" class="centerthumb" src="../images/nomad-ida.png" /></a></p>
-<p>The game's system for defining the layout of dialog boxes uses several different structs that carry information about X,Y positioning and the types of widgets to display. These dialog data structs also contain function pointers to routines that do the drawing for certain regions. There are a large number of fields across several different structure definitions used by the game, and I only scratched the surface of this system; it wasn't really necessary for reversing the game's data file formats, which was my primary goal.</p>
+<p><a class="glightbox" href="../images/nomad-ida.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad disassembly in IDA" class="centerthumb" src="../images/nomad-ida.png" /></a></p>
+<p>The game's system for defining the layout of dialog boxes uses several different structs that carry information about X,Y positioning and the types of widgets to display. These dialog data structs also contain function pointers to routines that do the drawing for certain regions. There are a large number of fields across several different structure definitions used by the game, and I have identified and documented most of these fields.</p>
 <p><strike>You may have noticed that there's no information in this article about the game's 3D ship models. I personally have no experience with 3D rendering engines, but if anyone out there can shed some light on the details of the game's 3D engine or (especially) the format of the .BIN models (from TEST.DAT), please <a href="mailto:colin.bourassa@gmail.com">get in touch</a>.</strike></p>
 <p><strong>Update 2020-07-10:</strong> I've reversed enough of the 3D model .BIN format to be able to render them with OpenGL in the Resource Explorer. See the <a href="#3d-models">section on 3D models</a>.</p>
 <h3 id="resource-explorer-source-code">Resource Explorer source code</h3>
@@ -397,7 +402,7 @@ Compiled: 14:16:48 on February 01 1994</p>
 </ul>
 </li>
 </ul>
-<p><a data-lightbox="all_images" data-title="European endgame screen" href="../images/nomad-endgame.png"><img alt="European endgame screen" class="centerthumb" src="../images/nomad-endgame.png" /></a></p>
+<p><a class="glightbox" href="../images/nomad-endgame.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="European endgame screen" class="centerthumb" src="../images/nomad-endgame.png" /></a></p>
 <ul>
 <li>North American release on four 1.44MB 3.5" disks<ul>
 <li>Identified by "Nomad v1.00.00 / Compiled: 22:31:45 on Jan 04 1994"</li>
@@ -433,7 +438,7 @@ Compiled: 14:16:48 on February 01 1994</p>
 <p>I've read that some versions of the game have a very different introduction that specifically mentions Disneyland. Although I have never played such a version, I did find some unused audio files packed in the game's data archives in which a narrator does indeed mention the theme park by name. The narrator also establishes the game's premise: the player was the unwitting passenger on the Space Mountain ship as it was accidentally activated and departed Earth. (This game story was ultimately replaced by the one in which the ship crash-lands on Earth, and the player is an operative assigned by a shadowy international intelligence organization.)</p>
 <p>The Disney connection may also help to explain the support for the Disney Sound Source hardware, which was otherwise not popular among game developers.</p>
 <p><strong>Update 2020-04-04:</strong> I've had a chance to look at the data files for the earliest (pre-release?) copy of the game, and they contain even more Disney material, including an alternate title screen with the name "Space Mountain":
-<a data-lightbox="all_images" data-title="Alternate Space Mountain title screen" href="../images/nomad-space-mountain.png"><img alt="Alternate Space Mountain title screen" class="centerthumb" src="../images/nomad-space-mountain.png" /></a></p>
+<a class="glightbox" href="../images/nomad-space-mountain.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Alternate Space Mountain title screen" class="centerthumb" src="../images/nomad-space-mountain.png" /></a></p>
 <h2 id="dat-archive-format">DAT archive format</h2>
 <p>Apart from the main executable, NOMAD.EXE, the only interesting files are the five data archives:</p>
 <ul>
@@ -834,7 +839,7 @@ uint32_t offset;
 <li><strong>SHABC.BIN:</strong> Shaasa ship, perhaps intended to be a fighter</li>
 <li><strong>SHABS.BIN:</strong> Shaasa ship, and probably the strangest design of any ship in the game</li>
 </ul>
-<p><a data-lightbox="all_images" data-title="SHABS - Unused Shaasa ship model" href="../images/nomad-shabs.gif"><img alt="SHABS - Unused Shaasa ship model" class="centerthumb" src="../images/nomad-shabs.gif" /></a></p>
+<p><a class="glightbox" href="../images/nomad-shabs.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SHABS - Unused Shaasa ship model" class="centerthumb" src="../images/nomad-shabs.gif" /></a></p>
 <h3 id="notes-about-3d-engine-behavior">Notes about 3D engine behavior</h3>
 <p>The game's 3D engine uses a series of transform buffers, each associated with one of the 3D models that are loaded into the scene. For the scripted 3D animation sequences -- including the snowfield crash from the intro sequence, the conclusion of a trade with an alien ship, and sending or retrieving a labor bot -- all of the data for positioning and movement of the 3D models is hardcoded as parameters to a series of transform functions. The sound effects associated with these animations are simply cued by function calls at the appropriate point in between model transforms. In other words, the sequence of movements in these scenes cannot be changed without modifying code in the game executable.</p>
 <p>When the developers coded the 3D camera sequence in which the player's ship enters orbit around a planet, they wanted a natural-feeling flight path with coordinates that followed a smooth curve. Rather than compute them on the fly, these coordinates are precalculated and stored in a table of two hundred 16-bit words in <code>seg056</code>.</p>
@@ -1215,10 +1220,10 @@ uint32_t offset;
 <li>A few of the objects are abstract concepts that do not physically appear in-game. These include "The Alliance", "Facts", "The Volm", and the W.A.P.. The first three of these actually have images associated with their IDs, although they look like unused images for items that were removed from the game.</li>
 <li>The relative-value fields for the Korok and the Kenelm are swapped! This is very apparent when inspecting the data. Based on the storyline, the Kenelm <em>should</em> place maximum value on the Eye of Kenelm but no value on any other object, while the Korok should place value primarily on raw materials and tactical equipment. However, exactly the opposite is true in the OBJECT.TAB data. Although this is a bug in the game, it only manifests as a tendency for the Korok to accept strange items in trade that shouldn't actually interest them.</li>
 </ul>
-<p><a data-lightbox="all_images" data-title="Nomad item number 052" href="../images/nomad-item-052.png"><img alt="Nomad item number 052" class="rowthumb" src="../images/nomad-item-052.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad item number 053" href="../images/nomad-item-053.png"><img alt="Nomad item number 053" class="rowthumb" src="../images/nomad-item-053.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad item number 253" href="../images/nomad-item-253.png"><img alt="Nomad item number 253" class="rowthumb" src="../images/nomad-item-253.png" /></a>
-<a data-lightbox="all_images" data-title="Nomad item number 064 - Acodin pill" href="../images/nomad-item-064.png"><img alt="Nomad item number 064 - Acodin pill" class="rowthumb" src="../images/nomad-item-064.png" /></a></p>
+<p><a class="glightbox" href="../images/nomad-item-052.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad item number 052" class="rowthumb" src="../images/nomad-item-052.png" /></a>
+<a class="glightbox" href="../images/nomad-item-053.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad item number 053" class="rowthumb" src="../images/nomad-item-053.png" /></a>
+<a class="glightbox" href="../images/nomad-item-253.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad item number 253" class="rowthumb" src="../images/nomad-item-253.png" /></a>
+<a class="glightbox" href="../images/nomad-item-064.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nomad item number 064 - Acodin pill" class="rowthumb" src="../images/nomad-item-064.png" /></a></p>
 <p class="caption">Three unused item images that do not appear in the game, and one -- "Acodin Pill" -- that might not appear. (I didn't see it carried in any ship's inventory.)</p>
 
 <table>
@@ -2176,5 +2181,5 @@ Each record corresponds to a single alien, using the same indexing as ALIEN.TAB.
         };
     </script>
 
-</body>
+<script>const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});</script></body>
 </html>
