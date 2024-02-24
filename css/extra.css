@@ -107,6 +107,13 @@ img.center {
   color: #e8c010;
 }
 
+.rst-content code.hljs.rust {
+  border: none;
+  background: #203050;
+  font-size: 10pt;
+  color: #e8c010;
+}
+
 .hljs-keyword {
   color: #fffdd0;
 }

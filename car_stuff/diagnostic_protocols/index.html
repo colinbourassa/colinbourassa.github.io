@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Diagnostic protocols - cmb</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Diagnostic protocols";
+        var mkdocs_page_input_path = "car_stuff/diagnostic_protocols.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> cmb
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../contact/">Contact</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Car stuff</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../14cux/">14CUX</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../14cux_rescue/">14CUX rescue kit</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Diagnostic protocols</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#k-line-protocol-comparison">K-Line protocol comparison</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../xjr/">Jaguar XJR6 5-speed</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../europa_jps/">Lotus Europa JPS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../blue_star/">Mini Blue Star</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mog/">Morgan Plus 8</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mems_interface/">Rover MEMS diagnostics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sykes_acr/">Sykes-Pickavant ACR</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Media</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/connections/">Connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/cosmos/">Cosmos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Software/Electronics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/modernforms/">Modern Forms fan IP control</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/nomad/">Nomad (GameTek)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/quarantine/">Quarantine (GameTek)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tools/tire_inflators/">Tire inflators</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">cmb</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Car stuff &raquo;</li>
+      <li>Diagnostic protocols</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="automotive-diagnostic-protocols">Automotive diagnostic protocols</h1>
+<p>Published: 2024-02-23</p>
+<p>In the history of automotive ECUs, there have been a number of different approaches to the design of their diagnostic protocols. One of these, <strong>Keyword Protocol 71</strong> (also known as <strong>KWP-71</strong> or <strong>KW71</strong>), seems to have provided the original model for a family of protocols that I'll refer to as the "<strong>block exchange</strong>" type. These protocols all have some sort of initialization sequence, followed by a continuous exchange of messages between the ECU and tester hardware. This message exchange must be maintained for the connection to remain active.</p>
+<p>KWP-71 was developed by Bosch in the mid-1980s, and its origin is explained briefly in <em>Bosch Automotive Electrics and Automotive Electronics</em>, 5th Ed., Robert Bosch GmbH, 2007:</p>
+<blockquote>
+<p>This protocol was developed in collaboration with Bosch as the first standardized serial interface and is based on a 5-baud initialization and byte handshake. For addressing, the protocol provides for the use of a unidirectional line (L line). The line for data exchange (K line) is bidirectional. Alternatively, if the L line is not used at all in the system architecture, the K line can also be used for addressing because addressing and data exchange are two chronologically sequential states. The way in which communication is established is predefined, the services are standardized.</p>
+</blockquote>
+<p>... and expanded on in <em>Bussysteme in der Fahrzeugtechnik: Protokolle und Standards</em> (Werner Zimmermann and Ralf Schmidgall, 2009):</p>
+<blockquote>
+<p>Before the KWP 2000 protocol was published, other K-Line protocols were used, all of which were based on ISO 9141 and 5 baud initialization in terms of bit transmission and connection establishment, but then switched to a proprietary protocol via a specific keyword. The "Keyword KW 71" protocol from Bosch was very widespread and was usually implemented for bit rates of 1200 bit/s or 9600 bit/s. It defined different messages and services depending on the respective vehicle manufacturer. During communication, ongoing handshaking took place between the diagnostic tester and the control unit received characters were sent back as an echo in inverted form. The protocol is now just as outdated as other keyword variants.</p>
+</blockquote>
+<p>The block-exchange family of protocols grew with the introduction of KW-82, KW-1281, FIAT-9141, and Marelli 1AF. One common element between these protocols is the notion of a "slow init" sequence in which the tester sends an address byte at 5 baud to wake up the ECU, and the ECU then responds with a "keyword sequence" of bytes that identify the protocol and/or ECU type.</p>
+<p>There is also at least one protocol -- Marelli P8 -- that sends an ISO keyword sequence unsolicited when its ECU powers on, but is entirely query/response based after that (i.e. no block exchange.)</p>
+<p>All of the protocols discussed above are what you'd call <strong>K-Line protocols</strong>, which are characterized by their use of one signal line (the "K-Line") at half duplex for both sending and receiving. The K-Line uses 0V and 12V for its logic levels. In contrast, there are some protocols that do not have an init sequence, do not do block exchange, and do not even use K-Line signalling. Examples include MEMS ROSCO and Lucas 14CUX, both of which have dedicated Rx/Tx lines that operate at TTL levels (0V/5V). </p>
+<h2 id="k-line-protocol-comparison">K-Line protocol comparison</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>KWP-71</th>
+<th>FIAT-9141</th>
+<th>Marelli 1AF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominal baudrate</td>
+<td>9600</td>
+<td>4800</td>
+<td>4800</td>
+</tr>
+<tr>
+<td>Slow init data bits</td>
+<td>8</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Slow init parity</td>
+<td>None</td>
+<td>Odd</td>
+<td>Odd</td>
+</tr>
+<tr>
+<td>Number of keyword bytes</td>
+<td>3 (<code>55 00 81</code>)</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Keyword byte index to echo</td>
+<td>2</td>
+<td>2</td>
+<td>n/a: Tester instead sends <code>SELECT</code> block (see "Process after initialization")</td>
+</tr>
+<tr>
+<td>Keyword echo is inverted</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>Time before reconnect (ms)</td>
+<td>250</td>
+<td>2000</td>
+<td>500</td>
+</tr>
+<tr>
+<td>Time between blocks (ms)</td>
+<td>5 to 250</td>
+<td>2 to 500</td>
+<td>2 to 200</td>
+</tr>
+<tr>
+<td>Time between bytes within block (ms)</td>
+<td>~2 to 250</td>
+<td>2 to 40</td>
+<td>1 to 10</td>
+</tr>
+<tr>
+<td>Max payload bytes per block</td>
+<td>252</td>
+<td>29</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Block sequence numbers</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Echo during block receipt</td>
+<td>Yes (inverse)</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Block trailer</td>
+<td>0x03</td>
+<td>Checksum (8-bit)</td>
+<td>Checksum (16-bit)</td>
+</tr>
+<tr>
+<td>Process after initialization</td>
+<td>ECU sends one or more ASCII string packets (0xF6) with ID information</td>
+<td></td>
+<td>- Tester sends <code>SELECT</code>.<br/>- ECU responds with <code>SELECT ACK</code> within 1200 ms.<br/>- Tester waits 200 ms and sends <code>SET HOST</code>.<br/>- ECU responds with <code>OUT STATUS</code> within 200 ms.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes">Notes</h3>
+<ol>
+<li>Although the slow init address byte is sent with 7 data bits and a parity bit for some protocol versions, the normal communication that follows always seems to be always be 8N1.</li>
+<li>The block titles used for FIAT-9141 almost perfectly overlap with those used for KWP-71 (on which it appears to be based.) The block titles for the Marelli 1AF protocol, however, are quite different.</li>
+<li>Some of the official FIAT PDFs that describe these protocols are very old, and use nonstandard character encodings/mappings for their fonts. This makes the PDFs non-searchable and prevents text from being copied out of them directly. The problem <a href="https://community.adobe.com/t5/acrobat-discussions/strange-font-encoding-in-pdf-files/m-p/12472215">is discussed here</a>.</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../14cux_rescue/" class="btn btn-neutral float-left" title="14CUX rescue kit"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../xjr/" class="btn btn-neutral float-right" title="Jaguar XJR6 5-speed">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../14cux_rescue/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../xjr/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+<script>const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});</script></body>
+</html>
