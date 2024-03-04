@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Ferrari / Digitek SD2 - cmb</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ferrari / Digitek SD2";
+        var mkdocs_page_input_path = "car_stuff/sd2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> cmb
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../contact/">Contact</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Car stuff</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../14cux/">14CUX</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../14cux_rescue/">14CUX rescue kit</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../diagnostic_protocols/">Diagnostic protocols</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Ferrari / Digitek SD2</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#naming-convention">Naming convention</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tester">Tester</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wsdc32">WSDC32</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tester-to-pc-serial-connection">Tester-to-PC serial connection</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#response-messages-from-tester">Response messages from Tester</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#command-messages-to-tester">Command messages to Tester</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tester-filesystem">Tester filesystem</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ecus-and-protocols">ECUs and protocols</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../xjr/">Jaguar XJR6 5-speed</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../europa_jps/">Lotus Europa JPS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../blue_star/">Mini Blue Star</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mog/">Morgan Plus 8</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mems_interface/">Rover MEMS diagnostics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sykes_acr/">Sykes-Pickavant ACR</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Media</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/connections/">Connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/cosmos/">Cosmos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Software/Electronics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/modernforms/">Modern Forms fan IP control</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/nomad/">Nomad (GameTek)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/quarantine/">Quarantine (GameTek)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tools/tire_inflators/">Tire inflators</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">cmb</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Car stuff &raquo;</li>
+      <li>Ferrari / Digitek SD2</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sd2-analysis-and-reverse-engineering">SD2 analysis and reverse engineering</h1>
+<p>Published: 2024-03-04</p>
+<h2 id="overview">Overview</h2>
+<p>The <strong>Sistema Diagnosi 2</strong> (or <strong>SD2</strong>) is an automotive diagnostic tool developed by Digitek under contract to Ferrari in the mid-1990s, and it is designed to interface with ECUs in both Ferrari and Maserati vehicles built around that time. The SD2 consists of Windows-based software (<strong>WSDC32</strong>) that runs on a PC, a piece of custom hardware in the form of a tablet-like computer called the <strong>Tester</strong>, and a collection of cables that connect the Tester to one of the dozens of different ECUs that the system supports.</p>
+<p>In the interest of preserving the capabilities of the SD2 and making them available to DIY-minded enthusiasts, I decided to reverse-engineer the system and document my findings. This article is an attempt to document the design and function of the SD2 itself, but I am also working on open-source libraries that implement several of the diagnostic protocols used by SD2-supported ECUs. These include Keyword Protocol 71 ("KWP-71"), FIAT-9141, and Marelli 1AF.</p>
+<h3 id="naming-convention">Naming convention</h3>
+<p>Each ECU supported by SD2 is internally given a unique ID string that is used to label files and directories. The strings are eight characters long and in the format <code>MDDD####</code>, where:</p>
+<ul>
+<li><code>M</code> is a single-character representation of the manufacturer (e.g. <code>B</code> for Bosch)</li>
+<li><code>DDD</code> is a three-character abbreviation of the type of ECU. Sometimes this is from the Italian word, such as <code>ANT</code> for <em>antifurto</em> (anti-theft), and sometimes it is a product name such as <code>MOT</code> for Motronic.</li>
+<li><code>####</code> is a zero-prefixed decimal number. These numbers seem to be globally unique in the list of supported ECUs.</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>BMOT0145 for the Bosch Motronic 5.2 as found in the F355</li>
+<li>BSOS0088 for the Bilstein suspension ECU as found in the 550</li>
+<li>MCAM0151 for the Marelli gearbox ECU as found in the 355 F1</li>
+</ul>
+<h2 id="tester">Tester</h2>
+<p>The <strong>Tester</strong> is a piece of custom hardware roughly the size of a laptop computer, and it's the component of the system that interfaces directly with the diagnostic ports in the cars. I was able to learn a lot about its design by analyzing the Tester filesystem image that is provided with the SD2 software package. The Tester is built around a Motorola 68360 QICC processor (the "CPU32" architecture). It runs a VxWorks 5 image that provides the core functionality for processing keypad input as well as managing the Tester's display, filesystem, and serial ports. It also handles serial connections from the Windows PC.</p>
+<p>To add support for a particular ECU to the SD2, the Windows-based software must be used to load a binary module to the Tester. Many (but not all) ECUs may have diagnostics run from the Tester while it is in "standalone" mode (which is only useful if diagnostics must be performed with the car driving and no laptop is available.) For certain ECUs, diagnostics can only be run with the Tester tethered to the Windows PC.</p>
+<p>The VxWorks loadable binary modules (each supporting a different ECU) are supplied as files with the <code>.ecu</code> extension. My analysis of these files showed that they're of the antiquated <a href="https://en.wikipedia.org/wiki/A.out">A.out executable format</a>, which was used on UNIX-like systems until the 1990s. I was using <a href="https://ghidra-sre.org/">Ghidra</a> to analyze the Tester's main VxWorks image, but since Ghidra lacked support for A.out, I had to write it myself. I've made the A.out support available on the branch tracked by <a href="https://github.com/NationalSecurityAgency/ghidra/pull/5004">this pull request</a>.</p>
+<p>The Tester has a couple different types of ports for connecting to an ECU. Two of these ports, labeled "ISO1" and "ISO2", use the common half-duplex 12V/0V signalling scheme that is associated with the ISO9141 standard. These ISO connections use a signal line (the "K-line") and a GND. Sometimes -- depending on the ECU -- a second signal line called the "L-line" is used for initialization. Many of the in-car connectors are a three-pin design that was common across FIAT, Alfa, and Lancia products at the time, and the three pins map to K, L, and GND.</p>
+<h2 id="wsdc32">WSDC32</h2>
+<p>The software that runs on the Windows PC is named <strong>WSDC32</strong>, and it consists of a couple parts:</p>
+<ul>
+<li>A main application that is responsible for loading ECU support files to the Tester.</li>
+<li>ECU-specific child applications that are launched from the main application. Each of these applications contains the code that sends commands through the Tester to a connected ECU for the purpose of requesting parameters, reading fault codes, etc.</li>
+</ul>
+<h2 id="tester-to-pc-serial-connection">Tester-to-PC serial connection</h2>
+<p>When WSDC32 and the Tester are connected via an RS232 link, they communicate using a message-based software protocol. Each of these messages has the same header structure, with fields to give the total message length and identify the message type. The messages provide the ability to draw to the Tester's screen, read or write the filesystem in the Tester's flash memory, and start/stop ECU diagnostics.</p>
+<p>Fields in message header:</p>
+<table>
+<thead>
+<tr>
+<th>Byte index</th>
+<th>Field description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>0x50 for WSDC32-to-Tester commands in Ferrari mode<br/>0x4d for WSDC32-to-Tester commands in Maserati mode<br/>0x54 for Tester-to-WSDC32 responses in Ferrari mode</td>
+</tr>
+<tr>
+<td>01-02</td>
+<td>16-bit big endian count of bytes in this message (including this field, but <em>not</em> including the prefix byte before it). Although the size of this field implies that this protocol allows messages up to 64K bytes in size, the Tester will only send/receive messages with the high byte fixed to 00, limiting the total message size to 0xff bytes.</td>
+</tr>
+<tr>
+<td>03</td>
+<td>00 with normal RS232 connection</td>
+</tr>
+<tr>
+<td>04</td>
+<td>?</td>
+</tr>
+<tr>
+<td>05</td>
+<td>Index of VxWorks pipe into which this message should be sent (see below)</td>
+</tr>
+<tr>
+<td>06</td>
+<td>Message type / function ID</td>
+</tr>
+<tr>
+<td>07</td>
+<td>Start of payload. Payload content differs per message type. When a simple "success" indicator is needed, the payload is usually a single byte set to 0x01.</td>
+</tr>
+</tbody>
+</table>
+<p>The message types sent between the PC and the Tester are divided into several different categories, and each of these categories is handled by a different thread running on the Tester. When a message is received by the Tester, it is directed to the appropriate thread by being placed into one of several VxWorks pipes, as indicated by the byte in the message's header at offset 6 that gives the pipe ID:</p>
+<table>
+<thead>
+<tr>
+<th>Pipe ID</th>
+<th>Message function category</th>
+<th>Name of handling thread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>System status and system configuration; drawing to Tester screen</td>
+<td><code>_applModGen</code></td>
+</tr>
+<tr>
+<td>04</td>
+<td>ECU-specific request using ISO line 1</td>
+<td><code>_applModGest####</code>, where #### is the SD2 numeric ID of an ECU module</td>
+</tr>
+<tr>
+<td>05</td>
+<td>ECU-specific request using ISO line 2</td>
+<td><code>_applModGest####</code>, where #### is the SD2 numeric ID of an ECU module</td>
+</tr>
+<tr>
+<td>06</td>
+<td>ECU-specific request using RS232</td>
+<td><code>_applModGest####</code>, where #### is the SD2 numeric ID of an ECU module</td>
+</tr>
+<tr>
+<td>07</td>
+<td>ECU-specific request using CAN bus</td>
+<td><code>_applModGest####</code>, where #### is the SD2 numeric ID of an ECU module</td>
+</tr>
+<tr>
+<td>08</td>
+<td>Keypad input processing?</td>
+<td><code>_modApplTasti</code></td>
+</tr>
+<tr>
+<td>09</td>
+<td>Tester filesystem operations and software loading</td>
+<td><code>_modApplScSw</code></td>
+</tr>
+<tr>
+<td>0A</td>
+<td>Analog-to-digital converter configuration/sampling</td>
+<td><code>_modApplAdConvIO</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-messages-from-tester">Response messages from Tester</h3>
+<p>In general, if the Tester only needs to ack a command or send a generic "success" response, the response will be 8 bytes long and take the following form:</p>
+<p><code>54  00  07  xx  xx  xx  xx  01</code></p>
+<p>Note that this ack message preserves the values from the original command (i.e. the request to which it is replying) in positions 03 through 06 (represented as <code>xx</code> above). Byte 00 is updated with the Tester's link-to-PC mode prefix byte (which is 0x54). Bytes 01-02 are updated to contain the new byte count (0x0007, in this case). An eighth byte is added to contain the value 0x01, which indicates success.</p>
+<p>When interrogating a connected ECU that speaks a protocol such as KWP71, the Tester essentially acts as a passthrough. KWP71 blocks are sent by WSDC32 by way of SD2 message type 0x13, and the blocks are forwarded on to the ECU. When the ECU responds, the Tester will encapsulate the response with the SD2 serial message header and send it back to WSDC32.</p>
+<p>A response that relays KWP-71 data received from the ECU looks like this:</p>
+<table>
+<thead>
+<tr>
+<th>00</th>
+<th>01</th>
+<th>02</th>
+<th>03</th>
+<th>04</th>
+<th>05</th>
+<th>06</th>
+<th>07</th>
+<th>08</th>
+<th>09+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>54</td>
+<td>KWP payload size + 8 (hi)</td>
+<td>KWP payload size + 8 (lo)</td>
+<td>xx</td>
+<td>xx</td>
+<td>xx</td>
+<td>13</td>
+<td>01</td>
+<td>KWP payload size</td>
+<td>KWP payload bytes...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="command-messages-to-tester">Command messages to Tester</h3>
+<table>
+<thead>
+<tr>
+<th>Message type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td>Request system diagnostic/config info from Tester. Response (25 bytes total):<br/>01-02: 0x00 0x18<br/>07: System loader major version, e.g. 0x03<br/>08: System loader minor version, e.g. 0x01<br/>09: System loader date (day) in BCD, e.g. 0x25<br/>0A: System loader date (month) in BCD, e.g. 0x09<br/>0B: System loader date (decade) in BCD, e.g. 0x19<br/>0C: System loader date (year) in BCD, e.g. 0x98<br/>0D: OS major version, e.g. 0x05<br/>0E: OS minor version, e.g. 0x05<br/>0F: OS date (day) in BCD, e.g. 0x04<br/>10: OS date (month) in BCD, e.g. 0x03<br/>11: OS date (decade) in BCD, e.g. 0x19<br/>12: OS date (year) in BCD, e.g. 0x99<br/>13-16: Free space on flash storage (big endian)<br/>17-18: Tester serial number</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Request Tester serial number (read from the the X25043 EEPROM). Total response size: 9 bytes</td>
+</tr>
+<tr>
+<td>07</td>
+<td>Reset the "workshop data number" to 0 (in the X25043's EEPROM). Standard success response.</td>
+</tr>
+<tr>
+<td>08</td>
+<td>Write/store the workshop data from the serial packet (starting at byte offset 07). Standard success response.</td>
+</tr>
+<tr>
+<td>0A</td>
+<td>Read the workshop data and respond with it. Response format:<br/>07: 01<br/>08: Value from index 07 in the request message (requested workshop index)<br/>09-76: The 6E bytes of workshop data</td>
+</tr>
+<tr>
+<td>0B</td>
+<td>Start a thread running <code>_applModGest####</code> for the ECU module specified by the ID number in the payload of this message. Parameter to the thread's entry point is the pipe number, which is given in the 0B command message as well. Standard success response.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Init communications with the ECU. For ECUs that require it, this means doing the 5-baud slow init. Address byte is at index 07 in the message. Some modules use a message with another byte at index 8 that indicates the number of bytes expected in the keyword response (e.g. 0x06 for FIAT-9141 or Marelli 1AF).</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Send the keyword response sequence from the Tester to the PC.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Copies a KWP-71 packet from the RS-232 message to the KWP message buffer:<br/><code>sendMsgBuf[0] = applPipeBuffer[2] - 4;</code><br/><code>_bcopy(applPipeBuffer + 7,sendMsgBuf + 2,sendMsgBuf[0] - 2);</code><br/><code>sendMsgBuf[sendMsgBuf[0]] = KWP71_END_OF_PKT;</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td>Clears the slow-init-complete flag. Standard success response.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Display a string on the Tester's display. Standard success response.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Enable or disable the Tester's buzzer (depending on the value at position 07). Standard success response.</td>
+</tr>
+<tr>
+<td>1C</td>
+<td>Shuts down <code>_applModGest####</code> and clears the "running" flag in the global <code>_applRun</code> entry for the associated pipe (e.g. 04 or 05 for ISO1 and ISO2, respectively).</td>
+</tr>
+<tr>
+<td>1D</td>
+<td>Clear the Tester's screen. Standard success response.</td>
+</tr>
+<tr>
+<td>1E</td>
+<td>Close file. Standard success response.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Open file for writing. Filename is given in the message payload. Standard success response.</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Write to the previously opened file. Payload format:<br/>07-0A: Sequence number, starting at 00 00 00 00 for the first buffer to write<br/>0B-(N-1): Buffer of bytes to write to the file, where n is the last byte index in the overall message.<br/>N: 8-bit checksum plus 1, computed over the write buffer<br/>Standard success response.</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Close file. Standard success response if a checksum check passes (01 in position 07 of the message). If the checksum fails, the response has 02 in position 07 of the message.</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Open file for reading. Filename is given in the message payload. Standard success response.</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Read from file. Response:<br/>02: Number of bytes read from the file (not to exceed 0x6E), plus 0xC.<br/>07: 1<br/>08-0B: Sequence num, bytes 07 through 0A from the Read message<br/>0C-(N-1) : Bytes read from file<br/>N: 8-bit checksum of bytes</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Requests that the Tester respond with a checksum array to confirm the recently transferred file. Response is a total of 0x76 bytes long.</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Makes a directory with the name provided in the message. Standard success response.</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Delete/unlink the specified file. Standard success response.</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Select file to rename. Standard success response.</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Rename file (selected by message type 28) to new name (provided by this message). Standard success response.</td>
+</tr>
+<tr>
+<td>2A</td>
+<td>Change directory. Standard success response.</td>
+</tr>
+<tr>
+<td>2B</td>
+<td>Read next entry in current directory. Response:<br/>08-11: 32-bit BE identifier copied from request message<br/>12: 01 for directories, 02 for other (e.g. regular files)<br/>13-16: 32-bit BE size<br/>17-37: Date/time in the format <code>JAN-01-1999  00:00:00</code>.<br/>38- : File/directory name. Max length of 89 chars to keep the total message length LTE 0x80.</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Read ECU description and line configuration information out of an .INI file on disk (for all 64 available ECU slots on the Tester?) Standard success response.</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Check the the entry in <code>_descDiagEcuPres</code> that matches the ECU ID number given in this message. If that entry's ecuDiagThreadRunning field (offset +0x50) is zero, then no reply is sent and the Tester waits for the next message. Otherwise, if ecuDiagThreadRunning is nonzero, one of the other fields in the struct is zeroed (depending on a value from the original request message) and a standard success response message is sent.</td>
+</tr>
+<tr>
+<td>32</td>
+<td>PWM enable</td>
+</tr>
+<tr>
+<td>33</td>
+<td>PWM disable</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Input capture enable</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Read the number of input capture ticks (low/high) at the index specified by position 07 in the input message (which must be either 00 or 01) and respond with this data:<br/>01-02: 00 0F (bytes in payload)<br/>07: 01 (success indicator)<br/>08-0B: number of ticks for input capture, low<br/>0C-0F: number of ticks for input capture, high<br/></td>
+</tr>
+<tr>
+<td>36</td>
+<td>Input capture disable</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Starts a thread for AD conversion loop</td>
+</tr>
+<tr>
+<td>38</td>
+<td>Respond with AD data (filtered value, value in mV, etc.):<br/>01-02: 00 0F (bytes in payload)<br/>07: 01 (success indicator)<br/>08: filtered value<br/>09: unknown, read from location 0107_978D<br/>0A-0B: ADC reference value?<br/>0C-0F: ADC value in millivolts</td>
+</tr>
+<tr>
+<td>39</td>
+<td>Set flag that stops AD conversion loop thread</td>
+</tr>
+<tr>
+<td>3A</td>
+<td>Read the Tester's date/time and return it (total response size: 14 bytes)</td>
+</tr>
+<tr>
+<td>3B</td>
+<td>Read a date/time from the packet and write it to the Tester's EEPROM. Standard success response.</td>
+</tr>
+<tr>
+<td>3C</td>
+<td>Change from PC-connected to standalone mode. Standard success response.</td>
+</tr>
+<tr>
+<td>3D</td>
+<td>Erase flash and reboot.</td>
+</tr>
+<tr>
+<td>3E</td>
+<td>Draw a line on the Tester's screen, using coordinates encoded in the message payload. Standard success response.</td>
+</tr>
+<tr>
+<td>3F</td>
+<td>Draw a box on the Tester's screen (with <code>_drawBox</code>), using coordinates encoded in the message payload. Standard success response.</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Draw a box on the Tester's screen (with <code>_drawBoxCut</code>), using coordinates encoded in the message payload. Standard success response.</td>
+</tr>
+<tr>
+<td>41</td>
+<td>Call <code>_visSchermaDiagModGen</code>. Standard success response.</td>
+</tr>
+<tr>
+<td>42</td>
+<td>Switch Tester mode between Ferrari, Maserati, or both. Byte 07 in the request message is 00 (Ferrari &amp; Maserati), 01 (Ferrari only), or 02 (Maserati only). The reply message is 9 bytes long, with position 07 being set to 01 (to indicate success) and position 08 mirroring the mode selection byte from the request message.</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Write to the DS1302 timekeeping chip. Standard success response.</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Run a function from an .ecu plugin</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Load an object module file, the filename for which is given in the message at offset 07.</td>
+</tr>
+<tr>
+<td>51</td>
+<td>Run <code>_applModGest###</code> and <code>_diagModGest####</code>. ECU module number is given in the message. Offset 09 in the message is the pipe ID (which corresponds to the line/port being used to communicate to the ECU.)</td>
+</tr>
+<tr>
+<td>52</td>
+<td>?</td>
+</tr>
+<tr>
+<td>53</td>
+<td>?</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Same as 13?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tester-filesystem">Tester filesystem</h2>
+<p>The Tester has flash memory which it mounts at /FN0. Within this, it stores ECU support files that were transferred to it by WSDC32. As an example, when <code>BMOT0145</code> is loaded to the Tester, these files will be created:</p>
+<ul>
+<li>/FN0/ecu/BMOT0145.ECU</li>
+<li>/FN0/ecu/BMOT0145_TESTER.TXT</li>
+<li>/FN0/ecu/SCARICO.INI</li>
+</ul>
+<p>The configuration file <code>SCARICO.INI</code> is updated with an additional section for each ECU module that is added, up to the maximum supported by the Tester (which is 64 modules). With this one example module, the .ini file would have the following content:</p>
+<pre><code>[CONFIG]
+n_ecu=1
+ecu1=0145
+[0145]
+name=MOTRONIC BOSCH 5.2 F355
+dir=BMOT0145
+exe=BMOT0145.ECU
+stringhe=BMOT0145_TESTER.TXT
+linea_iso1=TRUE
+linea_iso2=TRUE
+linea_can=FALSE
+linea_rs232=FALSE
+</code></pre>
+<h2 id="ecus-and-protocols">ECUs and protocols</h2>
+<p>The <code>.ecu</code> file that is loaded to the Tester to provide support for an ECU actually contains the implementation of the software protocol that the ECU speaks. For example, the Motronic 5.2 ECU in the F355 speaks KWP71, so <code>BMOT0145.ECU</code> contains an implementation of KWP71 compiled into an A.out executable for the VxWorks-based Tester. Another ECU (such as the Motronic in the 512TR) may also use KWP71 -- but its support package includes a separate <code>.ecu</code> file with another implementation of KWP71. The advantage to this design is that each ECU may have minor differences in their implementation of protocols, and this can be accommodated by the individual <code>.ecu</code> files. The disadvantage is that the protocol implementations are often redundant, being replicated in each <code>.ecu</code> module.</p>
+<p>To successfully perform diagnostics on an ECU, it is not only necessary to know the protocol being used, but also the location/address at which each parameter is stored, as well as the formula to convert the in-memory values to the appropriate physical units. For example, the F355 Motronic 5.2 stores engine RPM in a single byte at address 0x2001 with a value of 40 RPM per LSB.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../diagnostic_protocols/" class="btn btn-neutral float-left" title="Diagnostic protocols"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../xjr/" class="btn btn-neutral float-right" title="Jaguar XJR6 5-speed">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../diagnostic_protocols/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../xjr/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+<script>const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});</script></body>
+</html>
