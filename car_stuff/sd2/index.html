@@ -61,12 +61,14 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Ferrari / Digitek SD2</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#research-methodology-and-notes">Research methodology and notes</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#naming-convention">Naming convention</a>
+    <li class="toctree-l3"><a class="reference internal" href="#testers-x25043-eeprom-memory-map">Tester's X25043 EEPROM memory map</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#tester">Tester</a>
+    <li class="toctree-l2"><a class="reference internal" href="#naming-convention-for-ecu-support-files">Naming convention for ECU support files</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#wsdc32">WSDC32</a>
     </li>
@@ -152,10 +154,107 @@
               
                 <h1 id="sd2-analysis-and-reverse-engineering">SD2 analysis and reverse engineering</h1>
 <p>Published: 2024-03-04</p>
+<p>Last updated: 2024-03-09</p>
 <h2 id="overview">Overview</h2>
 <p>The <strong>Sistema Diagnosi 2</strong> (or <strong>SD2</strong>) is an automotive diagnostic tool developed by Digitek under contract to Ferrari in the mid-1990s, and it is designed to interface with ECUs in both Ferrari and Maserati vehicles built around that time. The SD2 consists of Windows-based software (<strong>WSDC32</strong>) that runs on a PC, a piece of custom hardware in the form of a tablet-like computer called the <strong>Tester</strong>, and a collection of cables that connect the Tester to one of the dozens of different ECUs that the system supports.</p>
 <p>In the interest of preserving the capabilities of the SD2 and making them available to DIY-minded enthusiasts, I decided to reverse-engineer the system and document my findings. This article is an attempt to document the design and function of the SD2 itself, but I am also working on open-source libraries that implement several of the diagnostic protocols used by SD2-supported ECUs. These include Keyword Protocol 71 ("KWP-71"), FIAT-9141, and Marelli 1AF.</p>
-<h3 id="naming-convention">Naming convention</h3>
+<h2 id="research-methodology-and-notes">Research methodology and notes</h2>
+<p>The software that was distributed with the SD2 package included a binary file named <code>SD2_SISOP.HEX</code>. This file is an operating system image that provides the core functionality on the Tester. If we look inside it, a number of embedded strings reveal that it's a Wind River VxWorks 5 image, and it includes a symbol table! A careful analysis of the offsets in the symbol table (using <a href="https://ghidra-sre.org/">Ghidra</a>) allows us to deduce the in-memory offsets for each segment in the image when it is running on the target hardware:</p>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Memory offset</th>
+<th>File offset</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.text</td>
+<td><code>0100_0000</code></td>
+<td><code>0000_0000</code></td>
+<td><code>0x52DF0</code></td>
+</tr>
+<tr>
+<td>.data</td>
+<td><code>0106_C000</code></td>
+<td><code>0005_2DF0</code></td>
+<td><code>0x14464</code></td>
+</tr>
+<tr>
+<td>.bss</td>
+<td><code>0108_0464</code></td>
+<td>n/a</td>
+<td><code>0xE7FC+</code></td>
+</tr>
+</tbody>
+</table>
+<p>The .text segment contains VxWorks system functions, C standard library routines, and some code that is specific to the SD2 Tester. The SD2-specific code includes screen display functions (such as the Ferrari and Maserati startup/splash logos), keypad management, sound buzzer control, and the 5-baud "slow init" sequence that is used by many K-Line diagnostic protocols. Also contained in this segment is the BSP code to support the hardware specific to the SD2 Tester, which is built around a Motorola 68360 QICC processor (using the "CPU32" architecture.)</p>
+<p>In addition to the main OS/system image, the SD2 system uses a series of binary files with the <code>.ecu</code> extension. Each of these files provides support for a single ECU's diagnostic protocol, and they are loaded dynamically by the core Tester code in a sort of plug-in architecture. Analysis of the <code>.ecu</code> files shows that they're actually object files in the old and fairly obscure <a href="https:/en.wikipedia.org/wiki/A.out">A.out executable format</a>. I found that Ghidra did not have support for the A.out format, so I wrote it myself. It's currently available on the branch identified in <a href="https://github.com/NationalSecurityAgency/ghidra/pull/5004">this pull request</a>.</p>
+<p>The Tester has a couple different types of ports for connecting to an ECU. Two of these ports, labeled "ISO1" and "ISO2", use the common half-duplex 12V/0V signaling scheme that is associated with the ISO9141 standard. These ISO connections use a signal line (the "K-line") and a GND. Sometimes -- depending on the ECU -- a second signal line called the "L-line" is used for initialization. Many of the in-car connectors are a three-pin design that was common across FIAT, Alfa, and Lancia products at the time, and the three pins map to K, L, and GND.</p>
+<p>The code on the Tester uses <code>ioctl()</code> calls to the serial port devices to configure the ports, flush buffers, etc. Many of the ioctl functions are known standard values, such as 3 (FIOOPTIONS), 4 (FIOBAUDRATE), and 0x1A (FIORFLUSH). However, the code also contains many uses of 0x50, 0x51, 0x54, and other values. These are higher values than any standard ioctl functions of which I'm aware, so I suspected they are special serial/tty functions used by the VxWorks serial driver. The QICC has integrated serial port controllers, and I was able to match up register addresses given in the QICC datasheet with registers that are read/written within the SD2 serial driver code for the mystery ioctl functions. (The driver code in the SD2 image is in a group of functions named <code>_scc*</code>, and <code>_sccIoctl</code> does indeed handle ioctl functions 0x50, 0x51, 0x54 in addition to the standard ones like FIOBAUDRATE, etc.) I was able to determine that ioctls 0x50 and 0x51 are used to disable and enable the serial port's receive capability, respectively. According to documentation, this also flushes anything in the FIFO. See the <a href="https://archive.org/details/bitsavers_motorola68ManualSep94_41485802">QICC User Manual</a>.</p>
+<h3 id="testers-x25043-eeprom-memory-map">Tester's X25043 EEPROM memory map</h3>
+<p>One of the hardware components in the Tester is a Xicor X25043, which combines a watchdog timer and EEPROM storage in a single package. The EEPROM is used as nonvolatile storage for several pieces of information:</p>
+<table>
+<thead>
+<tr>
+<th>Byte address</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00-01</td>
+<td>Tester serial number</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Digital potentiometer (DS1803) value for display contrast</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Digital potentiometer (DS1803) value for display luminance</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Buzzer state (on/off)</td>
+</tr>
+<tr>
+<td>05</td>
+<td>Selected language</td>
+</tr>
+<tr>
+<td>06</td>
+<td>Communication type to PC (00 == RS232, 01 == CAN)</td>
+</tr>
+<tr>
+<td>07-08</td>
+<td>16-bit BE value, related to CAN configuration?</td>
+</tr>
+<tr>
+<td>09-0A</td>
+<td>16-bit BE value, related to CAN configuration?</td>
+</tr>
+<tr>
+<td>0B</td>
+<td>Workshop data number. Read and stored in <code>_numDatiOfficina</code>. Capped at 0x10.</td>
+</tr>
+<tr>
+<td>98-9B</td>
+<td>Key to set either Ferrari mode (<code>41 C6 16 7E</code>) or Maserati mode (<code>27 81 44 6B</code>)</td>
+</tr>
+<tr>
+<td>A0-AF</td>
+<td>Info about flash storage (num blocks free, etc.)</td>
+</tr>
+<tr>
+<td>C0-C6</td>
+<td>Date/time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="naming-convention-for-ecu-support-files">Naming convention for ECU support files</h2>
 <p>Each ECU supported by SD2 is internally given a unique ID string that is used to label files and directories. The strings are eight characters long and in the format <code>MDDD####</code>, where:</p>
 <ul>
 <li><code>M</code> is a single-character representation of the manufacturer (e.g. <code>B</code> for Bosch)</li>
@@ -168,11 +267,6 @@
 <li>BSOS0088 for the Bilstein suspension ECU as found in the 550</li>
 <li>MCAM0151 for the Marelli gearbox ECU as found in the 355 F1</li>
 </ul>
-<h2 id="tester">Tester</h2>
-<p>The <strong>Tester</strong> is a piece of custom hardware roughly the size of a laptop computer, and it's the component of the system that interfaces directly with the diagnostic ports in the cars. I was able to learn a lot about its design by analyzing the Tester filesystem image that is provided with the SD2 software package. The Tester is built around a Motorola 68360 QICC processor (the "CPU32" architecture). It runs a VxWorks 5 image that provides the core functionality for processing keypad input as well as managing the Tester's display, filesystem, and serial ports. It also handles serial connections from the Windows PC.</p>
-<p>To add support for a particular ECU to the SD2, the Windows-based software must be used to load a binary module to the Tester. Many (but not all) ECUs may have diagnostics run from the Tester while it is in "standalone" mode (which is only useful if diagnostics must be performed with the car driving and no laptop is available.) For certain ECUs, diagnostics can only be run with the Tester tethered to the Windows PC.</p>
-<p>The VxWorks loadable binary modules (each supporting a different ECU) are supplied as files with the <code>.ecu</code> extension. My analysis of these files showed that they're of the antiquated <a href="https://en.wikipedia.org/wiki/A.out">A.out executable format</a>, which was used on UNIX-like systems until the 1990s. I was using <a href="https://ghidra-sre.org/">Ghidra</a> to analyze the Tester's main VxWorks image, but since Ghidra lacked support for A.out, I had to write it myself. I've made the A.out support available on the branch tracked by <a href="https://github.com/NationalSecurityAgency/ghidra/pull/5004">this pull request</a>.</p>
-<p>The Tester has a couple different types of ports for connecting to an ECU. Two of these ports, labeled "ISO1" and "ISO2", use the common half-duplex 12V/0V signalling scheme that is associated with the ISO9141 standard. These ISO connections use a signal line (the "K-line") and a GND. Sometimes -- depending on the ECU -- a second signal line called the "L-line" is used for initialization. Many of the in-car connectors are a three-pin design that was common across FIAT, Alfa, and Lancia products at the time, and the three pins map to K, L, and GND.</p>
 <h2 id="wsdc32">WSDC32</h2>
 <p>The software that runs on the Windows PC is named <strong>WSDC32</strong>, and it consists of a couple parts:</p>
 <ul>
@@ -459,7 +553,7 @@
 </tr>
 <tr>
 <td>38</td>
-<td>Respond with AD data (filtered value, value in mV, etc.):<br/>01-02: 00 0F (bytes in payload)<br/>07: 01 (success indicator)<br/>08: filtered value<br/>09: unknown, read from location 0107_978D<br/>0A-0B: ADC reference value?<br/>0C-0F: ADC value in millivolts</td>
+<td>Respond with AD data (filtered value, value in mV, etc.):<br/>01-02: 00 0F (bytes in payload)<br/>07: 01 (success indicator)<br/>08: filtered value<br/>09: unknown, read from location <code>0107_978D</code><br/>0A-0B: ADC reference value?<br/>0C-0F: ADC value in millivolts</td>
 </tr>
 <tr>
 <td>39</td>
