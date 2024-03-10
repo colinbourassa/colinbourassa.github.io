@@ -84,6 +84,12 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#ecus-and-protocols">ECUs and protocols</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#re-implementing-with-modern-hardware-software">Re-implementing with modern hardware / software</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#libftdi-programming-notes">libftdi programming notes</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../xjr/">Jaguar XJR6 5-speed</a>
@@ -649,6 +655,19 @@ linea_rs232=FALSE
 <h2 id="ecus-and-protocols">ECUs and protocols</h2>
 <p>The <code>.ecu</code> file that is loaded to the Tester to provide support for an ECU actually contains the implementation of the software protocol that the ECU speaks. For example, the Motronic 5.2 ECU in the F355 speaks KWP71, so <code>BMOT0145.ECU</code> contains an implementation of KWP71 compiled into an A.out executable for the VxWorks-based Tester. Another ECU (such as the Motronic in the 512TR) may also use KWP71 -- but its support package includes a separate <code>.ecu</code> file with another implementation of KWP71. The advantage to this design is that each ECU may have minor differences in their implementation of protocols, and this can be accommodated by the individual <code>.ecu</code> files. The disadvantage is that the protocol implementations are often redundant, being replicated in each <code>.ecu</code> module.</p>
 <p>To successfully perform diagnostics on an ECU, it is not only necessary to know the protocol being used, but also the location/address at which each parameter is stored, as well as the formula to convert the in-memory values to the appropriate physical units. For example, the F355 Motronic 5.2 stores engine RPM in a single byte at address 0x2001 with a value of 40 RPM per LSB.</p>
+<h2 id="re-implementing-with-modern-hardware-software">Re-implementing with modern hardware / software</h2>
+<p>Most of the ECUs supported by SD2 are using uncommon software protocols, but fairly standard K-Line signaling (as is used for ISO9141). As a result, there are many USB cables on the market built around an FTDI serial transceiver chip and electronics for generating K-Line voltage levels and polarity. The selection of the FTDI chip is important because it allows bit-bang control of its I/O lines, which is necessary to achieve the 5-baud data rate for the slow-init sequences used to start communication with an ECU. (This data rate is much lower than the rates allowed by baud rate generators for any common USB/serial adapters.)</p>
+<p>Fortunately, there are a number of commercially available USB K-line adapters that are often built with 16-pin OBD connectors, and they make use of the +12V line in the 16-pin port on the vehicle side. Most of the ECUs supported by SD2 are not accessible via such a 16-pin connector, instead often using the 3-pin Fiat/Alfa/Lancia diagnostic connector. In such a case, the 12V must be supplied with an external connection. There exist many 16-pin to 3-pin adapters that use alligator clips for the 12V reference.</p>
+<p>Normal OS-provided serial port APIs (such as termios) cannot be used because they do not support the bit-bang interface control that is needed for the 5-baud init. Instead, libftdi may be used for this level of control. Although libftdi is a straightforward solution on Linux, it will only work on Windows systems that have a generic USB driver installed for the FTDI device. Installing such a driver can be done with a utility such as Zadig. This approach is better overall than attempting to use the FTDI-provided D2XX driver API on Windows, for the following reasons:</p>
+<ul>
+<li>D2XX is not FOSS, while libftdi is.</li>
+<li>The code for this project would be more complex because it would need to support two different APIs (D2XX for Windows and libftdi for everything else).</li>
+<li>D2XX is not available in cross-building environments such as MXE, so the build process for Windows would be made less convenient.</li>
+</ul>
+<p>Note about Aikonss K-line adapters: a pair of these purchased in late 2022 had bad FTDI chips and occasionally don't see bytes that arrived on the wire. I originally misattributed this problem to a software issue involving libftdi or my application code. The problem disappeared when I switched to the RossTech K-line interface.</p>
+<h3 id="libftdi-programming-notes">libftdi programming notes</h3>
+<p>Time spent in the FTDI bitbang mode seems to cause some sort of internal FIFO on the FTDI part to fill up with garbage bytes (0xFF or 0xFC during experimentation -- possibly representing the line status?) The problem is that the libftdi function calls that flush the serial Tx/Rx buffers <em>don't</em> clear whatever buffer contains this unwanted data. I have found that, when switching from bitbang back to normal serial FIFO mode, I actually need to read up to 256 garbage bytes from the FTDI before it will start to provide real data that is coming in over the serial lines. When doing the slow-init sequence, the best strategy is simply to read data until either (a) the expected byte sequence is seen, or (b) time expires. Sometimes, the tester may not know the exact byte sequence to expect, other than the <code>0x55</code> sync byte. In these cases, the tester would need to wait for <code>0x55</code> and then read the appropriate number of bytes following it.</p>
+<p>Note that Debian systems might have a package called <code>modemmanager</code> installed, and this seems to claim ownership of <code>/dev/ttyUSB*</code> devices. Even if the user is in the dialout group (which is recommended/required for access to tty devices), the presence of modemmanager will foul access to the device.</p>
               
             </div>
           </div><footer>
