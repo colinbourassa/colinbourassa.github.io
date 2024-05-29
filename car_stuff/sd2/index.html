@@ -451,7 +451,7 @@
 </tr>
 <tr>
 <td>13</td>
-<td>Copies a KWP-71 packet from the RS-232 message to the KWP message buffer:<br/><code>sendMsgBuf[0] = applPipeBuffer[2] - 4;</code><br/><code>_bcopy(applPipeBuffer + 7,sendMsgBuf + 2,sendMsgBuf[0] - 2);</code><br/><code>sendMsgBuf[sendMsgBuf[0]] = KWP71_END_OF_PKT;</code></td>
+<td>Sends the message payload as a frame of data to the ECU. This command (0x13) is agnostic to the protocol spoken by the ECU and mainly acts as a passthrough, although there are certain elements of some protocols (e.g. KWP-71's sequence numbers) that are managed by the ECU module on the Tester.</td>
 </tr>
 <tr>
 <td>14</td>
