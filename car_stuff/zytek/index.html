@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Zytek / Jaguar XJ220 - cmb</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Zytek / Jaguar XJ220";
+        var mkdocs_page_input_path = "car_stuff/zytek.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> cmb
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../contact/">Contact</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Car stuff</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../14cux/">14CUX</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../14cux_rescue/">14CUX rescue kit</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../diagnostic_protocols/">Diagnostic protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sd2/">Ferrari / Digitek SD2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../xjr/">Jaguar XJR6 5-speed</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../europa_jps/">Lotus Europa JPS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../blue_star/">Mini Blue Star</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mog/">Morgan Plus 8</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mems_interface/">Rover MEMS diagnostics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../r380_oil_pump/">Rover R380 oil pump</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../steering_wheel_adapters/">Steering wheel adapters</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sykes_acr/">Sykes-Pickavant ACR</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Zytek / Jaguar XJ220</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#running-in-dosbox">Running in DOSBox</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#protocol">Protocol</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data">Data</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#xj220-ecu-memory-locations">XJ220 ECU memory locations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#xj220-data-frame-locations">XJ220 data frame locations</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Media</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/connections/">Connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/cosmos/">Cosmos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../media/ferrari_vhs/">Ferrari promotional VHS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Software/Electronics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/modernforms/">Modern Forms fan IP control</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/nomad/">Nomad (GameTek)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../software/quarantine/">Quarantine (GameTek)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tools</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tools/snap-on_kra300b/">Snap-on KRA-300B</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tools/tire_inflators/">Tire inflators</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">cmb</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Car stuff &raquo;</li>
+      <li>Zytek / Jaguar XJ220</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="zytekjaguar-xj220-diagnostics">Zytek/Jaguar XJ220 diagnostics</h1>
+<p>Published: 2024-12-06</p>
+<p>In the early 1990s, three limited-production models of Jaguar road cars -- the XJR-S, XJR-15, and XJ220 -- were fitted with Zytek engine management systems. The Zytek ECUs were chosen as an alternative to the systems used on normal production Jaguars at the time, and as a result, very little information was publicly available about the electronic diagnostic capabilities of the Zytek modules.</p>
+<p>I managed to get a copy of the Zytek software for the XJ220 from some helpful folks at the <a href="http://forums.jag-lovers.com">Jag-Lovers forums</a>, so I disassembled the code with the hope that I might be able to make diagnostics for these ECUs accessible to more people. I found that the main executable was built for DOS using Borland Turbo Pascal and the Borland Graphics Interface (BGI). The selection of Pascal as the development language actually made reverse-engineering a bit more difficult, since the implementation relied heavily on the language's 48-bit "Real" data type, which was the only built-in means to represent real numbers in Pascal at that time. This is a relatively obscure format that is not compatible with x86 floating-point or IEEE 754, and having never been a Pascal developer myself, it took me a moment to figure out what I was looking at.</p>
+<h2 id="running-in-dosbox">Running in DOSBox</h2>
+<p>The executable uses fixed-count retry loops to detect link timeouts, and these will run much too fast with default DOSBox settings on modern hardware. I had success with a cycle-count setting of 1000. The virtual serial port can be set up to connect to a TCP socket using the following configuration in the <code>serial</code> section of the DOSBox config file:</p>
+<p><code>serial1=nullmodem server:127.0.0.1 port:5555 transparent:1</code></p>
+<p>Note that it is important to include the <code>transparent:1</code> parameter, as this disables the DOSBox framing communication that would put extra bytes on the wire.</p>
+<h2 id="protocol">Protocol</h2>
+<p>From the perspective of the software, the serial link to the ECU is used like a normal RS-232 COM port. The control register for the baud rate generator is loaded with a divisor of 0x0B, and when this is divided into a reference rate of 115,200, it yields a baud rate of <em>10473</em>. Bytes are framed with 8 data bits, no parity, and 1 stop bit. I don't have access to any of the hardware used by this system, so I can't comment on the voltage levels used on the Tx/Rx lines. They are almost certainly not the strange levels used by the RS-232 standard; instead, they are probably either TTL (0V / 5V) or K-Line (0V / 12V), or some combination of the two. Any level shifting is likely the responsibility of the box that sits between the PC's serial port and the diagnostic connector in the car.</p>
+<p>It's important to note that the bytes sent by the ECU and received by the PC are actually the <em>negation</em> of the intended value, so the PC software needs to take the two's-complement of each byte as it is received. After each byte in a command sequence is sent by the PC software, the ECU will send a negated echo of the byte, and the PC software must wait to receive this before it sends the next byte.</p>
+<p>There are three basic features of the ECU's diagnostic protocol:</p>
+<ul>
+<li><strong>Request data frame:</strong>  PC sends <code>02</code>. After echoing the negation of this command byte (<code>FE</code>), the ECU sends a fixed-length frame of 68 bytes (decimal), and then a final checksum-forcing byte. The value of this forcing byte will complement the 8-bit checksum of the data frame to bring the total to 0xFF. For example, if the 8-bit checksum of a frame is 0x36, the checksum-forcing byte would be (0xFF - 0x36), or 0xC9. Like all other bytes sent by the ECU, this 0xC9 checksum is sent over the wire as its negation, 0x37. Note that the checksum is computed using the original/intended byte values, not the negated values that are transmitted by the ECU.</li>
+<li><strong>Memory read:</strong> PC sends <code>03 &lt;address-hi&gt; &lt;address-lo&gt; &lt;numbytes-hi&gt; &lt;numbytes-lo&gt;</code>. ECU responds with the sequence of bytes from the specified address. For some revisions of the ECU, this block of bytes is followed by a checksum forcing byte in the same fashion as the data frame checksum described above. The ECU revisions that use the checksum for the read command are identified by a value greater than or equal to 0x36 at offset 0xFFDE.</li>
+<li><strong>Memory write:</strong> PC sends <code>08 &lt;address-hi&gt; &lt;address-lo&gt; &lt;value&gt;</code>. ECU responds with <code>F1</code>, which is <code>0F</code> on the wire.</li>
+</ul>
+<h2 id="data">Data</h2>
+<h3 id="xj220-ecu-memory-locations">XJ220 ECU memory locations</h3>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Content</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0003</td>
+<td>Speed sensor</td>
+<td>LOW when bit 0 is clear, HIGH when bit 0 is set</td>
+</tr>
+<tr>
+<td>0015</td>
+<td>Synch sensor</td>
+<td>LOW when bit 0 is clear, HIGH when bit 0 is set</td>
+</tr>
+<tr>
+<td>0066-0067</td>
+<td>Throttle pot voltage</td>
+<td>0000 == 0 mV, FFFF == 5005 mV</td>
+</tr>
+<tr>
+<td>00F0</td>
+<td>Fault codes</td>
+<td>Bit 3: Road speed input<br/>Bit 2: Idle speed valve<br/>Bit 1: Air conditioning relay drive<br/>Bit 0: Fan relay drive</td>
+</tr>
+<tr>
+<td>00F1</td>
+<td>Fault codes</td>
+<td>Bit 7: B-Bank boost control valve<br/>Bit 6: A-Bank pressure fault<br/>Bit 5: B-Bank pressure fault<br/>Bit 4: Pressure imbalance between banks</td>
+</tr>
+<tr>
+<td>1086</td>
+<td>Fault codes</td>
+<td>Bit 3: Road speed input<br/>Bit 2: Idle speed valve<br/>Bit 1: Air conditioning relay drive<br/>Bit 0: Fan relay drive</td>
+</tr>
+<tr>
+<td>1087</td>
+<td>Fault codes</td>
+<td>Bit 7: B-Bank boost control valve<br/>Bit 6: A-Bank pressure fault<br/>Bit 5: B-Bank pressure fault<br/>Bit 4: Pressure imbalance between banks</td>
+</tr>
+<tr>
+<td>A002</td>
+<td>Data identification</td>
+<td>13 bytes of ID info. The first 10 bytes are interpreted as ASCII, and the last three as a three numeric values (which are displayed hyphen-separated in the SW). Immediately followed by 78 bytes of "additional information" in ASCII.</td>
+</tr>
+<tr>
+<td>FFD7</td>
+<td>Program identification</td>
+<td>13 bytes of ID info. Same format as the "data identification" at A002.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xj220-data-frame-locations">XJ220 data frame locations</h3>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Content</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Throttle pot voltage</td>
+<td>20mV per LSB</td>
+</tr>
+<tr>
+<td>02</td>
+<td>A-Bank manifold depression</td>
+<td>8 mBar per LSB, 00 == 133 mBar</td>
+</tr>
+<tr>
+<td>04</td>
+<td>A-Bank air temperature</td>
+<td>&lt; 0C == short circuit, 0C == 152 deg C, FC == -44 deg C, &gt; FC == open circuit</td>
+</tr>
+<tr>
+<td>05</td>
+<td>B-Bank air temperature</td>
+<td>&lt; 0C == short circuit, 0C == 152 deg C, FC == -44 deg C, &gt; FC == open circuit</td>
+</tr>
+<tr>
+<td>0A</td>
+<td>Battery voltage</td>
+<td>00 == 0.0V, FF = 24.0V</td>
+</tr>
+<tr>
+<td>13-14</td>
+<td>A-bank injector opening time</td>
+<td>1 uS per LSB</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Trigger disc status</td>
+<td>All bits clear: Speed/synch OK<br/>Bit 0 set: Synch pulse every speed pulse<br/>Bit 1 set: No synch pulses</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Discrete outputs</td>
+<td>Bit 4: Purge flow (fitted if set)<br/>Bit 5: Fan enabled<br/>Bit 6: Air conditioning enabled</td>
+</tr>
+<tr>
+<td>23</td>
+<td>A-Bank lambda sensor voltage</td>
+<td>00 == 0.0V, FF == 5.0V</td>
+</tr>
+<tr>
+<td>24</td>
+<td>B-Bank lambda sensor voltage</td>
+<td>00 == 0.0V, FF == 5.0V</td>
+</tr>
+<tr>
+<td>29</td>
+<td>B-Bank manifold depression</td>
+<td>00 == 133 mBar, FF == 2093 mBar</td>
+</tr>
+<tr>
+<td>30-31</td>
+<td>B-bank injector opening time</td>
+<td>1 uS per LSB</td>
+</tr>
+<tr>
+<td>32</td>
+<td>A-Bank boost valve mark/space</td>
+<td></td>
+</tr>
+<tr>
+<td>33</td>
+<td>B-Bank boost valve mark/space</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../sykes_acr/" class="btn btn-neutral float-left" title="Sykes-Pickavant ACR"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../media/connections/" class="btn btn-neutral float-right" title="Connections">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../sykes_acr/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../media/connections/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+<script>const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});</script></body>
+</html>
