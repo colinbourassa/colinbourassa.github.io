@@ -87,6 +87,10 @@
     <li class="toctree-l3"><a class="reference internal" href="#xj220-ecu-memory-locations">XJ220 ECU memory locations</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#xj220-data-frame-locations">XJ220 data frame locations</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#temperature-sensor-logarithmic-transfer-function">Temperature sensor logarithmic transfer function</a>
+    </li>
+        </ul>
     </li>
         </ul>
     </li>
@@ -142,7 +146,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="zytekjaguar-xj220-diagnostics">Zytek/Jaguar XJ220 diagnostics</h1>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<h1 id="zytekjaguar-xj220-diagnostics">Zytek/Jaguar XJ220 diagnostics</h1>
 <p>Published: 2024-12-06</p>
 <p>In the early 1990s, three limited-production models of Jaguar road cars -- the XJR-S, XJR-15, and XJ220 -- were fitted with Zytek engine management systems. The Zytek ECUs were chosen as an alternative to the systems used on normal production Jaguars at the time, and as a result, very little information was publicly available about the electronic diagnostic capabilities of the Zytek modules.</p>
 <p>I managed to get a copy of the Zytek software for the XJ220 from some helpful folks at the <a href="http://forums.jag-lovers.com">Jag-Lovers forums</a>, so I disassembled the code with the hope that I might be able to make diagnostics for these ECUs accessible to more people. I found that the main executable was built for DOS using Borland Turbo Pascal and the Borland Graphics Interface (BGI). The selection of Pascal as the development language actually made reverse-engineering a bit more difficult, since the implementation relied heavily on the language's 48-bit "Real" data type, which was the only built-in means to represent real numbers in Pascal at that time. This is a relatively obscure format that is not compatible with x86 floating-point or IEEE 754, and having never been a Pascal developer myself, it took me a moment to figure out what I was looking at.</p>
@@ -208,7 +214,7 @@
 <tr>
 <td>A002</td>
 <td>Data identification</td>
-<td>13 bytes of ID info. The first 10 bytes are interpreted as ASCII, and the last three as a three numeric values (which are displayed hyphen-separated in the SW). Immediately followed by 78 bytes of "additional information" in ASCII.</td>
+<td>13 bytes of ID info. The first 10 bytes are interpreted as ASCII, and the last three as three numeric values (which are displayed hyphen-separated in the SW). Immediately followed by 78 bytes of "additional information" in ASCII.</td>
 </tr>
 <tr>
 <td>FFD7</td>
@@ -230,32 +236,42 @@
 <tr>
 <td>00</td>
 <td>Throttle pot voltage</td>
-<td>20mV per LSB</td>
+<td>0.078125 mV per LSB; total range: 0 to 5119.9 mV</td>
 </tr>
 <tr>
 <td>02</td>
 <td>A-Bank manifold depression</td>
-<td>8 mBar per LSB, 00 == 133 mBar</td>
+<td>millibar = ((val * 5.7645) + 100) / 0.750062</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Coolant temperature</td>
+<td>&lt; 0C == short circuit, &gt; FC == open circuit. See transfer function below.</td>
 </tr>
 <tr>
 <td>04</td>
 <td>A-Bank air temperature</td>
-<td>&lt; 0C == short circuit, 0C == 152 deg C, FC == -44 deg C, &gt; FC == open circuit</td>
+<td>&lt; 0C == short circuit, &gt; FC == open circuit. See transfer function below.</td>
 </tr>
 <tr>
 <td>05</td>
 <td>B-Bank air temperature</td>
-<td>&lt; 0C == short circuit, 0C == 152 deg C, FC == -44 deg C, &gt; FC == open circuit</td>
+<td>&lt; 0C == short circuit, &gt; FC == open circuit. See transfer function below.</td>
 </tr>
 <tr>
 <td>0A</td>
 <td>Battery voltage</td>
-<td>00 == 0.0V, FF = 24.0V</td>
+<td>94.1 mV per LSB; total range: 0.0 to 24.0 V</td>
 </tr>
 <tr>
 <td>13-14</td>
 <td>A-bank injector opening time</td>
 <td>1 uS per LSB</td>
+</tr>
+<tr>
+<td>1B-1C</td>
+<td>Purge flow</td>
+<td>Percentage = (val / 25600) * 100</td>
 </tr>
 <tr>
 <td>20</td>
@@ -270,17 +286,22 @@
 <tr>
 <td>23</td>
 <td>A-Bank lambda sensor voltage</td>
-<td>00 == 0.0V, FF == 5.0V</td>
+<td>19.6 mV per LSB; total range: 0.0 to 5.0V</td>
 </tr>
 <tr>
 <td>24</td>
 <td>B-Bank lambda sensor voltage</td>
-<td>00 == 0.0V, FF == 5.0V</td>
+<td>19.6 mV per LSB; total range: 0.0 to 5.0V</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Road speed</td>
+<td>1 MPH per LSB</td>
 </tr>
 <tr>
 <td>29</td>
 <td>B-Bank manifold depression</td>
-<td>00 == 133 mBar, FF == 2093 mBar</td>
+<td>millibar = ((val * 5.7645) + 100) / 0.750062</td>
 </tr>
 <tr>
 <td>30-31</td>
@@ -297,8 +318,22 @@
 <td>B-Bank boost valve mark/space</td>
 <td></td>
 </tr>
+<tr>
+<td>3C</td>
+<td>Idle speed valve status</td>
+<td>00 == enabled, nonzero == disabled</td>
+</tr>
 </tbody>
 </table>
+<h4 id="temperature-sensor-logarithmic-transfer-function">Temperature sensor logarithmic transfer function</h4>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+C=\frac{3543}{\ln\left(\frac{1.2x}{640-2.5x}\right)+12.09215}-273
+</div>
+<script type="math/tex; mode=display">
+C=\frac{3543}{\ln\left(\frac{1.2x}{640-2.5x}\right)+12.09215}-273
+</script>
+</div>
               
             </div>
           </div><footer>
